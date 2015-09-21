@@ -1,0 +1,129 @@
+/**
+ * ------------------------------------------------------------------------
+ * JA Medicare Template
+ * ------------------------------------------------------------------------
+ * Copyright (C) 2004-2011 J.O.O.M Solutions Co., Ltd. All Rights Reserved.
+ * @license - Copyrighted Commercial Software
+ * Author: J.O.O.M Solutions Co., Ltd
+ * Websites:  http://www.joomlart.com -  http://www.joomlancers.com
+ * This file may not be redistributed in whole or significant part.
+ * ------------------------------------------------------------------------
+ */
+
+/* Main Error Style
+---------------------- */
+body.page-error {
+  font-family: helvetica;
+  font-size: 13px;
+  text-align: center;
+  padding: 0;
+  color: #696969;
+  background: #c3e3f4;
+}
+
+.error {
+	margin-top: 11%;
+}
+
+/* Error Code
+------------------------ */
+.error-code span {
+	font-size: 100px;
+	color: #fff;
+	padding: 50px 85px;
+	border-radius: 50%;
+	position: relative;
+	display: inline-block;
+	font-weight: bold;
+	font-family:  "Roboto";
+}
+
+.first {
+	background: #3498db;
+	left: 60px;
+	animation: fisrt 0.9s linear;
+}
+
+@keyframes fisrt {
+	0% {left: 226px; opacity: 0;}
+	100% {left: 60px; opacity: 1;}
+}
+
+.first + span {
+	background: #fff;
+	color: #333;
+	animation: center 1.2s;
+}
+
+@keyframes center {
+	0% {opacity: 0;}
+	100% {opacity: 1;}
+}
+
+.last {
+	background: #7BC673;
+	right: 60px;
+	animation: last 0.9s linear;
+}
+
+@keyframes last {
+	0% {right: 226px;}
+	100% {right: 60px;}
+}
+
+/* Error Message
+--------------------- */
+.error-message {
+	margin-top: 60px;
+}
+
+.error-message h2 {
+	margin-bottom: 10px;
+}
+
+#errorboxbody p {
+	margin-bottom: 35px;
+	margin-top: 0;
+}
+
+#errorboxbody .button-home {
+	text-decoration: none;
+	padding: 13px 70px;
+	color: #fff;
+	background: #7BC673;
+	border-radius: 20px;
+	font-weight: bold;
+}
+
+#errorboxbody .button-home:hover {
+	background: #56A14E;
+	transition: 500ms;
+}
+
+/* Screen control mobile/tablet
+---------------------------- */
+@media screen and (max-width: 767px) {
+	.error-code span {
+		padding: 0;
+		position: static;
+		background: transparent;
+		font-size: 150px;
+	}
+
+	.error-code span.first {
+		color: #3498db;
+		animation: fisrt 0s;
+	}
+
+	.error-code span.first + span {
+		animation: center 0s;
+	}
+
+	.error-code span.last {
+		color: #7BC673;
+	}
+
+	.error-message {
+		margin-top: 10px;
+	}
+}
