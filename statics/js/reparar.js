@@ -25,14 +25,14 @@ function precio_unitario(input,form){
 		return false;
 }
 function precio_total_referencial(form){
-	$("input").change(function(ev){
+	$("input[type='number']").change(function(ev){
 		var $numero_unidad_medida = numero_unidad_medida($(this),form);
 		var $precio_unitario = precio_unitario($(this),form);
 		var id = $(this).attr("id");
 		if(typeof(id) == "string"){
-			if($numero_unidad_medida && $precio_unitario){
+			if(($numero_unidad_medida || $numero_unidad_medida == 0) && ($precio_unitario || $precio_unitario == 0)){
 				var input = $(this);
-				$("input").each(function(index){
+				$("input[type='number']").each(function(index){
 					var input_id = $(this).attr("id");
 					if(input.attr("id") == input_id){
 						var total = $numero_unidad_medida*$precio_unitario;
