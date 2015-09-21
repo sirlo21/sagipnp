@@ -1,0 +1,26 @@
+{% extends "bases/base.html" %}
+
+{% block content %}
+	<div align="center" style="margin-top: 50px;">
+		<div class="row">
+			{% for ayuda in ayudas %}
+				{% if ayuda.posicion == 0 %}
+					<div class="col-md-12">
+						<div class="col-md-10 pull-right">
+							<div class="col-md-8 pull-left">
+								{{ ayuda.text|safe }}
+							</div>
+						</div>
+					</div>
+				{% else %}
+					<h2>Bienvenido!</h2>
+				{% endif %}
+			{% empty %}
+				<h2>Bienvenido!</h2>
+			{% endfor %}
+		</div>
+		<div>
+			<a href="{% url 'equipo_de_levantamiento' %}" class="btn btn-default">Ir al formulario</a>
+		</div>
+	</div>
+{% endblock %}

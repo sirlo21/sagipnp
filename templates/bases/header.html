@@ -1,0 +1,47 @@
+<nav class="wrap t3-topbar">
+	<div class="main-container">
+		<div class="row">
+			<div class="col-sm-8 hidden-xs"></div>
+			<div class="col-sm-4 col-xs-12">
+				<div class="navbar-header pull-right">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".t3-navbar-collapse">
+						<i class="fa fa-bars"></i>
+					</button>
+				</div>
+			</div>
+			<hr>
+		</div>
+	</div>
+</nav>
+<header id="t3-header" class="wrap t3-header clearfix" style="background-color: #fff;">
+	<div class="main-container">
+		<div class="row">
+			<div class="col-xs-1 col-sm-1 col-md-2 logo">
+				<div class="logo-image">
+					<a href="{% url 'index' %}" title="Policia Nacional del Perú">
+						<img src="{{ STATIC_URL }}img/logo-small.png" alt="Policia Nacional del Perú">
+						<span class="col-md-2">Policia Nacional del Perú</span>
+						<small class="site-slogan"></small>
+					</a>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-9 logo">
+				<div class="appointment-content">
+					<div class="logo-image custom jmoddiv">
+						<a href="{% url 'index' %}" title="DIRINGI">
+							<img class="logo-img pull-left" src="{{ STATIC_URL }}img/Logo-DIRNGI-Web-D.jpg" alt="DIRNGI">
+							<span class="col-md-2">DIRINGI</span>
+							<small class="site-slogan"></small>
+						</a>
+					</div>
+				</div>
+				<h3 align="center">MÓDULO DE GESTIÓN DE EMERGENCIAS</h3>
+				<h4 align="center">Sistema de Gestión de Infraestructura y Equipos.</h4>
+				{% block nav %}
+					{% include "bases/nav.html" %}
+				{% endblock %}
+			</div>
+		</div>
+	</div>
+	{% block breadcrumb %}{% endblock %}
+</header>

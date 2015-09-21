@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=d100px, initial-scale=1">
+		<meta name="description" content="">
+		<title>Ayuda</title>
+		<link rel="shortcut icon" href="{{ STATIC_URL }}images/favicon.ico">
+		<style type="text/css">
+			.container{width: 750px;}
+			@media screen and (max-width: 996px){
+				.container{width: inherit;}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div id="t3-mainbody" class="main-container t3-mainbody">
+				<div class="items-leading">
+					<div class="leading leading-0">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">{{ ayuda.title|safe }}</h4>
+						</div>
+						<div class="modal-body">
+							{{ ayuda.text|safe}}
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,71 @@
+
+
+.ja-accordion ul.ja-accordion-containner {
+  margin: 0;
+  padding: 0;
+}
+.ja-accordion ul.ja-accordion-containner li {
+  list-style: none;
+  margin-bottom: -1px;
+}
+.ja-accordion ul.ja-accordion-containner li:last-child h3.ja-accordion-title {
+  border-bottom: 1px solid #e7e7e7;
+}
+.ja-accordion ul.ja-accordion-containner li h3.ja-accordion-title {
+  border: 1px solid #e7e7e7;
+  color: #333333;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 0;
+  padding: 15px 25px;
+  position: relative;
+}
+.ja-accordion ul.ja-accordion-containner li h3.ja-accordion-title:before {
+  content: "\f196";
+  color: #aaa;
+  display: block;
+  font-family: "FontAwesome";
+  font-size: 14px;
+  position: absolute;
+  right: 15px;
+  top: 17px;
+}
+.ja-accordion ul.ja-accordion-containner li h3.ja-accordion-title:hover {
+  background: #f95e5a;
+  border-color: #f95e5a;
+  color: #ffffff;
+}
+.ja-accordion ul.ja-accordion-containner li h3.ja-accordion-title:hover:before {
+  color: #ffffff;
+}
+.ja-accordion ul.ja-accordion-containner li h3.ja-accordion-title.active {
+  background: #f95e5a;
+  border-color: #f95e5a;
+  color: #ffffff;
+}
+.ja-accordion ul.ja-accordion-containner li h3.ja-accordion-title.active:before {
+  content: "\f147";
+  color: #ffffff;
+}
+.ja-accordion ul.ja-accordion-containner li div.ja-accordion-content .content {
+  border: 1px solid #e7e7e7;
+  border-top: none;
+  padding: 25px;
+}
+.ja-accordion ul.ja-accordion-containner li div.ja-accordion-content .img-intro-left {
+  float: left;
+  margin: 0 25px 10px 0;
+  max-width: 80px;
+}
+.ja-accordion ul.ja-accordion-containner li div.ja-accordion-content .img-intro-left img {
+  max-width: 100%;
+}
+.ja-accordion ul.ja-accordion-containner li div.ja-accordion-content h3 {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 24px;
+  margin: 0 0 5px 0;
+}
+.ja-accordion ul.ja-accordion-containner li div.ja-accordion-content p {
+  line-height: 24px;
+}
