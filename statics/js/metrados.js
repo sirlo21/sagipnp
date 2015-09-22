@@ -41,4 +41,34 @@ $(document).ready(function(){
 			}
 		});
 	});
+	$("#agregar").click(function(ev){
+		$("#id_metrado4").children().each(function(index){
+			if($(this).prop("selected"))
+				$(".td-partida").text($(this).text());
+		});
+		$(".td-numero-veces").text($("#id_numero").val());
+		$(".td-dimensiones-largo").text("Hola ponys!");
+		$(".td-dimensiones-ancho").text("Hola ponys!");
+		$(".td-dimensiones-altura").text("Hola ponys!");
+		$(".td-parcial").text("Hola ponys!");
+		$(".td-total").text("Hola ponys!");
+		$(".td-unidad").text("Hola ponys!");
+		$(".td-precio-unitario").text("Hola ponys!");
+		$(".td-precio-total").text("Hola ponys!");
+	});
+	$(".td-borrar").click(function(ev){
+		$(".td-partida").text("");
+		$(".td-numero-veces").text("");
+		$(".td-dimensiones-largo").text("");
+		$(".td-dimensiones-ancho").text("");
+		$(".td-dimensiones-altura").text("");
+		$(".td-parcial").text("");
+		$(".td-total").text("");
+		$(".td-unidad").text("");
+		$(".td-precio-unitario").text("");
+		$(".td-precio-total").text("");
+	});
+	$("#ficha-tecnica-form").submit(function(ev){
+		return ev.preventDefault();
+	});
 });
