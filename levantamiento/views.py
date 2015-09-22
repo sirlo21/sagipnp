@@ -74,7 +74,7 @@ def equipo_de_levantamiento(request):
 
 @login_required
 def acciones_de_prevencion(request,id):
-	if request.method == "POST" or request.method == "GET":
+	if request.method == "POST":
 		post = request.POST
 		context = {"next": request.path}
 		obj = Levantamiento.objects.get(id=id)
