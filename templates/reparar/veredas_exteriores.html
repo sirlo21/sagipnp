@@ -1,0 +1,201 @@
+<div class="row" id="form_muros_paredes">
+	<div class="col-lg-6">
+		<div class="panel panel-default">
+			<div class="panel-heading"><strong>AREA DE VEREDAS EXTERIORES</strong></div>
+			<div class="panel-body">
+				<table id="fmr_veredas_exteriores_form" class="table-responsive table">
+					<tbody>
+						{% for form in veredas_exteriores_form %}
+							<tr>
+								<td>
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_tipo_reparacion">
+											Tipo de reparacion:
+											{% for posicion in ve_posicion_ayuda  %}
+												{% if posicion == 1 %}
+													<a href="{% url 'show_ayuda' ve_form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+														<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+													</a>
+												{% endif %}
+											{% endfor %}
+										</label>
+										<div class="col-md-9">
+											{{ form.ve_tipo_reparacion }}
+											{% if form.ve_tipo_reparacion.errors %}<p class="help-block">{{ form.ve_tipo_reparacion.errors|striptags }}</p>{% endif %}
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_descripcion">
+											Descipcion de la accion:
+											{% for posicion in ve_posicion_ayuda  %}
+												{% if posicion == 2 %}
+													<a href="{% url 'show_ayuda' ve_form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+														<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+													</a>
+												{% endif %}
+											{% endfor %}
+										</label>
+										<div class="col-md-9">
+											{{ form.ve_descripcion }}
+											{% if form.ve_descripcion.errors %}<p class="help-block">{{ form.ve_descripcion.errors|striptags }}</p>{% endif %}
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_numero_unidad_medida">
+											Numero de unidades:
+											{% for posicion in ve_posicion_ayuda  %}
+												{% if posicion == 3 %}
+													<a href="{% url 'show_ayuda' ve_form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+														<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+													</a>
+												{% endif %}
+											{% endfor %}
+										</label>
+										<div class="col-md-9">
+											{{ form.ve_numero_unidad_medida }}
+											{% if form.ve_numero_unidad_medida.errors %}<p class="help-block">{{ form.ve_numero_unidad_medida.errors|striptags }}</p>{% endif %}
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_dimensiones">
+											Dimensiones (Alcance-Métrica):
+											{% for posicion in ve_posicion_ayuda  %}
+												{% if posicion == 4 %}
+													<a href="{% url 'show_ayuda' ve_form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+														<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+													</a>
+												{% endif %}
+											{% endfor %}
+										</label>
+										<div class="col-md-9">
+											{{ form.ve_dimensiones }}
+											{% if form.ve_dimensiones.errors %}<p class="help-block">{{ form.ve_dimensiones.errors|striptags }}</p>{% endif %}
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_precio_unitario">
+											Precio Unitario Referencial:
+											{% for posicion in ve_posicion_ayuda  %}
+												{% if posicion == 5 %}
+													<a href="{% url 'show_ayuda' ve_form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+														<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+													</a>
+												{% endif %}
+											{% endfor %}
+										</label>
+										<div class="col-md-9">
+											<span style="display: inline-block">{{ form.ve_precio_unitario }}</span>
+											&nbsp&nbsp<span>S/.</span>
+											{% if form.ve_precio_unitario.errors %}<p class="help-block">{{ form.ve_precio_unitario.errors|striptags }}</p>{% endif %}
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_precio_unitario">
+											Precio Unitario Referencial:
+											{% for posicion in ve_posicion_ayuda  %}
+												{% if posicion == 6 %}
+													<a href="{% url 'show_ayuda' ve_form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+														<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+													</a>
+												{% endif %}
+											{% endfor %}
+										</label>
+										<div class="col-md-9">
+											<span style="display: inline-block">{{ form.ve_precio_total_referencial }}</span>
+											&nbsp&nbsp<span>S/.</span>
+											{% if form.ve_precio_total_referencial.errors %}<p class="help-block">{{ form.ve_precio_total_referencial.errors|striptags }}</p>{% endif %}
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_tiempo_ejecucion">
+											Tiempo de ejecución del servicio:
+											{% for posicion in ve_posicion_ayuda  %}
+												{% if posicion == 7 %}
+													<a href="{% url 'show_ayuda' ve_form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+														<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+													</a>
+												{% endif %}
+											{% endfor %}
+										</label>
+										<div class="col-md-9">
+											{{ form.ve_tiempo_ejecucion }}
+											{% if form.ve_tiempo_ejecucion.errors %}<p class="help-block">{{ form.ve_tiempo_ejecucion.errors|striptags }}</p>{% endif %}
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_img">
+											Fotografias de las deficiencias:
+											{% for posicion in ve_posicion_ayuda  %}
+												{% if posicion == 8 %}
+													<a href="{% url 'show_ayuda' ve_form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+														<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+													</a>
+												{% endif %}
+											{% endfor %}
+										</label>
+										<div class="col-md-9">
+											{{ form.ve_img }}
+											{% if form.ve_img.errors %}<p class="help-block">{{ form.ve_img.errors|striptags }}</p>{% endif %}
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_doc">
+											Documento relacionado:
+											{% for posicion in ve_posicion_ayuda  %}
+												{% if posicion == 9 %}
+													<a href="{% url 'show_ayuda' ve_form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+														<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+													</a>
+												{% endif %}
+											{% endfor %}
+										</label>
+										<div class="col-md-9">
+											{{ form.ve_doc }}
+											{% if form.ve_doc.errors %}<p class="help-block">{{ form.ve_doc.errors|striptags }}</p>{% endif %}
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_observaciones">
+											Observaciones:
+											{% for posicion in ve_posicion_ayuda  %}
+												{% if posicion == 10 %}
+													<a href="{% url 'show_ayuda' ve_form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+														<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+													</a>
+												{% endif %}
+											{% endfor %}
+										</label>
+										<div class="col-md-9">
+											{{ form.ve_observaciones }}
+											{% if form.ve_observaciones.errors %}<p class="help-block">{{ form.ve_observaciones.errors|striptags }}</p>{% endif %}
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_estado_ejecucion">
+											Estado de la Ejecución:
+											{% for posicion in ve_posicion_ayuda  %}
+												{% if posicion == 11 %}
+													<a href="{% url 'show_ayuda' ve_form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+														<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+													</a>
+												{% endif %}
+											{% endfor %}
+										</label>
+										<div class="col-md-9">
+											{{ form.ve_estado_ejecucion }}
+											{% if form.ve_estado_ejecucion.errors %}<p class="help-block">{{ form.ve_estado_ejecucion.errors|striptags }}</p>{% endif %}
+										</div>
+									</div>
+									{% for hidden in form.hidden_fields %}
+										{{ hidden }}
+									{% endfor %}
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				{{ veredas_exteriores_form.management_form }}
+			</div>
+		</div>
+	</div>
+</div>
