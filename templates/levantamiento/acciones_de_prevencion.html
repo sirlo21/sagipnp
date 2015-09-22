@@ -14,29 +14,22 @@
 		<input class="btn btn-success" type="submit" value="Enviar!"/>
 		{% if techos %}
 			{% include "reparar/techo.html" %}
-		{% endif %}
-		{% if inst_sant %}
-			{% include "reparar/inst_sant.html" %}
-		{% endif %}
-		{% if inst_elect %}
-			{% include "reparar/inst_elect.html" %}
-		{% endif %}
-		{% if muros_paredes %}
-			{% include "reparar/muros_paredes.html" %}
-		{% endif %}
-		{% if techos %}
 			<input type="hidden" name="techos" value="{{ techos }}"/>
 		{% endif %}
 		{% if inst_sant %}
+			{% include "reparar/inst_sant.html" %}
 			<input type="hidden" name="inst_sant" value="{{ inst_sant }}"/>
 		{% endif %}
 		{% if inst_elect %}
+			{% include "reparar/inst_elect.html" %}
 			<input type="hidden" name="inst_elect" value="{{ inst_elect }}"/>
 		{% endif %}
 		{% if muros_paredes %}
+			{% include "reparar/muros_paredes.html" %}
 			<input type="hidden" name="muros_paredes" value="{{ muros_paredes }}"/>
 		{% endif %}
 		{% if veredas_exteriores %}
+			{% include "reparar/veredas_exteriores.html" %}
 			<input type="hidden" name="veredas_exteriores" value="{{ veredas_exteriores }}"/>
 		{% endif %}
 	</form>
