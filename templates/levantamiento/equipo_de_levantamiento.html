@@ -575,7 +575,7 @@
 							</div>
 							<div class="form-group">
 								<label class="col-md-5 control-label" for="id_inicio">
-									<span class="pull-left">Muros y/o paredes que requieren reparación:</span>
+									<span class="pull-left">Muros y/o paredes requieren reparación:</span>
 									<div class="col-md-3 pull-right">
 										{% for posicion in posicion_ayuda  %}
 											{% if posicion == 29 %}
@@ -591,6 +591,26 @@
 									<input id="id_muros_paredes" name="muros_paredes" type="radio" value="on" checked/>
 									<span>No</span>
 									<input id="id_muros_paredes-2" name="muros_paredes" type="radio" value="off" {% if not techo_formset %}checked{% endif %}/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-5 control-label" for="id_inicio">
+									<span class="pull-left">Veredas exteriores requieren reparación:</span>
+									<div class="col-md-3 pull-right">
+										{% for posicion in posicion_ayuda  %}
+											{% if posicion == 30 %}
+												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+												</a>
+											{% endif %}
+										{% endfor %}
+									</div>
+								</label>
+								<div class="col-md-3">
+									<span>Sí</span>
+									<input id="id_veredas_exteriores" name="id_veredas_exteriores" type="radio" value="on" checked/>
+									<span>No</span>
+									<input id="id_id_veredas_exteriores-2" name="id_veredas_exteriores" type="radio" value="off" {% if not techo_formset %}checked{% endif %}/>
 								</div>
 							</div>
 							<input class="btn btn-default" type="submit" value="Enviar">
