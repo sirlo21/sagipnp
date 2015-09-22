@@ -1,4 +1,5 @@
 from django.db import models
+from levantamiento.models import Levantamiento
 
 class Metrado1(models.Model):
 	codigo = models.CharField(max_length=25)
@@ -32,6 +33,7 @@ class Metrado4(models.Model):
 		return self.codigo
 
 class FichaTecnica(models.Model):
+	form  = models.ForeignKey(Levantamiento,related_name='ficha_tecnica')
 	nombre = models.CharField(max_length=500)
 	metrado1 = models.ForeignKey(Metrado1,related_name='ficha_tecnica')
 	metrado2 = models.ForeignKey(Metrado2,related_name='ficha_tecnica')
