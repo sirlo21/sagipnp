@@ -115,4 +115,3 @@ class VeredaExteriore(models.Model):
 	ve_form = models.ForeignKey(Levantamiento,related_name='veredas_exteriores')
 	ve_tipo_reparacion = models.ForeignKey(VEReparacion)
 	ve_pub_data = models.DateTimeField(auto_now=True)
-
