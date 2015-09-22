@@ -32,6 +32,9 @@ class IEReparacion(TipoDeReparacion):
 class MPReparacion(TipoDeReparacion):
 	pass
 
+class VEReparacion(TipoDeReparacion):
+	pass
+
 class Techo(models.Model):
 	techo_descripcion = models.TextField()
 	techo_numero_unidad_medida = models.PositiveIntegerField(max_length=20,default=0)
@@ -96,3 +99,20 @@ class MurosParedes(models.Model):
 	mp_form = models.ForeignKey(Levantamiento,related_name='muros_paredes')
 	mp_tipo_reparacion = models.ForeignKey(MPReparacion)
 	mp_pub_data = models.DateTimeField(auto_now=True)
+
+class VeredaExteriore(models.Model):
+	ve_descripcion = models.TextField()
+	ve_numero_unidad_medida = models.PositiveIntegerField(max_length=20,default=0)
+	ve_dimensiones	= models.CharField(max_length=150)
+	ve_precio_unitario = models.PositiveIntegerField(default=0)
+	ve_precio_total_referencial = models.PositiveIntegerField(default=0)
+	ve_tiempo_ejecucion = models.PositiveIntegerField()
+	ve_img = models.ImageField(upload_to="images/")
+	ve_doc	= models.FileField(upload_to="docs/")
+	ve_observaciones = models.TextField(blank=True,null=True)
+	ve_estado_ejecucion = models.ForeignKey(EstadoDeEjecucion)
+	ve_vigente = models.BooleanField(default=True)
+	ve_form = models.ForeignKey(Levantamiento,related_name='veredas_exteriores')
+	ve_tipo_reparacion = models.ForeignKey(VEReparacion)
+	ve_pub_data = models.DateTimeField(auto_now=True)
+

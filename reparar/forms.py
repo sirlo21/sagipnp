@@ -5,8 +5,6 @@ from django.forms import inlineformset_factory
 from reparar.models import *
 from levantamiento.models import Levantamiento
 
-WIDGETS = {}
-
 class TechoForm(forms.ModelForm):
 	class Meta:
 		model = Techo
@@ -76,7 +74,25 @@ class MurosParedesForm(forms.ModelForm):
 		}
 		js = ("js/reparar.js")
 
+class VeredaExteriorForm(forms.ModelForm):
+	class Meta:
+		model = VeredaExterior
+		exclude = ("ve_vigente","ve_pub_data")
+		widgets = {
+			"ve_tipo_reparacion": forms.Select(attrs={"class": "form-control"}),
+			"ve_descripcion": forms.Textarea(attrs={"class": "form-control","placeholder": u"Descripción"}),
+			"ve_numero_unidad_medida": forms.NumberInput(attrs={"class": "form-control","placeholder": "Unidad de medida"}),
+			"ve_dimensiones": forms.TextInput(attrs={"class": "form-control","placeholder": "Centro Dimensiones"}),
+			"ve_precio_unitario": forms.NumberInput(attrs={"class": "form-control","placeholder": "Precio unitario"}),
+			"ve_precio_total_referencial": forms.TextInput(attrs={"class": "form-control","value": 0,"readonly": ""}),
+			"ve_tiempo_ejecucion": forms.NumberInput(attrs={"class": "form-control","placeholder": "Tiempo de ejecucion"}),
+			"ve_observaciones": forms.Textarea(attrs={"class": "form-control","placeholder": "Observaciones"}),
+			"ve_estado_ejecucion": forms.Select(attrs={"class": "form-control"}),
+		}
+		js = ("js/reparar.js")
+
 TechoFormSet = inlineformset_factory(Levantamiento,Techo,form=TechoForm,extra=1,can_delete=False)
 InstalacionSanitariaFormSet = inlineformset_factory(Levantamiento,InstalacionSanitaria,form=InstalacionSanitariaForm,extra=1,can_delete=False)
 InstalacionElectricaFormSet = inlineformset_factory(Levantamiento,InstalacionElectrica,form=InstalacionElectricaForm,extra=1,can_delete=False)
 MurosParedesFormSet = inlineformset_factory(Levantamiento,MurosParedes,form=MurosParedesForm,extra=1,can_delete=False)
+VeredaExteriorFormSet = inlineformset_factory(Levantamiento,VeredaExterior,form=VeredaExteriorForm,extra=1,can_delete=False)
