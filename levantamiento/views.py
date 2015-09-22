@@ -37,6 +37,9 @@ def equipo_de_levantamiento(request):
 			muros_paredes = request.POST["muros_paredes"]
 			if muros_paredes == "on":
 				context["muros_paredes"] = muros_paredes
+			veredas_exteriores = request.POST["veredas_exteriores"]
+			if veredas_exteriores == "on":
+				context["veredas_exteriores"] = veredas_exteriores
 			if techos == "on" or inst_sant == "on" or inst_elect == "on" or muros_paredes == "on":
 				techo_form_ayuda = "techos"
 				inst_sant_form_ayuda = "instalaciones_sanitarias"
