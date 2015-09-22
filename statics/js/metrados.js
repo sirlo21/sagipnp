@@ -42,19 +42,39 @@ $(document).ready(function(){
 		});
 	});
 	$("#agregar").click(function(ev){
-		$("#id_metrado4").children().each(function(index){
-			if($(this).prop("selected"))
-				$(".td-partida").text($(this).text());
-		});
-		$(".td-numero-veces").text($("#id_numero").val());
-		$(".td-dimensiones-largo").text("Hola ponys!");
-		$(".td-dimensiones-ancho").text("Hola ponys!");
-		$(".td-dimensiones-altura").text("Hola ponys!");
-		$(".td-parcial").text("Hola ponys!");
-		$(".td-total").text("Hola ponys!");
-		$(".td-unidad").text("Hola ponys!");
-		$(".td-precio-unitario").text("Hola ponys!");
-		$(".td-precio-total").text("Hola ponys!");
+		var val_numero = $("#id_numero").val();
+		var val_parcial = $("#id_parcial").val();
+		var total = val_numero*val_parcial;
+		var val_unidad = $("#id_unidad").val();
+		var val_punitario = $("#id_punitario").val();
+		var precio_total = val_unidad*val_punitario;
+		if($("#id_metrado4").children().length > 1){
+			$("#id_metrado4").children().each(function(index){
+				if($(this).prop("selected"))
+					$(".td-partida").text($(this).text());
+			});
+		}
+		else if($("#id_metrado3").children().length > 1){
+			$("#id_metrado3").children().each(function(index){
+				if($(this).prop("selected"))
+					$(".td-partida").text($(this).text());
+			});
+		}
+		else{
+			$("#id_metrado2").children().each(function(index){
+				if($(this).prop("selected"))
+					$(".td-partida").text($(this).text());
+			});
+		}
+		$(".td-numero-veces").text(val_numero);
+		$(".td-dimensiones-largo").text($("#id_largo").val());
+		$(".td-dimensiones-ancho").text($("#id_ancho").val());
+		$(".td-dimensiones-altura").text($("#id_alto").val());
+		$(".td-parcial").text(val_parcial);
+		$(".td-total").text(total);
+		$(".td-unidad").text(val_unidad);
+		$(".td-precio-unitario").text(val_punitario);
+		$(".td-precio-total").text(precio_total);
 	});
 	$(".td-borrar").click(function(ev){
 		$(".td-partida").text("");
