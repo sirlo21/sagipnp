@@ -31,7 +31,7 @@ $(document).ready(function(){
 			type: "GET",
 			success: function(data){
 				var ayuda = data["ayuda"];
-				var fields = "<label for='title'><li>Titulo: </li></label>";
+				var fields = "<li style='font-weight: bold;'><label for='title'>Titulo: </label></li>";
 				fields += "<input class='form-control' id='title' name='title["+ayuda["id"]+"]' maxlength='40' type='text' value='"+ayuda["title"]+"' /><br/>";
 				fields += "<label for='posicion'>Posicion: </label>";
 				fields += "<input class='form-control' id='posicion' name='posicion["+ayuda["id"]+"]' type='number' value='"+ayuda["posicion"]+"' /><br/>";
