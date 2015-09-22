@@ -51,3 +51,4 @@ precio_total_referencial("techo");
 precio_total_referencial("inst_sant");
 precio_total_referencial("inst_elect");
 precio_total_referencial("mp");
+precio_total_referencial("ve");
