@@ -165,12 +165,3 @@ def json(request):
 		for categoria in Category.objects.all():
 			context["categoria"].append({"id": categoria.id,"name": categoria.category})
 	return JsonResponse(context)
-
-# @login_required
-def ficha_tecnica(request,id):
-	levantamiento = Levantamiento.objects.get(id=id)
-	distrito = levantamiento.ubigeo
-	provincia = Ubigeo.objects.get(id=distrito.parent_id)
-	departamento = Ubigeo.objects.get(id=provincia.parent_id)
-	context = {"obj": levantamiento,"departamento": departamento,"provincia": provincia,"distrito": distrito}
-	return render(request,"metrados/ficha_tecnica.html",context)
