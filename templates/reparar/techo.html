@@ -100,8 +100,8 @@
 											{% endfor %}
 										</label>
 										<div class="col-md-9">
-											<span style="display: inline-block">{{ form.techo_precio_unitario }}</span>
 											&nbsp&nbsp<span>S/.</span>
+											<span style="display: inline-block">{{ form.techo_precio_unitario }}</span>
 											{% if form.techo_precio_unitario.errors %}<p class="help-block">{{ form.techo_precio_unitario.errors|striptags }}</p>{% endif %}
 										</div>
 									</div>
@@ -117,7 +117,8 @@
 											{% endfor %}
 										</label>
 										<div class="col-md-9">
-											{{ form.techo_precio_total_referencial }}
+											&nbsp&nbsp<span>S/.</span>
+											<span style="display: inline-block">{{ form.techo_precio_total_referencial }}</span>
 											{% if form.techo_precio_total_referencial.errors %}<p class="help-block">{{ form.techo_precio_total_referencial.errors|striptags }}</p>{% endif %}
 										</div>
 									</div>
