@@ -21,10 +21,12 @@
 			<div class="row">
 				<div class="col-md-12">
 					{% if ayudas|length > 0 %}
-						<input class="btn btn-success submit" type="submit" value="Guardar" /><br/>
+						<input class="btn btn-success submit" id='submit1' type="submit" value="Guardar" /><br/>
 						{% for ayuda in ayudas %}
 							<div class="form-group">
-								<label class="control-label" for="title[{{ ayuda.id }}]"><li>Titulo: </li></label>
+								<li style="font-weight: bold;">
+									<label class="control-label" for="title[{{ ayuda.id }}]">Titulo: </label>
+								</li>
 								<input class="form-control" id="title[{{ ayuda.id }}]" maxlength="40" name="title[{{ ayuda.id }}]" type="text" value="{{ ayuda.title|escape }}"/><br/>
 								<label class="control-label" for="posicion[{{ ayuda.id }}]">Posicion: </label>
 								<input class="form-control" id="posicion[{{ ayuda.id }}]" name="posicion[{{ ayuda.id }}]" type="number" value="{{ ayuda.posicion|escape }}"/><br/>
@@ -32,7 +34,7 @@
 								<textarea id="text[{{ ayuda.id }}]" type="text" class="summernote" name="text[{{ ayuda.id }}]" placeholder="Texto de ayuda">{{ ayuda.text|escape }}</textarea>
 							</div>
 						{% endfor %}
-						<input class="btn btn-success submit" type="submit" value="Guardar" /><br/>
+						<input class="btn btn-success submit" id='submit2' type="submit" value="Guardar" /><br/>
 					{% else %}
 						<h2 id="vacio">No hay ninguna ayuda</h2>
 					{% endif %}
