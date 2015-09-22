@@ -96,6 +96,13 @@ trs = [u"Construcción de muros de contención",u"Reparación de muros de conten
 for tr in trs:
 	MPReparacion.objects.create(reparacion=tr)
 
+# trs = [u"Construcción de muros de contención",u"Reparación de muros de contención","Construcción de diques",
+# 	u"Reparación de diques",u"Construcción de paredes",u"Reparación de paredes",u"Otros"
+# ]
+
+# for tr in trs:
+# 	VEReparacion.objects.create(reparacion=tr)
+
 ues = [u"N/A",u"S/I",u"002-26: Direccion De Economia y Finanzas De La PNP",u"005-29: III Dirtepol - Trujillo",
 	u"009-33: VII Dirección Territorial de Policía- Lima",u"010-34: VIII Dirección Territorial De Policía - Huancayo",
 	u"012-36: X Dirección Territorial de Policía - Cusco",u"018-42: Direccion de Aviacion Policial",
