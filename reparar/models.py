@@ -100,7 +100,7 @@ class MurosParedes(models.Model):
 	mp_tipo_reparacion = models.ForeignKey(MPReparacion)
 	mp_pub_data = models.DateTimeField(auto_now=True)
 
-class VeredaExteriore(models.Model):
+class VeredaExterior(models.Model):
 	ve_descripcion = models.TextField()
 	ve_numero_unidad_medida = models.PositiveIntegerField(max_length=20,default=0)
 	ve_dimensiones	= models.CharField(max_length=150)
