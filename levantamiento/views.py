@@ -2,7 +2,8 @@ from django.shortcuts import render,redirect
 from levantamiento.models import Levantamiento,RegionPolicial,TComisaria,CComisaria,Especialidad,Category
 from reparar.models import Techo,InstalacionSanitaria,InstalacionElectrica,MurosParedes
 from levantamiento.forms import LevantamientoForm,ConsultasForm
-from reparar.forms import TechoFormSet,InstalacionSanitariaFormSet,InstalacionElectricaFormSet,MurosParedesFormSet
+from reparar.forms import (TechoFormSet,InstalacionSanitariaFormSet,InstalacionElectricaFormSet,MurosParedesFormSet,
+	VeredaExteriorFormSet)
 from ayudas.models import Ayuda
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
@@ -41,20 +42,24 @@ def equipo_de_levantamiento(request):
 				inst_sant_form_ayuda = "instalaciones_sanitarias"
 				inst_elect_form_ayuda = "instalaciones_electricas"
 				muros_paredes_form_ayuda = "muros_y_paredes"
+				veredas_exteriores_form_ayuda = "veredas_exteriores"
 				
 				context["techo_form"] = TechoFormSet()
 				context["inst_sant_form"] = InstalacionSanitariaFormSet()
 				context["inst_elect_form"] = InstalacionElectricaFormSet()
 				context["muros_paredes_form"] = MurosParedesFormSet()
+				context["veredas_exteriores_form"] = VeredaExteriorFormSet()
 				context["form_id"] = obj.id
 				context["techo_form_ayuda"] = techo_form_ayuda
 				context["inst_sant_form_ayuda"] = inst_sant_form_ayuda
 				context["inst_elect_form_ayuda"] = inst_elect_form_ayuda
 				context["muros_paredes_form_ayuda"] = muros_paredes_form_ayuda
+				context["veredas_exteriores_form_ayuda"] = veredas_exteriores_form_ayuda
 				context["techos_posicion_ayuda"] = posiciones_de_ayuda(techo_form_ayuda)
 				context["inst_sant_posicion_ayuda"] = posiciones_de_ayuda(inst_sant_form_ayuda)
 				context["inst_elect_posicion_ayuda"] = posiciones_de_ayuda(inst_elect_form_ayuda)
 				context["mp_posicion_ayuda"] = posiciones_de_ayuda(muros_paredes_form_ayuda)
+				context["ve_posicion_ayuda"] = posiciones_de_ayuda(veredas_exteriores_form_ayuda)
 				return render(request,"levantamiento/acciones_de_prevencion.html",context)
 			return redirect("/")
 		context["form"] = form
@@ -74,16 +79,6 @@ def acciones_de_prevencion(request,id):
 		techos = post.get("techos",False)
 		if techos:
 			context["techos"] = techos
-			for un in post:
-				if un.endswith("techo_numero_unidad_medida"):
-					techo_unidades = int(post[un])
-			for pun in post:
-				if pun.endswith("techo_precio_unitario"):
-					techo_precio_unitario = int(post[pun])
-			techo_total = techo_unidades*techo_precio_unitario
-			for pt in post:
-				if pt.endswith("techo_precio_total_referencial"):
-					post[pt] = int(techo_total)
 			tch = TechoFormSet(post,request.FILES,instance=obj)
 			if tch.is_valid():
 				tch.save()
@@ -92,21 +87,11 @@ def acciones_de_prevencion(request,id):
 				tch_save = False
 				context["techo_form"] = tch
 		else:
-			tch_save = False
+			tch_save = True
 
 		inst_sant = post.get("inst_sant",False)
 		if inst_sant:
 			context["inst_sant"] = inst_sant
-			for un in post:
-				if un.endswith("inst_sant_numero_unidad_medida"):
-					inst_sant_unidades = int(post[un])
-			for pun in post:
-				if pun.endswith("inst_sant_precio_unitario"):
-					inst_sant_precio_unitario = int(post[pun])
-			inst_sant_total = inst_sant_unidades*inst_sant_precio_unitario
-			for pt in post:
-				if pt.endswith("inst_sant_precio_total_referencial"):
-					post[pt] = int(inst_sant_total)
 			inst = InstalacionSanitariaFormSet(post,request.FILES,instance=obj)
 			if inst.is_valid():
 				inst.save()
@@ -115,21 +100,11 @@ def acciones_de_prevencion(request,id):
 				inst_save = False
 				context["inst_sant_form"] = inst
 		else:
-			inst_save = False
+			inst_save = True
 	
 		inst_elect = post.get("inst_elect",False)
 		if inst_elect:
 			context["inst_elect"] = inst_elect
-			for un in post:
-				if un.endswith("inst_elect_numero_unidad_medida"):
-					inst_elect_unidades = int(post[un])
-			for pun in post:
-				if pun.endswith("inst_elect_precio_unitario"):
-					inst_elect_precio_unitario = int(post[pun])
-			inst_elect_total = inst_elect_unidades*inst_elect_precio_unitario
-			for pt in post:
-				if pt.endswith("inst_elect_precio_total_referencial"):
-					post[pt] = int(inst_elect_total)
 			inel = InstalacionElectricaFormSet(post,request.FILES,instance=obj)
 			if inel.is_valid():
 				inel.save()
@@ -138,21 +113,11 @@ def acciones_de_prevencion(request,id):
 				inel_save = False
 				context["inst_elect_form"] = inel
 		else:
-			inel_save = False
+			inel_save = True
 
 		muros_paredes = post.get("muros_paredes",False)
 		if muros_paredes:
 			context["muros_paredes"] = muros_paredes
-			for un in post:
-				if un.endswith("mp_numero_unidad_medida"):
-					mp_unidades = int(post[un])
-			for pun in post:
-				if pun.endswith("mp_precio_unitario"):
-					mp_precio_unitario = int(post[pun])
-			mp_total = mp_unidades*mp_precio_unitario
-			for pt in post:
-				if pt.endswith("mp_precio_total_referencial"):
-					post[pt] = int(mp_total)
 			mp = MurosParedesFormSet(post,request.FILES,instance=obj)
 			if mp.is_valid():
 				mp.save()
@@ -161,10 +126,23 @@ def acciones_de_prevencion(request,id):
 				mp_save = False
 				context["muros_paredes_form"] = mp
 		else:
-			mp_save = False
+			mp_save = True
 
-		if tch_save or inst_save or inel_save or mp_save:
-			return render(request,"levantamiento/metrado_y_presupuesto.html",context)
+		veredas_exteriores = post.get("veredas_exteriores",False)
+		if veredas_exteriores:
+			context["veredas_exteriores"] = veredas_exteriores
+			ve = VeredaExteriorFormSet(post,request.FILES,instance=obj)
+			if ve.is_valid():
+				ve.save()
+				ve_save = True
+			else:
+				ve_save = False
+				context["veredas_exteriores_form"] = ve
+		else:
+			ve_save = True
+
+		if tch_save and inst_save and inel_save and mp_save and ve_save:
+			return render(request,"reparar/ficha_tecnica.html",context)
 		context["form_id"] = id
 		return render(request,"levantamiento/acciones_de_prevencion.html",context)
 	return redirect("/")
