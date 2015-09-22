@@ -38,11 +38,11 @@ $(document).ready(function(){
 				fields += "<label for='text'>Texto:</label><br/>";
 				fields += "<textarea id='text["+ayuda["id"]+"]' type='text' class='summernote' name='text["+ayuda["id"]+"]' placeholder='Texto de ayuda'></textarea>";
 				if($("#vacio").length > 0){
-					$("#vacio").before("<input class='btn btn-success submit' type='submit' value='Guardar' /><br/>");
+					$("#vacio").before("<input class='btn btn-success submit' id='submit1' type='submit' value='Guardar' /><br/>");
 					$("#vacio").remove();
+					$("#submit1").after("<input class='btn btn-success submit' id='submit2' type='submit' value='Guardar' /><br/>");
 				}
-				$(".submit").after("<input class='btn btn-success submit' type='submit' value='Guardar' /><br/>");
-				$(".submit").before("<div class='form-group'>"+fields+"</div><br/>");
+				$("#submit2").before("<div class='form-group'>"+fields+"</div><br/>");
 				summernote();
 			}
 		});
