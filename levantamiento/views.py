@@ -144,7 +144,7 @@ def acciones_de_prevencion(request,id):
 			ve_save = True
 
 		if tch_save and inst_save and inel_save and mp_save and ve_save:
-			return render(request,"reparar/ficha_tecnica.html",context)
+			return render(request,"metrados/ficha_tecnica.html",context)
 		context["form_id"] = id
 		return render(request,"levantamiento/acciones_de_prevencion.html",context)
 	return redirect("/")
@@ -173,4 +173,4 @@ def ficha_tecnica(request,id):
 	provincia = Ubigeo.objects.get(id=distrito.parent_id)
 	departamento = Ubigeo.objects.get(id=provincia.parent_id)
 	context = {"obj": levantamiento,"departamento": departamento,"provincia": provincia,"distrito": distrito}
-	return render(request,"reparar/ficha_tecnica.html",context)
+	return render(request,"metrados/ficha_tecnica.html",context)
