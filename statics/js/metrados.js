@@ -28,6 +28,24 @@ $(document).ready(function(){
 				var option = "<option value='"+id+"'>"+descripcion+"</option>"
 				$("#id_metrado3").append(option);
 				codigo_metrado3 = metrado3[i]["codigo"];
+				if($("#id_metrado4").children().length > 1){
+					$("#id_metrado4").children().each(function(index){
+						if($(this).prop("selected"))
+							$(".td-partida").text(codigo_metrado2);
+					});
+				}
+				else if($("#id_metrado3").children().length > 1){
+					$("#id_metrado3").children().each(function(index){
+						if($(this).prop("selected"))
+							$(".td-partida").text(codigo_metrado3);
+					});
+				}
+				else{
+					$("#id_metrado2").children().each(function(index){
+						if($(this).prop("selected"))
+							$(".td-partida").text(codigo_metrado4);
+					});
+				}
 			}
 		});
 	});
