@@ -23,8 +23,8 @@ def equipo_de_levantamiento(request):
 	if request.method == "POST":
 		form = LevantamientoForm(request.POST)
 		if form.is_valid():
-			obj = form.save(commit=False)
-			obj.save()
+			form.save(commit=False)
+			form.save()
 			techos = request.POST["techos"]
 			if techos == "on":
 				techo_form_ayuda = "techos"
@@ -61,9 +61,9 @@ def equipo_de_levantamiento(request):
 				context["inst_elect_form"] = InstalacionElectricaFormSet()
 				context["muros_paredes_form"] = MurosParedesFormSet()
 				context["veredas_exteriores_form"] = VeredaExteriorFormSet()
-				context["form_id"] = obj.id
+				context["form_id"] = form.id
 				return render(request,"levantamiento/acciones_de_prevencion.html",context)
-			return redirect("/")
+			return render(request,"metrados/ficha_tecnica.html",context)
 		context["form"] = form
 	else:
 		context["form"] = LevantamientoForm(initial={"inicio": datetime.today(),"termino": datetime.today()})
