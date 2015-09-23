@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	$("#submit").hide();
+	var codigo_metrado2,codigo_metrado3,codigo_metrado4;
 	$("#id_metrado1").change(function(ev){
 		var url = "/metrado/?metrado1_id="+$(this).val();
 		$.getJSON(url,function(data){
