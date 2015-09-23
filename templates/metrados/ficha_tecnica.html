@@ -93,19 +93,13 @@
 								{{ form.metrado1 }}
 							</div>
 							<div class="col-lg-3">
-								<select class="form-control" id="id_metrado2" name="metrado2">
-									<option></option>
-								</select>
+								{{ form.metrado2 }}
 							</div>
 							<div class="col-lg-3">
-								<select class="form-control" id="id_metrado3" name="metrado3">
-									<option></option>
-								</select>
+								{{ form.metrado3 }}
 							</div>
 							<div class="col-lg-3">
-								<select class="form-control" id="id_metrado4" name="metrado4">
-									<option></option>
-								</select>
+								{{ form.metrado4 }}
 							</div>
 						</div>
 						<br/>
@@ -289,5 +283,17 @@
 {% endblock %}
 
 {% block scripts %}
-	<script src="{{ STATIC_URL }}js/metrados.js"></script>
+	{{ form.media }}
+	<script src="{{ STATIC_URL }}js/jquery.formset.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			$('#fmr_techo_form tbody tr').formset({
+				prefix: '{{ techo_form.prefix }}',
+				deleteText: "<i class='fa fa-trash-o'></i>",
+				addText: "<i class='fa fa-plus-square-o'></i>",
+				formCssClass: 'dynamic-formset1'
+			});
+		});
+	</script>
+	<script src="{{ STATIC_URL }}js/reparar.js"></script>
 {% endblock %}
