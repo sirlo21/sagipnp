@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from metrados.models import *
+from django.forms import inlineformset_factory
+from levantamiento.models import Levantamiento
 
 class FichaTecnicaForm(forms.ModelForm):
 	class Meta:
@@ -19,3 +21,5 @@ class FichaTecnicaForm(forms.ModelForm):
 			"unidad": forms.NumberInput(attrs={"class": "form-control"}),
 			"punitario": forms.NumberInput(attrs={"class": "form-control"})
 		}
+
+FichaTecnicaFormSet = inlineformset_factory(Levantamiento,FichaTecnica,form=FichaTecnicaForm,extra=1,can_delete=False)
