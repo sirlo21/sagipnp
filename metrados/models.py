@@ -6,7 +6,7 @@ class Metrado1(models.Model):
 	descripcion = models.TextField()
 
 	def __unicode__(self):
-		return self.codigo
+		return self.descripcion
 
 class Metrado2(models.Model):
 	codigo = models.CharField(max_length=25)
@@ -14,7 +14,7 @@ class Metrado2(models.Model):
 	metrado1_id = models.ForeignKey(Metrado1,related_name='metrado_2')
 
 	def __unicode__(self):
-		return self.codigo
+		return self.descripcion
 
 class Metrado3(models.Model):
 	codigo = models.CharField(max_length=25)
@@ -22,7 +22,7 @@ class Metrado3(models.Model):
 	metrado2_id = models.ForeignKey(Metrado2,related_name='metrado_3')
 
 	def __unicode__(self):
-		return self.codigo
+		return self.descripcion
 
 class Metrado4(models.Model):
 	codigo = models.CharField(max_length=25)
@@ -30,7 +30,7 @@ class Metrado4(models.Model):
 	metrado3_id = models.ForeignKey(Metrado3,related_name='metrado_4')
 
 	def __unicode__(self):
-		return self.codigo
+		return self.descripcion
 
 class FichaTecnica(models.Model):
 	form  = models.ForeignKey(Levantamiento,related_name='ficha_tecnica')
@@ -46,3 +46,6 @@ class FichaTecnica(models.Model):
 	parcial = models.IntegerField(default=0)
 	unidad = models.IntegerField(default=0)
 	punitario = models.IntegerField(default=0)
+
+	def __unicode__(self):
+		return self.nombre
