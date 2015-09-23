@@ -22,9 +22,9 @@ def ficha_tecnica(request,id):
 			form.save()
 			return redirect("/")
 		else:
-			context["form"] = form
+			context["fiche_tecnica_form"] = form
 	else:
-		context["form"] = FichaTecnicaFormSet()
+		context["fiche_tecnica_form"] = FichaTecnicaFormSet()
 		
 	return render(request,"metrados/ficha_tecnica.html",context)
 
