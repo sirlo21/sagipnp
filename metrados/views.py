@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from levantamiento.models import Levantamiento,RegionPolicial,TComisaria,CComisaria,Especialidad,Category
 from reparar.models import Techo,InstalacionSanitaria,InstalacionElectrica,MurosParedes
 from ayudas.models import Ayuda
@@ -15,9 +15,18 @@ def ficha_tecnica(request,id):
 	distrito = levantamiento.ubigeo
 	provincia = Ubigeo.objects.get(id=distrito.parent_id)
 	departamento = Ubigeo.objects.get(id=provincia.parent_id)
-	context = {"obj": levantamiento,"distrito": distrito,"provincia": provincia,"departamento": departamento,
-		"form": FichaTecnicaForm()
-	}
+	context = {"obj": levantamiento,"distrito": distrito,"provincia": provincia,"departamento": departamento}
+	if request.method == "POST":
+		post = request.POST
+		form = FichaTecnicaForm(request.POST,instance=levantamiento)
+		if form.is_valid():
+			form.save()
+			return redirect("/")
+		else:
+			context["form"] = form
+	else:
+		context["form"] = FichaTecnicaForm()
+		
 	return render(request,"metrados/ficha_tecnica.html",context)
 
 def json(request):
