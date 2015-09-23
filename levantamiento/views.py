@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from levantamiento.functions import posiciones_de_ayuda
 from django.http import JsonResponse
 from ubigeo.models import Ubigeo
+from django.core.urlresolvers import reverse
 
 @login_required
 def index(request):
@@ -23,8 +24,8 @@ def equipo_de_levantamiento(request):
 	if request.method == "POST":
 		form = LevantamientoForm(request.POST)
 		if form.is_valid():
-			form.save(commit=False)
-			form.save()
+			obj = form.save(commit=False)
+			obj.save()
 			techos = request.POST["techos"]
 			if techos == "on":
 				techo_form_ayuda = "techos"
@@ -55,15 +56,15 @@ def equipo_de_levantamiento(request):
 				context["veredas_exteriores_form_ayuda"] = veredas_exteriores_form_ayuda
 				context["ve_posicion_ayuda"] = posiciones_de_ayuda(veredas_exteriores_form_ayuda)
 				context["veredas_exteriores"] = veredas_exteriores
-			if techos == "on" or inst_sant == "on" or inst_elect == "on" or muros_paredes == "on":
+			if techos == "on" or inst_sant == "on" or inst_elect == "on" or muros_paredes == "on" or veredas_exteriores == "on":
 				context["techo_form"] = TechoFormSet()
 				context["inst_sant_form"] = InstalacionSanitariaFormSet()
 				context["inst_elect_form"] = InstalacionElectricaFormSet()
 				context["muros_paredes_form"] = MurosParedesFormSet()
 				context["veredas_exteriores_form"] = VeredaExteriorFormSet()
-				context["form_id"] = form.id
+				context["form_id"] = obj.id
 				return render(request,"levantamiento/acciones_de_prevencion.html",context)
-			return render(request,"metrados/ficha_tecnica.html",context)
+			return redirect(reverse("ficha_tecnica",kwargs={"id": obj.id}))
 		context["form"] = form
 	else:
 		context["form"] = LevantamientoForm(initial={"inicio": datetime.today(),"termino": datetime.today()})
@@ -144,8 +145,7 @@ def acciones_de_prevencion(request,id):
 			ve_save = True
 
 		if tch_save and inst_save and inel_save and mp_save and ve_save:
-			return render(request,"metrados/ficha_tecnica.html",context)
-		context["form_id"] = id
+			return redirect(reverse("ficha_tecnica",kwargs={"id": id}))
 		return render(request,"levantamiento/acciones_de_prevencion.html",context)
 	return redirect("/")
 
