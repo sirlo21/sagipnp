@@ -83,6 +83,9 @@ def acciones_de_prevencion(request,id):
 		if techos:
 			context["techos"] = techos
 			tch = TechoFormSet(post,request.FILES,instance=obj)
+			techo_form_ayuda = "techos"
+			context["techo_form_ayuda"] = techo_form_ayuda
+			context["techos_posicion_ayuda"] = posiciones_de_ayuda(techo_form_ayuda)
 			if tch.is_valid():
 				tch.save()
 				tch_save = True
@@ -96,6 +99,9 @@ def acciones_de_prevencion(request,id):
 		if inst_sant:
 			context["inst_sant"] = inst_sant
 			inst = InstalacionSanitariaFormSet(post,request.FILES,instance=obj)
+			inst_sant_form_ayuda = "instalaciones_sanitarias"
+			context["inst_sant_form_ayuda"] = inst_sant_form_ayuda
+			context["inst_sant_posicion_ayuda"] = posiciones_de_ayuda(inst_sant_form_ayuda)
 			if inst.is_valid():
 				inst.save()
 				inst_save = True
@@ -109,6 +115,9 @@ def acciones_de_prevencion(request,id):
 		if inst_elect:
 			context["inst_elect"] = inst_elect
 			inel = InstalacionElectricaFormSet(post,request.FILES,instance=obj)
+			inst_elect_form_ayuda = "instalaciones_electricas"
+			context["inst_elect_form_ayuda"] = inst_elect_form_ayuda
+			context["inst_elect_posicion_ayuda"] = posiciones_de_ayuda(inst_elect_form_ayuda)
 			if inel.is_valid():
 				inel.save()
 				inel_save = True
@@ -122,6 +131,9 @@ def acciones_de_prevencion(request,id):
 		if muros_paredes:
 			context["muros_paredes"] = muros_paredes
 			mp = MurosParedesFormSet(post,request.FILES,instance=obj)
+			muros_paredes_form_ayuda = "muros_y_paredes"
+			context["muros_paredes_form_ayuda"] = muros_paredes_form_ayuda
+			context["mp_posicion_ayuda"] = posiciones_de_ayuda(muros_paredes_form_ayuda)
 			if mp.is_valid():
 				mp.save()
 				mp_save = True
@@ -135,6 +147,9 @@ def acciones_de_prevencion(request,id):
 		if veredas_exteriores:
 			context["veredas_exteriores"] = veredas_exteriores
 			ve = VeredaExteriorFormSet(post,request.FILES,instance=obj)
+			veredas_exteriores_form_ayuda = "veredas_exteriores"
+			context["veredas_exteriores_form_ayuda"] = veredas_exteriores_form_ayuda
+			context["ve_posicion_ayuda"] = posiciones_de_ayuda(veredas_exteriores_form_ayuda)
 			if ve.is_valid():
 				ve.save()
 				ve_save = True
