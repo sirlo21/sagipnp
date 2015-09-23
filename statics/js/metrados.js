@@ -9,9 +9,10 @@ $(document).ready(function(){
 			var metrado2 = data["metrado2"];
 			for(var i=0;i<metrado2.length;i++){
 				var id = metrado2[i]["id"];
-				var name = metrado2[i]["name"]
-				var option = "<option value='"+id+"'>"+name+"</option>"
+				var descripcion = metrado2[i]["descripcion"]
+				var option = "<option value='"+id+"'>"+descripcion+"</option>"
 				$("#id_metrado2").append(option);
+				codigo_metrado2 = metrado2[i]["codigo"];
 			}
 		});
 	});
@@ -23,9 +24,10 @@ $(document).ready(function(){
 			var metrado3 = data["metrado3"];
 			for(var i=0;i<metrado3.length;i++){
 				var id = metrado3[i]["id"];
-				var name = metrado3[i]["name"]
-				var option = "<option value='"+id+"'>"+name+"</option>"
+				var descripcion = metrado3[i]["descripcion"]
+				var option = "<option value='"+id+"'>"+descripcion+"</option>"
 				$("#id_metrado3").append(option);
+				codigo_metrado3 = metrado3[i]["codigo"];
 			}
 		});
 	});
@@ -36,9 +38,10 @@ $(document).ready(function(){
 			var metrado4 = data["metrado4"];
 			for(var i=0;i<metrado4.length;i++){
 				var id = metrado4[i]["id"];
-				var name = metrado4[i]["name"]
-				var option = "<option value='"+id+"'>"+name+"</option>"
+				var descripcion = metrado4[i]["descripcion"]
+				var option = "<option value='"+id+"'>"+descripcion+"</option>"
 				$("#id_metrado4").append(option);
+				codigo_metrado4 = metrado4[i]["codigo"];
 			}
 		});
 	});
@@ -53,19 +56,19 @@ $(document).ready(function(){
 		if($("#id_metrado4").children().length > 1){
 			$("#id_metrado4").children().each(function(index){
 				if($(this).prop("selected"))
-					$(".td-partida").text($(this).text());
+					$(".td-partida").text(codigo_metrado2);
 			});
 		}
 		else if($("#id_metrado3").children().length > 1){
 			$("#id_metrado3").children().each(function(index){
 				if($(this).prop("selected"))
-					$(".td-partida").text($(this).text());
+					$(".td-partida").text(codigo_metrado3);
 			});
 		}
 		else{
 			$("#id_metrado2").children().each(function(index){
 				if($(this).prop("selected"))
-					$(".td-partida").text($(this).text());
+					$(".td-partida").text(codigo_metrado4);
 			});
 		}
 		$(".td-numero-veces").text(val_numero);
