@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	$("#submit").hide();
 	$("#id_metrado1").change(function(ev){
 		var url = "/metrado/?metrado1_id="+$(this).val();
 		$.getJSON(url,function(data){
@@ -42,6 +43,7 @@ $(document).ready(function(){
 		});
 	});
 	$("#agregar").click(function(ev){
+		$("#submit").show();
 		var val_numero = $("#id_numero").val();
 		var val_parcial = $("#id_parcial").val();
 		var total = val_numero*val_parcial;
@@ -77,6 +79,7 @@ $(document).ready(function(){
 		$(".td-precio-total").text(precio_total);
 	});
 	$(".td-borrar").click(function(ev){
+		$("#submit").hide();
 		$(".td-partida").text("");
 		$(".td-numero-veces").text("");
 		$(".td-dimensiones-largo").text("");
