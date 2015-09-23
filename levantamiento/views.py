@@ -161,6 +161,7 @@ def acciones_de_prevencion(request,id):
 
 		if tch_save and inst_save and inel_save and mp_save and ve_save:
 			return redirect(reverse("ficha_tecnica",kwargs={"id": id}))
+		context["form_id"] = id
 		return render(request,"levantamiento/acciones_de_prevencion.html",context)
 	return redirect("/")
 
