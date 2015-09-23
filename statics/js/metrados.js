@@ -94,7 +94,7 @@ $(document).ready(function(){
 		$(".td-precio-unitario").text("");
 		$(".td-precio-total").text("");
 	});
-	$("#ficha-tecnica-form").submit(function(ev){
-		return ev.preventDefault();
-	});
+	// $("#ficha-tecnica-form").submit(function(ev){
+	// 	return ev.preventDefault();
+	// });
 });
