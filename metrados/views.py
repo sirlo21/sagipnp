@@ -9,13 +9,15 @@ from ubigeo.models import Ubigeo
 from metrados.models import *
 from metrados.forms import *
 
-# @login_required
+@login_required
 def ficha_tecnica(request,id):
-	# levantamiento = Levantamiento.objects.get(id=id)
-	# distrito = levantamiento.ubigeo
-	# provincia = Ubigeo.objects.get(id=distrito.parent_id)
-	# departamento = Ubigeo.objects.get(id=provincia.parent_id)
-	context = {"form": FichaTecnicaForm()}
+	levantamiento = Levantamiento.objects.get(id=id)
+	distrito = levantamiento.ubigeo
+	provincia = Ubigeo.objects.get(id=distrito.parent_id)
+	departamento = Ubigeo.objects.get(id=provincia.parent_id)
+	context = {"obj": levantamiento,"distrito": distrito,"provincia": provincia,"departamento": departamento,
+		"form": FichaTecnicaForm()
+	}
 	return render(request,"metrados/ficha_tecnica.html",context)
 
 def json(request):
