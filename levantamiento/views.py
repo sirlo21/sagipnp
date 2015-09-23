@@ -173,11 +173,11 @@ def json(request):
 		context["especialidad"] = []
 		context["categoria"] = []
 		for tipo in TComisaria.objects.all():
-			context["tipo_comisaria"].append({"id": tipo.id,"codigo": tipo.codigo,"descripcion": tipo.tipo})
+			context["tipo_comisaria"].append({"id": tipo.id,"name": tipo.tipo})
 		for clase in CComisaria.objects.all():
-			context["clase_comisaria"].append({"id": clase.id,"codigo": clase.codigo,"descripcion": clase.clase})
+			context["clase_comisaria"].append({"id": clase.id,"name": clase.clase})
 		for especialidad in Especialidad.objects.all():
-			context["especialidad"].append({"id": especialidad.id,"codigo": especialidad.codigo,"descripcion": especialidad.especialidad})
+			context["especialidad"].append({"id": especialidad.id,"name": especialidad.especialidad})
 		for categoria in Category.objects.all():
-			context["categoria"].append({"id": categoria.id,"codigo": categoria.codigo,"descripcion": categoria.category})
+			context["categoria"].append({"id": categoria.id,"name": categoria.category})
 	return JsonResponse(context)
