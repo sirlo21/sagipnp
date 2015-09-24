@@ -46,4 +46,20 @@ def json(request):
 		context["metrado4"] = []
 		for metrado4 in Metrado4.objects.filter(metrado3_id=metrado3_id):
 			context["metrado4"].append({"id": metrado4.id,"codigo": metrado4.codigo,"descripcion": metrado4.descripcion})
+
+	if request.GET.get("rollback_m1",False):
+		metrado2_id = request.GET["rollback_m1"]
+		m2 = Metrado2.objects.get(id=metrado2_id)
+		for metrado1 in Metrado1.objects.filter(id=m2.metrado1_id):
+			context.update(metrado1={"id": metrado1.id,"codigo": metrado1.codigo,"descripcion": metrado1.descripcion})
+	elif request.GET.get("rollback_m2",False):
+		metrado3_id = request.GET["rollback_m2"]
+		m3 = Metrado3.objects.get(id=metrado3_id)
+		for metrado3 in Metrado2.objects.filter(id=m3.metrado2_id):
+			context.update(metrado3={"id": metrado3.id,"codigo": metrado3.codigo,"descripcion": metrado3.descripcion})
+	elif request.GET.get("rollback_m3",False):
+		metrado3_id = request.GET["metrado3_id"]
+		context["metrado4"] = []
+		for metrado4 in Metrado4.objects.filter(metrado3_id=metrado3_id):
+			context["metrado4"].append({"id": metrado4.id,"codigo": metrado4.codigo,"descripcion": metrado4.descripcion})
 	return JsonResponse(context)
