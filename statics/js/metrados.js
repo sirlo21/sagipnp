@@ -62,9 +62,9 @@ $(document).ready(function(){
 		var val_input = $(this).val();
 		if(id_input.endsWith("numero")){
 			// var id_tabla = "#"+id_input.replace("numero","tabla");
-			val_numero = val_input;
 			// $(id_tabla+" #td-numero-veces").text(val_input);
 			addToTable(id_input,"numero","#td-numero-veces",val_input);
+			val_numero = val_input;
 		}
 		else if(id_input.endsWith("largo")){
 			var id_tabla = "#"+id_input.replace("largo","tabla");
