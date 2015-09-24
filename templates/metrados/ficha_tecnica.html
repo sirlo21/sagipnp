@@ -1,7 +1,5 @@
 {% extends "bases/base.html" %}
 
-{% load bootstrap3 %}
-
 {% block styles %}
 	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}fecha/css/bootstrap-datetimepicker.min.css" />
 	<style>
@@ -54,7 +52,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading"><strong>FICHA TECNICA DE EVALUACION DE LA INFRAESTRUCTURA DE LOCALES POLICIALES PARA ENFRENTAR EL FENOMENO DEL "NIÑO 2015-2016"</strong></div>
 					<div class="panel-body">
-						<table id="fmr_img" class="table-responsive table">
+						<table id="fmr_ft" class="table-responsive table">
 							<tbody>
 								{% for form in fiche_tecnica_form %}
 									<tr>
@@ -224,15 +222,11 @@
 													{{ form.punitario }}
 													{% if form.punitario.errors %}<p class="help-block">{{ form.errors.punitario|striptags }}</p>{% endif %}
 												</div>
-												<div class="col-lg-3">
-													<br/>
-													<button type="button" class="btn btn-success" id="agregar">AGREGAR</button>
-												</div>
 											</div>
 											<br/><br/>
 											<div class="panel-body">
 												<div class="table-responsive">
-													<table class="table table-bordered">
+													<table id="id_ficha_tecnica-0-tabla" class="table table-bordered">
 														<thead>
 															<tr>
 																<th rowspan="2" scope="col">Partida</th>
@@ -243,7 +237,6 @@
 																<th rowspan="2" scope="col">Unidad</th>
 																<th rowspan="2" scope="col">Precio Unitario</th>
 																<th rowspan="2" scope="col">Precio Total</th>
-																<th rowspan="2" scope="col"></th>
 															</tr>
 															<tr>
 																<th scope="col">Veces</th>
@@ -254,19 +247,16 @@
 														</thead>
 														<tbody>
 															<tr>
-																<td class="td-partida"></td>
-																<td class="td-numero-veces"></td>
-																<td class="td-dimensiones-largo"></td>
-																<td class="td-dimensiones-ancho"></td>
-																<td class="td-dimensiones-altura"></td>
-																<td class="td-parcial"></td>
-																<td class="td-total"></td>
-																<td class="td-unidad"></td>
-																<td class="td-precio-unitario"></td>
-																<td class="td-precio-total"></td>
-																<td class="td-borrar">
-																	<button type="button" class="btn btn-danger">Borrar</button>
-																</td>
+																<td id="td-partida"></td>
+																<td id="td-numero-veces"></td>
+																<td id="td-dimensiones-largo"></td>
+																<td id="td-dimensiones-ancho"></td>
+																<td id="td-dimensiones-altura"></td>
+																<td id="td-parcial"></td>
+																<td id="td-total"></td>
+																<td id="td-unidad"></td>
+																<td id="td-precio-unitario"></td>
+																<td id="td-precio-total"></td>
 															</tr>
 														</tbody>
 													</table>
@@ -280,7 +270,7 @@
 								{% endfor %}
 							</tbody>
 						</table>
-						{{ form.management_form }}
+						{{ fiche_tecnica_form.management_form }}
 						<input type="submit" id="submit" class="btn btn-success" value="Listo!"/>
 					</div>
 				</div>
@@ -297,17 +287,16 @@
 {% endblock %}
 
 {% block scripts %}
-	{{ form.media }}
+	<script src="{{ STATIC_URL }}js/metrados.js"></script>
 	<script src="{{ STATIC_URL }}js/jquery.formset.js"></script>
 	<script type="text/javascript">
 		$(function () {
-			$('#fmr_techo_form tbody tr').formset({
-				prefix: '{{ techo_form.prefix }}',
+			$('#fmr_ft > tbody > tr').formset({
+				prefix: '{{ fiche_tecnica_form.prefix }}',
 				deleteText: "<i class='fa fa-trash-o'></i>",
 				addText: "<i class='fa fa-plus-square-o'></i>",
 				formCssClass: 'dynamic-formset1'
 			});
 		});
 	</script>
-	<script src="{{ STATIC_URL }}js/reparar.js"></script>
 {% endblock %}
