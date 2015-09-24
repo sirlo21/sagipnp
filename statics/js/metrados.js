@@ -53,7 +53,7 @@ $(document).ready(function(){
 			}
 		});
 	});
-	var val_numero,val_parcial,val_unidad,val_punitario;
+	var val_numero=0,val_parcial=0,val_unidad=0,val_punitario=0;
 	$("input").change(function(ev){
 		var id_input = $(this).attr("id");
 		var val_input = $(this).val();
@@ -91,14 +91,10 @@ $(document).ready(function(){
 			$(id_tabla+" #td-precio-unitario").text(val_input);
 		}
 		
-		if(val_numero && val_parcial){
-			var total = val_numero*val_parcial;
-			$(id_tabla+" #td-total").text(total);
-		}
-		if(val_unidad && val_punitario){
-			var precio_total = val_unidad*val_punitario;
-			$(id_tabla+" #td-precio-total").text(precio_total);
-		}		
+		var total = val_numero*val_parcial;
+		$(id_tabla+" #td-total").text(total);
+		var precio_total = val_unidad*val_punitario;
+		$(id_tabla+" #td-precio-total").text(precio_total);
 		// if($("#id_metrado4").children().length > 1){
 		// 	$("#id_metrado4").children().each(function(index){
 		// 		if($(this).prop("selected"))
