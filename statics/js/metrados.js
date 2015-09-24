@@ -13,6 +13,10 @@ $(document).ready(function(){
 			return codigos;
 		}
 	}
+	function addToTable(id_input,replace_text,id_td,val_input){
+		var id_tabla = "#"+id_input.replace(replace_text,"tabla");
+		$(id_tabla+" "+id_td).text(val_input);
+	}
 	$("select").change(function(ev){
 		$(this).each(function(index){
 			var id_select = $(this).attr("id");
@@ -54,9 +58,10 @@ $(document).ready(function(){
 		var id_input = $(this).attr("id");
 		var val_input = $(this).val();
 		if(id_input.endsWith("numero")){
-			var id_tabla = "#"+id_input.replace("numero","tabla");
+			// var id_tabla = "#"+id_input.replace("numero","tabla");
 			val_numero = val_input;
-			$(id_tabla+" #td-numero-veces").text(val_input);
+			// $(id_tabla+" #td-numero-veces").text(val_input);
+			addToTable(id_input,"numero","#td-numero-veces",val_input);
 		}
 		else if(id_input.endsWith("largo")){
 			var id_tabla = "#"+id_input.replace("largo","tabla");
