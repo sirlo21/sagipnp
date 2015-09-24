@@ -13,13 +13,13 @@ class FichaTecnicaForm(forms.ModelForm):
 			"metrado2": forms.Select(attrs={"class": "form-control"}),
 			"metrado3": forms.Select(attrs={"class": "form-control"}),
 			"metrado4": forms.Select(attrs={"class": "form-control"}),
-			"numero": forms.NumberInput(attrs={"class": "form-control"}),
-			"largo": forms.NumberInput(attrs={"class": "form-control"}),
-			"ancho": forms.NumberInput(attrs={"class": "form-control"}),
-			"alto": forms.NumberInput(attrs={"class": "form-control"}),
-			"parcial": forms.NumberInput(attrs={"class": "form-control"}),
-			"unidad": forms.NumberInput(attrs={"class": "form-control"}),
-			"punitario": forms.NumberInput(attrs={"class": "form-control"})
+			"numero": forms.NumberInput(attrs={"class": "form-control","min": 0,"value": 0}),
+			"largo": forms.NumberInput(attrs={"class": "form-control","min": 0,"value": 0}),
+			"ancho": forms.NumberInput(attrs={"class": "form-control","min": 0,"value": 0}),
+			"alto": forms.NumberInput(attrs={"class": "form-control","min": 0,"value": 0}),
+			"parcial": forms.NumberInput(attrs={"class": "form-control","min": 0,"value": 0}),
+			"unidad": forms.NumberInput(attrs={"class": "form-control","min": 0,"value": 0}),
+			"punitario": forms.NumberInput(attrs={"class": "form-control","min": 0,"value": 0})
 		}
 
 FichaTecnicaFormSet = inlineformset_factory(Levantamiento,FichaTecnica,form=FichaTecnicaForm,extra=1,can_delete=False)
