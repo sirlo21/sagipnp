@@ -53,7 +53,10 @@ $(document).ready(function(){
 			}
 		});
 	});
-	var val_numero=0,val_parcial=0,val_unidad=0,val_punitario=0;
+	var val_numero = 0;
+	val_parcial = 0;
+	val_unidad = 0;
+	val_punitario = 0;
 	$("input").change(function(ev){
 		var id_input = $(this).attr("id");
 		var val_input = $(this).val();
