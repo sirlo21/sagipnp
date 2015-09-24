@@ -1,53 +1,113 @@
 $(document).ready(function(){
 	function addOptions(id_metrado,args){
 		if(args.length > 0){
-			var codigos = [];
 			$(id_metrado).append("<option value selected='selected'>---------</option>");
 			for(i in args){
 				var id = args[i]["id"];
 				var descripcion = args[i]["descripcion"];
 				var option = "<option value='"+id+"'>"+descripcion+"</option>";
 				$(id_metrado).append(option);
-				codigos.push({id: args[i]["codigo"]});
 			}
-			return codigos;
 		}
 	}
-	$("select").change(function(ev){
-		$(this).each(function(index){
-			var id_select = $(this).attr("id");
-			var value_select = $(this).val();
-			if(id_select.endsWith("metrado1")){
-				var url = "/metrado/?metrado1_id="+value_select;
-				$.getJSON(url,function(data){
-					var id_metrado2 = "#"+id_select.replace("metrado1","metrado2");
-					var id_metrado3 = "#"+id_select.replace("metrado1","metrado3");
-					var id_metrado4 = "#"+id_select.replace("metrado1","metrado4");
-					$(id_metrado2).children().remove();
-					$(id_metrado3).children().remove();
-					$(id_metrado4).children().remove();
-					addOptions(id_metrado2,data["metrado2"]);
-				});
+	function getCodigosMetrado(args){
+		var codigos = {};
+		if(args.length > 0){
+			for(i in args){
+				var id = args[i]["id"];
+				codigos[id] = args[i]["codigo"];
 			}
-			else if(id_select.endsWith("metrado2")){
-				var url = "/metrado/?metrado2_id="+value_select;
-				$.getJSON(url,function(data){
-					var id_metrado3 = "#"+id_select.replace("metrado2","metrado3");
-					var id_metrado4 = "#"+id_select.replace("metrado2","metrado4");
-					$(id_metrado3).children().remove();
-					$(id_metrado4).children().remove();
-					addOptions(id_metrado3,data["metrado3"]);
-				});
-			}
-			else if(id_select.endsWith("metrado3")){
-				var url = "/metrado/?metrado3_id="+value_select;
-				$.getJSON(url,function(data){
-					var id_metrado4 = "#"+id_select.replace("metrado3","metrado4");
-					$(id_metrado4).children().remove();
-					addOptions(id_metrado4,data["metrado4"]);
-				});
-			}
+		}
+		return codigos;
+	}
+	function rollback(url,back,current){
+		$.getJSON(url,function(data){
+			var m0 = $("select[value="+back+"]");
+			var m1 = $("select[value="+current+"]");
+			m0.attr({selected: ""})
+			m1.attr({selected: ""})
 		});
+	}
+	var codigo_metrado2,codigo_metrado3,codigo_metrado4;
+	$("select").change(function(ev){
+		var id_select = $(this).attr("id");
+		var value_select = $(this).val();
+		if(id_select.endsWith("metrado1")){
+			var url = "/metrado/?metrado1_id="+value_select;
+			$.getJSON(url,function(data){
+				var id_tabla = "#"+id_select.replace("metrado1","tabla");
+				var id_metrado2 = "#"+id_select.replace("metrado1","metrado2");
+				var id_metrado3 = "#"+id_select.replace("metrado1","metrado3");
+				var id_metrado4 = "#"+id_select.replace("metrado1","metrado4");
+				$(id_metrado2).children().remove();
+				$(id_metrado3).children().remove();
+				$(id_metrado4).children().remove();
+				addOptions(id_metrado2,data["metrado2"]);
+				codigo_metrado2 = getCodigosMetrado(data["metrado2"]);
+				if($(id_metrado2).children().length > 1){
+					if($(id_metrado2).val()){
+						$(id_metrado2).children().each(function(index){
+							if($(this).prop("selected"))
+								$(" #td-partida").text(codigo_metrado2[$(this).val()]);
+						});
+					}
+				}
+			});
+		}
+		else if(id_select.endsWith("metrado2")){
+			var url = "/metrado/?metrado2_id="+value_select;
+			$.getJSON(url,function(data){
+				var id_tabla = "#"+id_select.replace("metrado2","tabla");
+				var id_metrado3 = "#"+id_select.replace("metrado2","metrado3");
+				var id_metrado4 = "#"+id_select.replace("metrado2","metrado4");
+				$(id_metrado3).children().remove();
+				$(id_metrado4).children().remove();
+				addOptions(id_metrado3,data["metrado3"]);
+				codigo_metrado3 = getCodigosMetrado(data["metrado3"]);
+				if($(id_metrado3).children().length > 1){
+					if($(id_metrado3).val()){
+						$(id_metrado3).children().each(function(index){
+							if($(this).prop("selected"))
+								$(id_tabla+" #td-partida").text(codigo_metrado3[$(this).val()]);
+						});
+					}
+				}
+				else{
+					if(value_select)
+						$(id_tabla+" #td-partida").text(codigo_metrado2[value_select]);
+				}
+			});
+		}
+		else if(id_select.endsWith("metrado3")){
+			var url = "/metrado/?metrado3_id="+value_select;
+			$.getJSON(url,function(data){
+				var id_tabla = "#"+id_select.replace("metrado3","tabla");
+				var id_metrado2 = "#"+id_select.replace("metrado3","metrado2");
+				var id_metrado4 = "#"+id_select.replace("metrado3","metrado4");
+				$(id_metrado4).children().remove();
+				addOptions(id_metrado4,data["metrado4"]);
+				codigo_metrado4 = getCodigosMetrado(data["metrado4"]);
+				if($(id_metrado4).children().length > 1){
+					if($(id_metrado4).val()){
+						$(id_metrado4).children().each(function(index){
+							if($(this).prop("selected"))
+								$(id_tabla+" #td-partida").text(codigo_metrado4[$(this).val()]);
+						});
+					}
+				}
+				else{
+					if(value_select)
+						$(id_tabla+" #td-partida").text(codigo_metrado3[value_select]);
+				}
+			});
+		}
+		else if(id_select.endsWith("metrado4")){
+			var id_tabla = "#"+id_select.replace("metrado4","tabla");
+			if($(this).children().length > 1){
+				if(value_select)
+					$(id_tabla+" #td-partida").text(codigo_metrado4[value_select]);
+			}
+		}
 	});
 	var val_numero=0,val_parcial=0,val_unidad=0,val_punitario=0;
 	$("input").change(function(ev){
@@ -85,29 +145,9 @@ $(document).ready(function(){
 			val_punitario = val_input;
 			$(id_tabla+" #td-precio-unitario").text(val_input);
 		}
-		
 		var total = val_numero*val_parcial;
 		$(id_tabla+" #td-total").text(total);
 		var precio_total = val_unidad*val_punitario;
 		$(id_tabla+" #td-precio-total").text(precio_total);
-		// if($("#id_metrado4").children().length > 1){
-		// 	$("#id_metrado4").children().each(function(index){
-		// 		if($(this).prop("selected"))
-		// 			$("#td-partida").text(codigo_metrado2);
-		// 	});
-		// }
-		// else if($("#id_metrado3").children().length > 1){
-		// 	$("#id_metrado3").children().each(function(index){
-		// 		if($(this).prop("selected"))
-		// 			$("#td-partida").text(codigo_metrado3);
-		// 	});
-		// }
-		// else{
-		// 	$("#id_metrado2").children().each(function(index){
-		// 		if($(this).prop("selected"))
-		// 			$("#td-partida").text(codigo_metrado4);
-		// 	});
-		// }
-		
 	});
 });
