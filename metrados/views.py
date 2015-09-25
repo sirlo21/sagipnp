@@ -26,6 +26,13 @@ def ficha_tecnica(request,id):
 			context["fiche_tecnica_form"] = form
 	else:
 		context["fiche_tecnica_form"] = FichaTecnicaFormSet()
+		context["metrados"] = []
+		for metrado2 in Metrado2.objects.all():
+			context["metrados"].append({"id": metrado2.id,"codigo": metrado2.codigo,"descripcion": metrado2.descripcion})
+		for metrado3 in Metrado3.objects.all():
+			context["metrados"].append({"id": metrado3.id,"codigo": metrado3.codigo,"descripcion": metrado3.descripcion})
+		for metrado4 in Metrado4.objects.all():
+			context["metrados"].append({"id": metrado4.id,"codigo": metrado4.codigo,"descripcion": metrado4.descripcion})
 		
 	return render(request,"metrados/ficha_tecnica.html",context)
 
@@ -47,19 +54,14 @@ def json(request):
 		for metrado4 in Metrado4.objects.filter(metrado3=metrado3_id):
 			context["metrado4"].append({"id": metrado4.id,"codigo": metrado4.codigo,"descripcion": metrado4.descripcion})
 
-	if request.GET.get("rollback_m1",False):
-		metrado2 = request.GET["rollback_m1"]
-		m2 = Metrado2.objects.get(id=metrado2)
-		metrado1 = m2.metrado1
-		context.update(back={"id": metrado1.id,"descripcion": metrado1.descripcion})
-	elif request.GET.get("rollback_m2",False):
-		metrado3 = request.GET["rollback_m2"]
-		m3 = Metrado3.objects.get(id=metrado3)
-		metrado2 = m3.metrado2
-		context.update(back={"id": metrado2.id,"descripcion": metrado2.descripcion})
-	elif request.GET.get("rollback_m3",False):
-		metrado4 = request.GET["rollback_m3"]
-		m4 = Metrado4.objects.get(id=metrado4)
-		metrado3 = m4.metrado3
-		context.update(back={"id": metrado.id,"descripcion": metrado.descripcion})
+	if request.GET.get("metrados",False):
+		context["metrado2"] = []
+		for metrado2 in Metrado2.objects.all():
+			context["metrado2"].append({"id": metrado2.id,"codigo": metrado2.codigo,"descripcion": metrado2.descripcion})
+		context["metrado3"] = []
+		for metrado3 in Metrado3.objects.all():
+			context["metrado3"].append({"id": metrado3.id,"codigo": metrado3.codigo,"descripcion": metrado3.descripcion})
+		context["metrado4"] = []
+		for metrado4 in Metrado4.objects.all():
+			context["metrado4"].append({"id": metrado4.id,"codigo": metrado4.codigo,"descripcion": metrado4.descripcion})
 	return JsonResponse(context)
