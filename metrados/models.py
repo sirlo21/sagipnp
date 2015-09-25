@@ -11,7 +11,7 @@ class Metrado1(models.Model):
 class Metrado2(models.Model):
 	codigo = models.CharField(max_length=25)
 	descripcion = models.TextField()
-	metrado1_id = models.ForeignKey(Metrado1,related_name='metrado_2')
+	metrado1 = models.ForeignKey(Metrado1,related_name='metrado_2')
 
 	def __unicode__(self):
 		return self.descripcion
@@ -19,7 +19,7 @@ class Metrado2(models.Model):
 class Metrado3(models.Model):
 	codigo = models.CharField(max_length=25)
 	descripcion = models.TextField()
-	metrado2_id = models.ForeignKey(Metrado2,related_name='metrado_3')
+	metrado2 = models.ForeignKey(Metrado2,related_name='metrado_3')
 
 	def __unicode__(self):
 		return self.descripcion
@@ -27,7 +27,7 @@ class Metrado3(models.Model):
 class Metrado4(models.Model):
 	codigo = models.CharField(max_length=25)
 	descripcion = models.TextField()
-	metrado3_id = models.ForeignKey(Metrado3,related_name='metrado_4')
+	metrado3 = models.ForeignKey(Metrado3,related_name='metrado_4')
 
 	def __unicode__(self):
 		return self.descripcion
