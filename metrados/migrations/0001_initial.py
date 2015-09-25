@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('codigo', models.CharField(max_length=25)),
                 ('descripcion', models.TextField()),
-                ('metrado1_id', models.ForeignKey(related_name='metrado_2', to='metrados.Metrado1')),
+                ('metrado1', models.ForeignKey(related_name='metrado_2', to='metrados.Metrado1')),
             ],
             options={
             },
@@ -58,7 +58,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('codigo', models.CharField(max_length=25)),
                 ('descripcion', models.TextField()),
-                ('metrado2_id', models.ForeignKey(related_name='metrado_3', to='metrados.Metrado2')),
+                ('metrado2', models.ForeignKey(related_name='metrado_3', to='metrados.Metrado2')),
             ],
             options={
             },
@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('codigo', models.CharField(max_length=25)),
                 ('descripcion', models.TextField()),
-                ('metrado3_id', models.ForeignKey(related_name='metrado_4', to='metrados.Metrado3')),
+                ('metrado3', models.ForeignKey(related_name='metrado_4', to='metrados.Metrado3')),
             ],
             options={
             },
