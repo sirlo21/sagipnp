@@ -73,8 +73,13 @@
 															{% endfor %}
 														</div>
 													</label>
-													{{ form.nombre }}
-													{% if form.nombre.errors %}<p class="help-block">{{ form.errors.nombre|striptags }}</p>{% endif %}
+													<input list="id_ficha_tecnica-0-name" class="form-control" />
+													<datalist id="id_ficha_tecnica-0-name">
+														<option value="">
+														{% for metrado in metrados %}
+															<option value="{{ metrado.descripcion }}">
+														{% endfor %}
+													</datalist>
 												</div>
 											</div>
 											<br/>
