@@ -11,11 +11,11 @@ from metrados.forms import FichaTecnicaFormSet
 
 @login_required
 def ficha_tecnica(request,id):
-	levantamiento = Levantamiento.objects.get(id=id)
-	distrito = levantamiento.ubigeo
-	provincia = Ubigeo.objects.get(id=distrito.parent_id)
-	departamento = Ubigeo.objects.get(id=provincia.parent_id)
-	context = {"obj": levantamiento,"distrito": distrito,"provincia": provincia,"departamento": departamento}
+	# levantamiento = Levantamiento.objects.get(id=id)
+	# distrito = levantamiento.ubigeo
+	# provincia = Ubigeo.objects.get(id=distrito.parent_id)
+	# departamento = Ubigeo.objects.get(id=provincia.parent_id)
+	context = {}# {"obj": levantamiento,"distrito": distrito,"provincia": provincia,"departamento": departamento}
 	if request.method == "POST":
 		post = request.POST
 		form = FichaTecnicaFormSet(request.POST,instance=levantamiento)
@@ -34,32 +34,32 @@ def json(request):
 	if request.GET.get("metrado1_id",False):
 		metrado1_id = request.GET["metrado1_id"]
 		context["metrado2"] = []
-		for metrado2 in Metrado2.objects.filter(metrado1_id=metrado1_id):
+		for metrado2 in Metrado2.objects.filter(metrado1=metrado1_id):
 			context["metrado2"].append({"id": metrado2.id,"codigo": metrado2.codigo,"descripcion": metrado2.descripcion})
 	elif request.GET.get("metrado2_id",False):
 		metrado2_id = request.GET["metrado2_id"]
 		context["metrado3"] = []
-		for metrado3 in Metrado3.objects.filter(metrado2_id=metrado2_id):
+		for metrado3 in Metrado3.objects.filter(metrado2=metrado2_id):
 			context["metrado3"].append({"id": metrado3.id,"codigo": metrado3.codigo,"descripcion": metrado3.descripcion})
 	elif request.GET.get("metrado3_id",False):
 		metrado3_id = request.GET["metrado3_id"]
 		context["metrado4"] = []
-		for metrado4 in Metrado4.objects.filter(metrado3_id=metrado3_id):
+		for metrado4 in Metrado4.objects.filter(metrado3=metrado3_id):
 			context["metrado4"].append({"id": metrado4.id,"codigo": metrado4.codigo,"descripcion": metrado4.descripcion})
 
 	if request.GET.get("rollback_m1",False):
-		metrado2_id = request.GET["rollback_m1"]
-		m2 = Metrado2.objects.get(id=metrado2_id)
-		for metrado1 in Metrado1.objects.filter(id=m2.metrado1_id):
-			context.update(metrado1={"id": metrado1.id,"codigo": metrado1.codigo,"descripcion": metrado1.descripcion})
+		metrado2 = request.GET["rollback_m1"]
+		m2 = Metrado2.objects.get(id=metrado2)
+		metrado1 = m2.metrado1
+		context.update(back={"id": metrado1.id,"descripcion": metrado1.descripcion})
 	elif request.GET.get("rollback_m2",False):
-		metrado3_id = request.GET["rollback_m2"]
-		m3 = Metrado3.objects.get(id=metrado3_id)
-		for metrado3 in Metrado2.objects.filter(id=m3.metrado2_id):
-			context.update(metrado3={"id": metrado3.id,"codigo": metrado3.codigo,"descripcion": metrado3.descripcion})
+		metrado3 = request.GET["rollback_m2"]
+		m3 = Metrado3.objects.get(id=metrado3)
+		metrado2 = m3.metrado2
+		context.update(back={"id": metrado2.id,"descripcion": metrado2.descripcion})
 	elif request.GET.get("rollback_m3",False):
-		metrado3_id = request.GET["metrado3_id"]
-		context["metrado4"] = []
-		for metrado4 in Metrado4.objects.filter(metrado3_id=metrado3_id):
-			context["metrado4"].append({"id": metrado4.id,"codigo": metrado4.codigo,"descripcion": metrado4.descripcion})
+		metrado4 = request.GET["rollback_m3"]
+		m4 = Metrado4.objects.get(id=metrado4)
+		metrado3 = m4.metrado3
+		context.update(back={"id": metrado.id,"descripcion": metrado.descripcion})
 	return JsonResponse(context)
