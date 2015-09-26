@@ -60,7 +60,7 @@
 										<td>
 											<div class="row">
 												{% csrf_token %}
-												<div class="col-lg-3">
+												<div class="col-md-12">
 													<label class="control-label" for="id_nombre">
 														<span class="pull-left">Nombre de la partida:</span>
 														<div class="col-md-3 pull-right">
@@ -73,13 +73,17 @@
 															{% endfor %}
 														</div>
 													</label>
-													<input list="id_ficha_tecnica-0-name" class="form-control" />
+												</div>
+												<div class="col-lg-3">
+													<input id="id_ficha_tecnica-0-nombre" list="id_ficha_tecnica-0-name" class="form-control" />
 													<datalist id="id_ficha_tecnica-0-name">
-														<option value="">
 														{% for metrado in metrados %}
-															<option value="{{ metrado.descripcion }}">
+															<option value="{{ metrado.descripcion }}"></option>
 														{% endfor %}
 													</datalist>
+												</div>
+												<div class="col-lg-3">
+													<input type="button" class="btn btn-default" id="id_ficha_tecnica-0-buscar" value="Buscar"/>
 												</div>
 											</div>
 											<br/>
@@ -102,13 +106,19 @@
 													{{ form.metrado1 }}
 												</div>
 												<div class="col-lg-3">
-													{{ form.metrado2 }}
+													<select class="form-control" id="id_ficha_tecnica-0-metrado2" name="ficha_tecnica-0-metrado2">
+														<option></option>
+													</select>
 												</div>
 												<div class="col-lg-3">
-													{{ form.metrado3 }}
+													<select class="form-control" id="id_ficha_tecnica-0-metrado3" name="ficha_tecnica-0-metrado3">
+														<option></option>
+													</select>
 												</div>
 												<div class="col-lg-3">
-													{{ form.metrado4 }}
+													<select class="form-control" id="id_ficha_tecnica-0-metrado4" name="ficha_tecnica-0-metrado4">
+														<option></option>
+													</select>
 												</div>
 											</div>
 											<br/>
