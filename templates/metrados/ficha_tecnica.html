@@ -53,13 +53,13 @@
 				<div class="panel panel-default">
 					<div class="panel-heading"><strong>FICHA TECNICA DE EVALUACION DE LA INFRAESTRUCTURA DE LOCALES POLICIALES PARA ENFRENTAR EL FENOMENO DEL "NIÑO 2015-2016"</strong></div>
 					<div class="panel-body">
+						{% csrf_token %}
 						<table id="fmr_ft" class="table-responsive table">
 							<tbody>
 								{% for form in fiche_tecnica_form %}
 									<tr>
 										<td>
 											<div class="row">
-												{% csrf_token %}
 												<div class="col-md-12">
 													<label class="control-label" for="id_nombre">
 														<span class="pull-left">Nombre de la partida:</span>

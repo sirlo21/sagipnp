@@ -18,7 +18,7 @@ def ficha_tecnica(request,id):
 	context = {"obj": levantamiento,"distrito": distrito,"provincia": provincia,"departamento": departamento}
 	if request.method == "POST":
 		post = request.POST
-		form = FichaTecnicaFormSet(request.POST,instance=levantamiento)
+		form = FichaTecnicaFormSet(post,instance=levantamiento)
 		if form.is_valid():
 			form.save()
 			return redirect("/")
