@@ -27,7 +27,7 @@ $(document).ready(function(){
 		return codigos;
 	}
 	var codigo_metrado2,codigo_metrado3,codigo_metrado4;
-	$("input[type=button]").click(function(event){
+	$("button").click(function(event){
 		var button_id = $(this).attr("id");
 		if(button_id.endsWith("buscar")){
 			var input_nombre_id = "#"+button_id.replace("buscar","nombre");
