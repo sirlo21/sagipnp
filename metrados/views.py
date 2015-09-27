@@ -67,7 +67,6 @@ def json(request):
 
 	if request.GET.get("metrado",False):
 		metrado = request.GET["metrado"].upper()
-		print metrado
 		metrado2 = Metrado2.objects.filter
 		if metrado2(descripcion=metrado):
 			metrado2 = metrado2(descripcion=metrado)
