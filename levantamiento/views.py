@@ -64,7 +64,7 @@ def equipo_de_levantamiento(request):
 				context["veredas_exteriores_form"] = VeredaExteriorFormSet()
 				context["form_id"] = obj.id
 				return render(request,"levantamiento/acciones_de_prevencion.html",context)
-			return redirect(reverse("ficha_tecnica",kwargs={"id": obj.id}))
+			return redirect("/")
 		context["form"] = form
 	else:
 		context["form"] = LevantamientoForm(initial={"inicio": datetime.today(),"termino": datetime.today()})
