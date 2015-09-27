@@ -82,6 +82,7 @@ def json(request):
 			metrado4 = metrado4(descripcion=metrado)
 		else:
 			metrado4 = metrado4(descripcion=metrado+" ")
+		print metrado4
 		context["rollback"] = {}
 		if metrado2:
 			for m2 in metrado2:
