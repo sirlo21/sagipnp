@@ -21,5 +21,3 @@ class FichaTecnicaForm(forms.ModelForm):
 			"unidad": forms.NumberInput(attrs={"class": "form-control","min": 0,"value": 0}),
 			"punitario": forms.NumberInput(attrs={"class": "form-control","min": 0,"value": 0})
 		}
-
-FichaTecnicaFormSet = inlineformset_factory(Levantamiento,FichaTecnica,form=FichaTecnicaForm,extra=1,can_delete=False)
