@@ -27,78 +27,72 @@ $(document).ready(function(){
 		return codigos;
 	}
 	var codigo_metrado2,codigo_metrado3,codigo_metrado4;
-	$("button").click(function(event){
-		var button_id = $(this).attr("id");
-		if(button_id.endsWith("buscar")){
-			var input_nombre_id = "#"+button_id.replace("buscar","nombre");
-			var url = "/metrado/json/?rollback="+$(input_nombre_id).val();
+	$("#id_buscar").click(function(event){
+		var input_nombre_id = "#id_nombre";
+		var url = "/metrado/json/?rollback="+$(input_nombre_id).val();
+		var id_tabla = input_nombre_id.replace("nombre","tabla");
+		var id_metrado2 = input_nombre_id.replace("nombre","metrado2");
+		var id_metrado3 = input_nombre_id.replace("nombre","metrado3");
+		var id_metrado4 = input_nombre_id.replace("nombre","metrado4");
+		var tr = "#"+$("#tm > tbody tr").last().attr("id");
+		$.getJSON(url,function(data){
+			var rollback = data["rollback"]
+			$(id_metrado1).children("option[value="+rollback["metrado1_id"]+"]").attr({selected: ""});
+			var url = "/metrado/json/?metrado1_id="+$(id_metrado1).val();
 			$.getJSON(url,function(data){
-				var rollback = data["rollback"]
-				var id_metrado1 = input_nombre_id.replace("nombre","metrado1");
-				$(id_metrado1).children("option[value="+rollback["metrado1_id"]+"]").attr({selected: ""});
-				var id_tabla = input_nombre_id.replace("nombre","tabla");
-				var id_metrado2 = input_nombre_id.replace("nombre","metrado2");
-				var id_metrado3 = input_nombre_id.replace("nombre","metrado3");
-				var id_metrado4 = input_nombre_id.replace("nombre","metrado4");
-				var url = "/metrado/?metrado1_id="+$(id_metrado1).val();
-				$.getJSON(url,function(data){
-					$(id_metrado2).children("option[value]").remove();
-					$(id_metrado3).children("option[value]").remove();
-					$(id_metrado4).children("option[value]").remove();
-					addOptions(id_metrado2,data["metrado2"],rollback["metrado2_id"]);
-					codigo_metrado2 = getCodigosMetrado(data["metrado2"]);
-					if("metrado3_id" in rollback){
-						var url = "/metrado/?metrado2_id="+$(id_metrado2).val();
-						$.getJSON(url,function(data){
-							$(id_metrado3).children("option[value]").remove();
-							$(id_metrado4).children("option[value]").remove();
-							addOptions(id_metrado3,data["metrado3"],rollback["metrado3_id"]);
-							codigo_metrado3 = getCodigosMetrado(data["metrado3"]);
-							if("metrado4_id" in rollback){
-								var url = "/metrado/?metrado3_id="+$(id_metrado3).val();
-								$.getJSON(url,function(data){
-									$(id_metrado4).children("option[value]").remove();
-									addOptions(id_metrado4,data["metrado4"],rollback["metrado4_id"]);
-									codigo_metrado4 = getCodigosMetrado(data["metrado4"]);
-									$(id_metrado4).trigger("change");
-								});
-							}
-							else
-								$(id_metrado3).trigger("change");
-						});
-					}
-					else
-						$(id_metrado2).trigger("change");
-				});
+				$(id_metrado2).children("option[value]").remove();
+				$(id_metrado3).children("option[value]").remove();
+				$(id_metrado4).children("option[value]").remove();
+				addOptions(id_metrado2,data["metrado2"],rollback["metrado2_id"]);
+				codigo_metrado2 = getCodigosMetrado(data["metrado2"]);
+				if("metrado3_id" in rollback){
+					var url = "/metrado/json/?metrado2_id="+$(id_metrado2).val();
+					$.getJSON(url,function(data){
+						$(id_metrado3).children("option[value]").remove();
+						$(id_metrado4).children("option[value]").remove();
+						addOptions(id_metrado3,data["metrado3"],rollback["metrado3_id"]);
+						codigo_metrado3 = getCodigosMetrado(data["metrado3"]);
+						if("metrado4_id" in rollback){
+							var url = "/metrado/json/?metrado3_id="+$(id_metrado3).val();
+							$.getJSON(url,function(data){
+								$(id_metrado4).children("option[value]").remove();
+								addOptions(id_metrado4,data["metrado4"],rollback["metrado4_id"]);
+								codigo_metrado4 = getCodigosMetrado(data["metrado4"]);
+								$(id_metrado4).trigger("change");
+							});
+						}
+						else
+							$(id_metrado3).trigger("change");
+					});
+				}
+				else
+					$(id_metrado2).trigger("change");
 			});
-			$(input_nombre_id).val("");
-		}
+		});
+		$(input_nombre_id).val("");
 	});
 	$("select").change(function(ev){
-		var id_select = $(this).attr("id");
+		var id_select = "#"+$(this).attr("id");
 		var value_select = $(this).val();
-		if(id_select.endsWith("metrado1")){
-			var id_tabla = "#"+id_select.replace("metrado1","tabla");
-			var id_metrado2 = "#"+id_select.replace("metrado1","metrado2");
-			var id_metrado3 = "#"+id_select.replace("metrado1","metrado3");
-			var id_metrado4 = "#"+id_select.replace("metrado1","metrado4");
+		var id_metrado1 = "#id_metrado1";
+		var id_metrado2 = "#id_metrado2";
+		var id_metrado3 = "#id_metrado3";
+		var id_metrado4 = "#id_metrado4";
+		var tr = "#"+$("#tm > tbody tr").last().attr("id");
+		if(id_select == id_metrado1){
 			$(id_metrado2).children("option[value]").remove();
 			$(id_metrado3).children("option[value]").remove();
 			$(id_metrado4).children("option[value]").remove();
-			var url = "/metrado/?metrado1_id="+value_select;
+			var url = "/metrado/json/?metrado1_id="+value_select;
 			$.getJSON(url,function(data){
 				addOptions(id_metrado2,data["metrado2"]);
 				codigo_metrado2 = getCodigosMetrado(data["metrado2"]);
 			});
 		}
-		else if(id_select.endsWith("metrado2")){
-			var id_tabla = "#"+id_select.replace("metrado2","tabla");
-			var id_metrado1 = "#"+id_select.replace("metrado2","metrado1");
-			var id_metrado3 = "#"+id_select.replace("metrado2","metrado3");
-			var id_metrado4 = "#"+id_select.replace("metrado2","metrado4");
+		else if(id_select == id_metrado2){
 			$(id_metrado3).children("option[value]").remove();
 			$(id_metrado4).children("option[value]").remove();
-			var url = "/metrado/?metrado2_id="+value_select;
+			var url = "/metrado/json/?metrado2_id="+value_select;
 			$.getJSON(url,function(data){
 				addOptions(id_metrado3,data["metrado3"]);
 				codigo_metrado3 = getCodigosMetrado(data["metrado3"]);
@@ -106,22 +100,18 @@ $(document).ready(function(){
 					if($(id_metrado3).val()){
 						$(id_metrado3).children().each(function(index){
 							if($(this).prop("selected"))
-								$(id_tabla+" #td-partida").text(codigo_metrado3[$(this).val()]);
+								$(tr+" #td-partida").text(codigo_metrado3[$(this).val()]);
 						});
 					}
 				}
 				else{
 					if(value_select)
-						$(id_tabla+" #td-partida").text(codigo_metrado2[value_select]);
+						$(tr+" #td-partida").text(codigo_metrado2[value_select]);
 				}
 			});
 		}
-		else if(id_select.endsWith("metrado3")){
-			var url = "/metrado/?metrado3_id="+value_select;
-			var id_tabla = "#"+id_select.replace("metrado3","tabla");
-			var id_metrado1 = "#"+id_select.replace("metrado3","metrado1");
-			var id_metrado2 = "#"+id_select.replace("metrado3","metrado2");
-			var id_metrado4 = "#"+id_select.replace("metrado3","metrado4");
+		else if(id_select == id_metrado3){
+			var url = "/metrado/json/?metrado3_id="+value_select;
 			$(id_metrado4).children("option[value]").remove();
 			$.getJSON(url,function(data){
 				addOptions(id_metrado4,data["metrado4"]);
@@ -130,24 +120,31 @@ $(document).ready(function(){
 					if($(id_metrado4).val()){
 						$(id_metrado4).children().each(function(index){
 							if($(this).prop("selected"))
-								$(id_tabla+" #td-partida").text(codigo_metrado4[$(this).val()]);
+								$(tr+" #td-partida").text(codigo_metrado4[$(this).val()]);
 						});
 					}
 				}
 				else{
 					if(value_select)
-						$(id_tabla+" #td-partida").text(codigo_metrado3[value_select]);
+						$(tr+" #td-partida").text(codigo_metrado3[value_select]);
 				}
 			});
 		}
-		else if(id_select.endsWith("metrado4")){
-			var id_tabla = "#"+id_select.replace("metrado4","tabla");
+		else if(id_select == id_metrado4){
 			if($(this).children().length > 1){
 				if(value_select)
-					$(id_tabla+" #td-partida").text(codigo_metrado4[value_select]);
+					$(tr+" #td-partida").text(codigo_metrado4[value_select]);
 			}
 		}
 	});
+	$("#plus").ready(function(){
+		$("#plus").click(function(ev){
+			$("#tm > tbody tr").each(function(index){
+				var id_tr = "#"+$(this).attr("id");
+				id_tr = id_tr.replace()
+			});
+		});
+	})
 	var val_numero=0,val_parcial=0,val_unidad=0,val_punitario=0;
 	$("input").change(function(ev){
 		var id_input = $(this).attr("id");
