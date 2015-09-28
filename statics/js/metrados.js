@@ -31,15 +31,15 @@ $(document).ready(function(){
 		var button_id = $(this).attr("id");
 		if(button_id.endsWith("buscar")){
 			var input_nombre_id = "#"+button_id.replace("buscar","nombre");
-			var url = "/metrado/?metrado="+$(input_nombre_id).val();
+			var url = "/metrado/json/?rollback="+$(input_nombre_id).val();
 			$.getJSON(url,function(data){
 				var rollback = data["rollback"]
-				var id_metrado1 = "#"+button_id.replace("buscar","metrado1");
+				var id_metrado1 = input_nombre_id.replace("nombre","metrado1");
 				$(id_metrado1).children("option[value="+rollback["metrado1_id"]+"]").attr({selected: ""});
-				var id_tabla = id_metrado1.replace("metrado1","tabla");
-				var id_metrado2 = id_metrado1.replace("metrado1","metrado2");
-				var id_metrado3 = id_metrado1.replace("metrado1","metrado3");
-				var id_metrado4 = id_metrado1.replace("metrado1","metrado4");
+				var id_tabla = input_nombre_id.replace("nombre","tabla");
+				var id_metrado2 = input_nombre_id.replace("nombre","metrado2");
+				var id_metrado3 = input_nombre_id.replace("nombre","metrado3");
+				var id_metrado4 = input_nombre_id.replace("nombre","metrado4");
 				var url = "/metrado/?metrado1_id="+$(id_metrado1).val();
 				$.getJSON(url,function(data){
 					$(id_metrado2).children("option[value]").remove();
