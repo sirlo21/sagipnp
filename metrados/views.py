@@ -7,25 +7,26 @@ from levantamiento.functions import posiciones_de_ayuda
 from django.http import JsonResponse
 from ubigeo.models import Ubigeo
 from metrados.models import *
-from metrados.forms import FichaTecnicaFormSet
+from metrados.forms import FichaTecnicaForm
 
 @login_required
 def ficha_tecnica(request,id):
-	levantamiento = Levantamiento.objects.get(id=id)
-	distrito = levantamiento.ubigeo
-	provincia = Ubigeo.objects.get(id=distrito.parent_id)
-	departamento = Ubigeo.objects.get(id=provincia.parent_id)
-	context = {"obj": levantamiento,"distrito": distrito,"provincia": provincia,"departamento": departamento}
+	# levantamiento = Levantamiento.objects.get(id=id)
+	# distrito = levantamiento.ubigeo
+	# provincia = Ubigeo.objects.get(id=distrito.parent_id)
+	# departamento = Ubigeo.objects.get(id=provincia.parent_id)
+	context = {}#{"obj": levantamiento,"distrito": distrito,"provincia": provincia,"departamento": departamento}
 	if request.method == "POST":
 		post = request.POST
-		form = FichaTecnicaFormSet(post,instance=levantamiento)
+		post["form"] = levantamiento
+		form = FichaTecnicaForm(post)
 		if form.is_valid():
 			form.save()
 			return redirect("/")
 		else:
-			context["fiche_tecnica_form"] = form
+			context["form"] = form
 	else:
-		context["fiche_tecnica_form"] = FichaTecnicaFormSet()
+		context["form"] = FichaTecnicaForm()
 		context["metrados"] = []
 		for metrado2 in Metrado2.objects.all():
 			context["metrados"].append({"id": metrado2.id,"codigo": metrado2.codigo,"descripcion": metrado2.descripcion})
@@ -65,23 +66,11 @@ def json(request):
 		for metrado4 in Metrado4.objects.all():
 			context["metrado4"].append({"id": metrado4.id,"codigo": metrado4.codigo,"descripcion": metrado4.descripcion})
 
-	if request.GET.get("metrado",False):
-		metrado = request.GET["metrado"].upper()
-		metrado2 = Metrado2.objects.filter
-		if metrado2(descripcion=metrado):
-			metrado2 = metrado2(descripcion=metrado)
-		else:
-			metrado2 = metrado2(descripcion=metrado+" ")
-		metrado3 = Metrado3.objects.filter
-		if metrado3(descripcion=metrado):
-			metrado3 = metrado3(descripcion=metrado)
-		else:
-			metrado3 = metrado3(descripcion=metrado+" ")
-		metrado4 = Metrado4.objects.filter
-		if metrado4(descripcion=metrado):
-			metrado4 = metrado4(descripcion=metrado)
-		else:
-			metrado4 = metrado4(descripcion=metrado+" ")
+	if request.GET.get("rollback",False):
+		rollback = request.GET["rollback"].upper()
+		metrado2 = Metrado2.objects.filter(descripcion=rollback)
+		metrado3 = Metrado3.objects.filter(descripcion=rollback)
+		metrado4 = Metrado4.objects.filter(descripcion=rollback)
 		context["rollback"] = {}
 		if metrado2:
 			for m2 in metrado2:
