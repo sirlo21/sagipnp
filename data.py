@@ -123,6 +123,7 @@ mts1 = [[u"OE.1",u"OBRAS PROVISIONALES, TRABAJOS PRELIMINARES, SEGURIDAD Y SALUD
 ]
 
 for codigo1,descripcion1 in mts1:
+	descripcion1 = descripcion1.upper().rstrip(" ")
 	Metrado1.objects.create(codigo=codigo1,descripcion=descripcion1)
 
 mts2 = [[u"OE.1.1",u"OBRAS PROVISIONALES Y TRABAJOS PRELIMINARES",1],[u"OE.1.2",u"SEGURIDAD Y SALUD ",1],
@@ -145,6 +146,7 @@ mts2 = [[u"OE.1.1",u"OBRAS PROVISIONALES Y TRABAJOS PRELIMINARES",1],[u"OE.1.2",
 ]
 
 for codigo2,descripcion2,m1_id in mts2:
+	descripcion2 = descripcion2.upper().rstrip(" ")
 	m1 = Metrado1.objects.get(id=m1_id)
 	m1.metrado_2.create(codigo=codigo2,descripcion=descripcion2)
 
@@ -396,6 +398,7 @@ mts3 = [[u"OE.1.1.1",u"CONSTRUCCIONES PROVISIONALES",1],
 ]
 
 for codigo3,descripcion3,m2_id in mts3:
+	descripcion3 = descripcion3.upper().rstrip(" ")
 	m2 = Metrado2.objects.get(id=m2_id)
 	m2.metrado_3.create(codigo=codigo3,descripcion=descripcion3)
 
@@ -576,5 +579,6 @@ mts4 = [[u"OE.1.1.1.1",u"OFICINAS ",1],
 	[u"OE.4.6.5.2",u"PARA BUZONES. ",208]
 ]
 for codigo4,descripcion4,m3_id in mts4:
+	descripcion4 = descripcion4.upper().rstrip(" ")
 	m3 = Metrado3.objects.get(id=m3_id)
 	m3.metrado_4.create(codigo=codigo4,descripcion=descripcion4)
