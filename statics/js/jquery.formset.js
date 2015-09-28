@@ -16,7 +16,7 @@
 			flatExtraClasses = options.extraClasses.join(' '),
 			totalForms = $('#id_' + options.prefix + '-TOTAL_FORMS'),
 			maxForms = $('#id_' + options.prefix + '-MAX_NUM_FORMS'),
-			childElementSelector = 'input,select,textarea,label,div,table',
+			childElementSelector = 'input,select,textarea,label,div',
 			$$ = $(this),
 
 			applyExtraClasses = function(row, ndx) {
