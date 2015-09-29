@@ -154,7 +154,6 @@ $(document).ready(function(){
 			var new_tr_id = tr_id.replace(/\d+/g,parseInt(tr_id.match(/\d+/g))+1);
 		else
 			var new_tr_id = "id_ficha_tecnica-0-tr";
-		new_tr_id_remove = new_tr_id.replace("tr","remove");
 		var new_tr = '<tr id="'+new_tr_id+'">\n';
 		new_tr += '<td class="td-partida"></td>\n';
 		new_tr += '<td class="td-numero-veces"></td>\n';
@@ -166,7 +165,7 @@ $(document).ready(function(){
 		new_tr += '<td class="td-unidad"></td>\n';
 		new_tr += '<td class="td-precio-unitario"></td>\n';
 		new_tr += '<td class="td-precio-total"></td>\n';
-		new_tr += '<td>\n<button type="button" id="'+new_tr_id_remove+'" onclick="removeTr(\''+new_tr_id+'\');" class="remove btn btn-danger">Borrar</button>\n</td>\n';
+		new_tr += '<td>\n<button type="button" onclick="removeTr(\''+new_tr_id+'\');" class="btn btn-danger">Borrar</button>\n</td>\n';
 		new_tr += '</tr>';
 		$("#tm > tbody").append($(new_tr));
 	});
@@ -199,5 +198,23 @@ $(document).ready(function(){
 		var precio_total = $val_unidad*$val_punitario;
 		tr.children(".td-precio-total").text(precio_total);
 		metrados[tr_id] = $("#ficha-tecnica-form").serialize();
+	});
+	$("#ficha-tecnica-form").submit(function(ev){
+		var form_action = $(this).attr("action");
+		if(confirm("¿Estas seguro de que quiere guardar por que es gay?")){
+			$.each(metrados,function(key,value){
+				if(value != undefined){
+					$.ajax({
+						url: form_action,
+						data: value,
+						type: "POST",
+						success: function(data){
+						}
+					});
+				}
+			});
+		}
+		window.history.go("/");
+		ev.preventDefault();
 	});
 });
