@@ -136,54 +136,37 @@ $(document).ready(function(){
 					$(tr+" #td-partida").text(codigo_metrado4[value_select]);
 			}
 		}
+		$("input").trigger("change");
 	});
-	$("#plus").ready(function(){
-		$("#plus").click(function(ev){
-			$("#tm > tbody tr").each(function(index){
-				var id_tr = "#"+$(this).attr("id");
-				id_tr = id_tr.replace()
-			});
-		});
-	})
-	var val_numero=0,val_parcial=0,val_unidad=0,val_punitario=0;
+	$("#plus").click(function(ev){
+		$("#tm > tbody tr").last();
+	});
 	$("input").change(function(ev){
-		var id_input = $(this).attr("id");
-		var val_input = $(this).val();
-		if(id_input.endsWith("numero")){
-			var id_tabla = "#"+id_input.replace("numero","tabla");
-			val_numero = val_input;
-			$(id_tabla+" #td-numero-veces").text(val_input);
-		}
-		else if(id_input.endsWith("largo")){
-			var id_tabla = "#"+id_input.replace("largo","tabla");
-			$(id_tabla+" #td-dimensiones-largo").text(val_input);
-		}
-		else if(id_input.endsWith("ancho")){
-			var id_tabla = "#"+id_input.replace("ancho","tabla");
-			$(id_tabla+" #td-dimensiones-ancho").text(val_input);
-		}
-		else if(id_input.endsWith("alto")){
-			var id_tabla = "#"+id_input.replace("alto","tabla");
-			$(id_tabla+" #td-dimensiones-altura").text(val_input);
-		}
-		else if(id_input.endsWith("parcial")){
-			var id_tabla = "#"+id_input.replace("parcial","tabla");
-			val_parcial = val_input;
-			$(id_tabla+" #td-parcial").text(val_input);
-		}
-		else if(id_input.endsWith("unidad")){
-			var id_tabla = "#"+id_input.replace("unidad","tabla");
-			val_unidad = val_input;
-			$(id_tabla+" #td-unidad").text(val_input);
-		}
-		else if(id_input.endsWith("punitario")){
-			var id_tabla = "#"+id_input.replace("punitario","tabla");
-			val_punitario = val_input;
-			$(id_tabla+" #td-precio-unitario").text(val_input);
-		}
-		var total = val_numero*val_parcial;
-		$(id_tabla+" #td-total").text(total);
-		var precio_total = val_unidad*val_punitario;
-		$(id_tabla+" #td-precio-total").text(precio_total);
+		var tr = $("#tm > tbody > tr").last().children;
+		var $numero = $("#id_numero");
+		var $val_numero = $numero.val();
+		$("#tm > tbody > tr #td-numero-veces").text($val_numero);
+		var $largo = $("#id_largo");
+		var $val_largo = $largo.val();
+		$("#tm > tbody > tr #td-dimensiones-largo").text($val_largo);
+		var $ancho = $("#id_ancho");
+		var $val_ancho = $ancho.val();
+		$("#tm > tbody > tr #td-dimensiones-ancho").text($val_ancho);
+		var $alto = $("#id_alto");
+		var $val_alto = $alto.val();
+		$("#tm > tbody > tr #td-dimensiones-altura").text($val_alto);
+		var $parcial = $("#id_parcial");
+		var $val_parcial = $parcial.val();
+		$("#tm > tbody > tr #td-parcial").text($val_parcial);
+		var $unidad = $("#id_unidad");
+		var $val_unidad = $unidad.val();
+		$("#tm > tbody > tr #td-unidad").text($val_unidad);
+		var $punitario = $("#id_punitario");
+		var $val_punitario = $punitario.val();
+		$("#tm > tbody > tr #td-precio-unitario").text($val_punitario);
+		var total = $val_numero*$val_parcial;
+		$("#tm > tbody > tr #td-total").text(total);
+		var precio_total = $val_unidad*$val_punitario;
+		$("#tm > tbody > tr #td-precio-total").text(precio_total);
 	});
 });
