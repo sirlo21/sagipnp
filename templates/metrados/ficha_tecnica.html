@@ -235,7 +235,7 @@
 							</div>
 							<div class="col-lg-3">
 								<br/>
-								<input type="submit" id="submit" class="btn btn-success" value="AGREGAR"/>
+								<button type="button" id="add" class="btn btn-success">AGREGAR</button>
 							</div>
 						</div>
 						<div class="panel-body">
@@ -262,23 +262,25 @@
 									</thead>
 									<tbody>
 										<tr id="id_ficha_tecnica-0-tr">
-											<td id="td-partida"></td>
-											<td id="td-numero-veces"></td>
-											<td id="td-dimensiones-largo"></td>
-											<td id="td-dimensiones-ancho"></td>
-											<td id="td-dimensiones-altura"></td>
-											<td id="td-parcial"></td>
-											<td id="td-total"></td>
-											<td id="td-unidad"></td>
-											<td id="td-precio-unitario"></td>
-											<td id="td-precio-total"></td>
-											<td><button type="button" class="btn btn-danger">Borrar</button> </td>
+											<td class="td-partida"></td>
+											<td class="td-numero-veces"></td>
+											<td class="td-dimensiones-largo"></td>
+											<td class="td-dimensiones-ancho"></td>
+											<td class="td-dimensiones-altura"></td>
+											<td class="td-parcial"></td>
+											<td class="td-total"></td>
+											<td class="td-unidad"></td>
+											<td class="td-precio-unitario"></td>
+											<td class="td-precio-total"></td>
+											<td>
+												<button type="button" onclick="removeTr('id_ficha_tecnica-0-tr');" id="id_ficha_tecnica-0-remove" class="remove btn btn-danger">Borrar</button>
+											</td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
 						</div>
-						<button class="btn btn-success">Listo!</button>
+						<input type="submit" id="submit" class="btn btn-success" value="Listo!"/>
 					</div>
 				</div>
 			</div>
