@@ -240,16 +240,15 @@ $(document).ready(function(){
 							success: function(data){
 								if(data["valid"]){
 									if(arr.length-1 != i){
-										//window.history.go("/");
+										window.history.go("/");
 									}
 								}
 							}
 						});
-						if(arr.length-1 != i)
-							ev.preventDefault();
 					}
 				}
 			});
 		}
+		ev.preventDefault();
 	});
 });
