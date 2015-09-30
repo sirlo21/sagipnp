@@ -8,7 +8,9 @@ class FichaTecnicaForm(forms.ModelForm):
 	class Meta:
 		model = FichaTecnica
 		fields = "__all__"
-		widgets = {"nombre": forms.TextInput(attrs={"class": "form-control"}),
+		widgets = {
+			"form": forms.HiddenInput(),
+			"nombre": forms.TextInput(attrs={"class": "form-control"}),
 			"metrado1": forms.Select(attrs={"class": "form-control"}),
 			"metrado2": forms.Select(attrs={"class": "form-control"}),
 			"metrado3": forms.Select(attrs={"class": "form-control"}),
