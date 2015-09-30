@@ -11,22 +11,24 @@ from metrados.forms import FichaTecnicaForm
 
 @login_required
 def ficha_tecnica(request,id):
-	# levantamiento = Levantamiento.objects.get(id=id)
-	# distrito = levantamiento.ubigeo
-	# provincia = Ubigeo.objects.get(id=distrito.parent_id)
-	# departamento = Ubigeo.objects.get(id=provincia.parent_id)
-	context = {}#{"obj": levantamiento,"distrito": distrito,"provincia": provincia,"departamento": departamento}
+	levantamiento = Levantamiento.objects.get(id=id)
+	distrito = levantamiento.ubigeo
+	provincia = Ubigeo.objects.get(id=distrito.parent_id)
+	departamento = Ubigeo.objects.get(id=provincia.parent_id)
+	context = {"obj": levantamiento,"distrito": distrito,"provincia": provincia,"departamento": departamento}
 	if request.method == "POST":
 		post = request.POST
-		post["form"] = levantamiento
 		form = FichaTecnicaForm(post)
-		if form.is_valid():
-			form.save()
-			return redirect("/")
+		if post["valid"] == "true":
+			return JsonResponse({"valid": form.is_valid(),"erros": form.errors})
 		else:
-			context["form"] = form
+			if form.is_valid():
+				form.save()
+				return redirect("/")
+			else:
+				context["form"] = form
 	else:
-		context["form"] = FichaTecnicaForm()
+		context["form"] = FichaTecnicaForm(initial={"form": id})
 		context["metrados"] = []
 		for metrado2 in Metrado2.objects.all():
 			context["metrados"].append({"id": metrado2.id,"codigo": metrado2.codigo,"descripcion": metrado2.descripcion})
