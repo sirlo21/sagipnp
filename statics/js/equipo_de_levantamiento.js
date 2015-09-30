@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	$("#id_tipo_instalacion").change(function(ev){
 		var id = this.value;
-		var url = "equipo-de-levantamiento/json/?tipo_instalacion="+id;
+		var url = "/equipo-de-levantamiento/json/?tipo_instalacion="+id;
 		$.getJSON(url,function(data){
 			$("#id_tipo_comisaria").children().remove();
 			$("#id_clase_comisaria").children().remove();
