@@ -228,15 +228,27 @@ $(document).ready(function(){
 		if(confirm("¿Estas seguro de que quiere guardar por que es gay?")){
 			$.each(metrados,function(key,value){
 				if(value != undefined){
-					$.ajax({
-						url: $(this).attr("action"),
-						data: value+"&value=false",
-						type: "POST",
+					var arr = [];
+					$.each(metrados,function(key,value){
+						arr.push(value);
 					});
+					for(i in arr){
+						$.ajax({
+							url: $(this).attr("action"),
+							data: arr[i]+"&valid=false",
+							type: "POST",
+							success: function(data){
+								if(data["valid"]){
+									if(arr.length-1 != i){
+										//window.history.go("/");
+										ev.preventDefault();
+									}
+								}
+							}
+						});
+					}
 				}
 			});
 		}
-		window.history.go("/");
-		ev.preventDefault();
 	});
 });
