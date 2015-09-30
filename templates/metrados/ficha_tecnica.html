@@ -115,6 +115,9 @@
 									<option></option>
 								</select>
 							</div>
+							<div class="row">
+								<div class="col-md-12 erros_metrado"></div>
+							</div>
 						</div>
 						<br/>
 						<div class="row">
@@ -132,7 +135,6 @@
 									</div>
 								</label>
 								{{ form.numero }}
-								{% if form.numero.errors %}<p class="help-block">{{ form.errors.numero|striptags }}</p>{% endif %}
 							</div>
 							<div class="col-lg-3">
 								<label class="control-label" for="id_largo">
@@ -148,7 +150,6 @@
 									</div>
 								</label>
 								{{ form.largo }}
-								{% if form.largo.errors %}<p class="help-block">{{ form.errors.largo|striptags }}</p>{% endif %}
 							</div>
 							<div class="col-lg-3">
 								<label class="control-label" for="id_ancho">
@@ -164,7 +165,6 @@
 									</div>
 								</label>
 								{{ form.ancho }}
-								{% if form.ancho.errors %}<p class="help-block">{{ form.errors.ancho|striptags }}</p>{% endif %}
 							</div>
 							<div class="col-lg-3">
 								<label class="control-label" for="id_alto">
@@ -180,7 +180,6 @@
 									</div>
 								</label>
 								{{ form.alto }}
-								{% if form.alto.errors %}<p class="help-block">{{ form.errors.alto|striptags }}</p>{% endif %}
 							</div>      
 						</div>
 						<br/>
@@ -199,7 +198,6 @@
 									</div>
 								</label>
 								{{ form.parcial }}
-								{% if form.parcial.errors %}<p class="help-block">{{ form.errors.parcial|striptags }}</p>{% endif %}
 							</div>
 							<div class="col-lg-3">
 								<label class="control-label" for="id_unidad">
@@ -215,7 +213,6 @@
 									</div>
 								</label>
 								{{ form.unidad }}
-								{% if form.unidad.errors %}<p class="help-block">{{ form.errors.unidad|striptags }}</p>{% endif %}
 							</div>
 							<div class="col-lg-3">
 								<label class="control-label" for="id_punitario">
@@ -231,11 +228,10 @@
 									</div>
 								</label>
 								{{ form.punitario }}
-								{% if form.punitario.errors %}<p class="help-block">{{ form.errors.punitario|striptags }}</p>{% endif %}
 							</div>
 							<div class="col-lg-3">
 								<br/>
-								<button type="button" id="add" class="btn btn-success">AGREGAR</button>
+								<button type="reset" id="add" class="btn btn-success">AGREGAR</button>
 							</div>
 						</div>
 						<div class="panel-body">
@@ -280,6 +276,7 @@
 								</table>
 							</div>
 						</div>
+						{{ form.form }}
 						<input type="submit" id="submit" class="btn btn-success" value="Listo!"/>
 					</div>
 				</div>
