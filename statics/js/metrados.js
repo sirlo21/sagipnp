@@ -225,7 +225,7 @@ $(document).ready(function(){
 		metrados[tr_id] = $("#ficha-tecnica-form").serialize();
 	});
 	$("#ficha-tecnica-form").submit(function(ev){
-		if(confirm("¿Estas seguro de que quiere guardar por que es gay?")){
+		if(confirm("¿Estas seguro de que quiere guardar?")){
 			var arr = [];
 			$.each(metrados,function(key,value){
 				if(value != undefined)
@@ -239,7 +239,7 @@ $(document).ready(function(){
 					success: function(data){
 						if(data["valid"]){
 							if(arr.length-1 == i){
-								alert("Hola");
+								console.log(i);
 								window.history.go("/");
 							}
 						}
