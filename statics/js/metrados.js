@@ -239,6 +239,7 @@ $(document).ready(function(){
 						success: function(data){
 							if(data["valid"]){
 								if(arr.length-1 != i){
+									alert("Hola");
 									window.history.go("/");
 								}
 							}
