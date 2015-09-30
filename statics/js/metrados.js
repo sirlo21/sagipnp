@@ -241,11 +241,12 @@ $(document).ready(function(){
 								if(data["valid"]){
 									if(arr.length-1 != i){
 										//window.history.go("/");
-										ev.preventDefault();
 									}
 								}
 							}
 						});
+						if(arr.length-1 != i)
+							ev.preventDefault();
 					}
 				}
 			});
