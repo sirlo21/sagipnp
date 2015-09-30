@@ -150,24 +150,49 @@ $(document).ready(function(){
 	});
 	$("#add").click(function(ev){
 		var tr_id = $("#tm > tbody > tr").last().attr("id");
-		if($("#tm > tbody > tr").length > 0)
-			var new_tr_id = tr_id.replace(/\d+/g,parseInt(tr_id.match(/\d+/g))+1);
+		if(tr_id in metrados){
+			$.ajax({
+				url: $("#ficha-tecnica-form").attr("action"),
+				data: metrados[tr_id]+"&valid=true",
+				type: "POST",
+				success: function(data){
+					if(data["valid"]){
+						$(".erros_metrado .error").remove();
+						if($("#tm > tbody > tr").length > 0)
+							var new_tr_id = tr_id.replace(/\d+/g,parseInt(tr_id.match(/\d+/g))+1);
+						else
+							var new_tr_id = "id_ficha_tecnica-0-tr";
+						var new_tr = '<tr id="'+new_tr_id+'">\n';
+						new_tr += '<td class="td-partida"></td>\n';
+						new_tr += '<td class="td-numero-veces"></td>\n';
+						new_tr += '<td class="td-dimensiones-largo"></td>\n';
+						new_tr += '<td class="td-dimensiones-ancho"></td>\n';
+						new_tr += '<td class="td-dimensiones-altura"></td>\n';
+						new_tr += '<td class="td-parcial"></td>\n';
+						new_tr += '<td class="td-total"></td>\n';
+						new_tr += '<td class="td-unidad"></td>\n';
+						new_tr += '<td class="td-precio-unitario"></td>\n';
+						new_tr += '<td class="td-precio-total"></td>\n';
+						new_tr += '<td>\n<button type="button" onclick="removeTr(\''+new_tr_id+'\');" class="btn btn-danger">Borrar</button>\n</td>\n';
+						new_tr += '</tr>';
+						$("#tm > tbody").append($(new_tr));
+					}
+					else{
+						$(".erros_metrado .error").remove();
+						$.each(data,function(key,value){
+							if(typeof(value) == "object"){
+								$.each(value,function(key,value){
+									var error = "<p class='help-block'>"+value+"</p>";
+									$(".erros_metrado").append("\n<div class='col-lg-3 error'>\n"+error+"\n</div>");
+								});
+							}
+						});
+					}
+				}
+			});
+		}
 		else
-			var new_tr_id = "id_ficha_tecnica-0-tr";
-		var new_tr = '<tr id="'+new_tr_id+'">\n';
-		new_tr += '<td class="td-partida"></td>\n';
-		new_tr += '<td class="td-numero-veces"></td>\n';
-		new_tr += '<td class="td-dimensiones-largo"></td>\n';
-		new_tr += '<td class="td-dimensiones-ancho"></td>\n';
-		new_tr += '<td class="td-dimensiones-altura"></td>\n';
-		new_tr += '<td class="td-parcial"></td>\n';
-		new_tr += '<td class="td-total"></td>\n';
-		new_tr += '<td class="td-unidad"></td>\n';
-		new_tr += '<td class="td-precio-unitario"></td>\n';
-		new_tr += '<td class="td-precio-total"></td>\n';
-		new_tr += '<td>\n<button type="button" onclick="removeTr(\''+new_tr_id+'\');" class="btn btn-danger">Borrar</button>\n</td>\n';
-		new_tr += '</tr>';
-		$("#tm > tbody").append($(new_tr));
+			alert("Llene el formulario primero");
 	});
 	$("input").change(function(ev){
 		var tr = $("#tm > tbody > tr").last();
@@ -200,16 +225,13 @@ $(document).ready(function(){
 		metrados[tr_id] = $("#ficha-tecnica-form").serialize();
 	});
 	$("#ficha-tecnica-form").submit(function(ev){
-		var form_action = $(this).attr("action");
 		if(confirm("¿Estas seguro de que quiere guardar por que es gay?")){
 			$.each(metrados,function(key,value){
 				if(value != undefined){
 					$.ajax({
-						url: form_action,
-						data: value,
+						url: $(this).attr("action"),
+						data: value+"&value=false",
 						type: "POST",
-						success: function(data){
-						}
 					});
 				}
 			});
