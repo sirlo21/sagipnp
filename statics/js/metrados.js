@@ -247,8 +247,10 @@ $(document).ready(function(){
 									data: arr[i],
 									type: "POST",
 									done: function(){
-										if(arr.length-1 == i)
+										if(arr.length-1 == i){
+											alert("Hola");
 											window.location = window.location.hostname;
+										}
 									}
 								});
 							}
