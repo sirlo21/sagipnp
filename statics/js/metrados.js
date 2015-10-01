@@ -152,7 +152,7 @@ $(document).ready(function(){
 		var tr_id = $("#tm > tbody > tr").last().attr("id");
 		if(tr_id in metrados){
 			$.ajax({
-				url: location.pathname,
+				url: $("#ficha-tecnica-form").attr("action"),
 				data: metrados[tr_id]+"&valid=true",
 				type: "POST",
 				success: function(data){
@@ -225,11 +225,12 @@ $(document).ready(function(){
 		metrados[tr_id] = $("#ficha-tecnica-form").serialize();
 	});
 	$("#ficha-tecnica-form").submit(function(event){
+		event.preventDefault();
 		if(confirm("¿Estas seguro de que quiere guardar?")){
 			var tr_id = $("#tm > tbody > tr").last().attr("id");
 			if(tr_id in metrados){
 				$.ajax({
-					url: location.pathname,
+					url: $(this).attr("action"),
 					data: metrados[tr_id]+"&valid=true",
 					type: "POST",
 					success: function(data){
@@ -242,12 +243,14 @@ $(document).ready(function(){
 							});
 							for(var i=0;i<arr.length;i++){
 								$.ajax({
-									url: location.pathname,
+									url: $("#ficha-tecnica-form").attr("action"),
 									data: arr[i],
 									type: "POST",
 									done: function(){
-										if(arr.length-1 == i)
-											event.preventDefault();
+										if(arr.length-1 == i){
+											$("#ficha-tecnica-form").attr({action: "/"});
+											$("#ficha-tecnica-form").submit();
+										}
 									}
 								});
 							}
@@ -262,17 +265,12 @@ $(document).ready(function(){
 									});
 								}
 							});
-							event.preventDefault();
 						}
 					}
 				});
 			}
-			else{
-				event.preventDefault();
+			else
 				alert("Llene el formulario primero");
-			}
 		}
-		else
-			event.preventDefault();
 	});
 });
