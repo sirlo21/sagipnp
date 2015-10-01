@@ -248,7 +248,7 @@ $(document).ready(function(){
 									type: "POST",
 									done: function(){
 										if(arr.length-1 == i)
-											location.href = "/";
+											console.log(location.href = "/");
 									}
 								});
 							}
