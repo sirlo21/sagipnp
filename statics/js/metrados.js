@@ -79,7 +79,7 @@ $(document).ready(function(){
 		});
 		$(input_nombre_id).val("");
 	});
-	$("select").change(function(ev){
+	$("select").change(function(event){
 		var id_select = "#"+$(this).attr("id");
 		var value_select = $(this).val();
 		var id_metrado1 = "#id_metrado1";
@@ -148,11 +148,11 @@ $(document).ready(function(){
 		metrados[tr_id] = $("#ficha-tecnica-form").serialize();
 		$("input").trigger("change");
 	});
-	$("#add").click(function(ev){
+	$("#add").click(function(event){
 		var tr_id = $("#tm > tbody > tr").last().attr("id");
 		if(tr_id in metrados){
 			$.ajax({
-				url: $("#ficha-tecnica-form").attr("action"),
+				url: location.pathname,
 				data: metrados[tr_id]+"&valid=true",
 				type: "POST",
 				success: function(data){
@@ -194,7 +194,7 @@ $(document).ready(function(){
 		else
 			alert("Llene el formulario primero");
 	});
-	$("input").change(function(ev){
+	$("input").change(function(event){
 		var tr = $("#tm > tbody > tr").last();
 		var tr_id = tr.attr("id");
 		var $numero = $("#id_numero");
@@ -224,29 +224,55 @@ $(document).ready(function(){
 		tr.children(".td-precio-total").text(precio_total);
 		metrados[tr_id] = $("#ficha-tecnica-form").serialize();
 	});
-	$("#ficha-tecnica-form").submit(function(ev){
+	$("#ficha-tecnica-form").submit(function(event){
 		if(confirm("¿Estas seguro de que quiere guardar?")){
-			var arr = [];
-			$.each(metrados,function(key,value){
-				if(value != undefined)
-					arr.push(value);
-			});
-			for(i in arr){
+			var tr_id = $("#tm > tbody > tr").last().attr("id");
+			if(tr_id in metrados){
 				$.ajax({
-					url: $(this).attr("action"),
-					data: arr[i]+"&valid=false",
+					url: location.pathname,
+					data: metrados[tr_id]+"&valid=true",
 					type: "POST",
 					success: function(data){
 						if(data["valid"]){
-							if(arr.length-1 == i){
-								console.log(i);
-								window.history.go("/");
+							$(".erros_metrado .error").remove();
+							var arr = [];
+							$.each(metrados,function(key,value){
+								if(value != undefined)
+									arr.push(value);
+							});
+							for(var i=0;i<arr.length;i++){
+								$.ajax({
+									url: location.pathname,
+									data: arr[i],
+									type: "POST",
+									done: function(){
+										if(arr.length-1 == i)
+											event.preventDefault();
+									}
+								});
 							}
+						}
+						else{
+							$(".erros_metrado .error").remove();
+							$.each(data,function(key,value){
+								if(typeof(value) == "object"){
+									$.each(value,function(key,value){
+										var error = "<p class='help-block'>"+value+"</p>";
+										$(".erros_metrado").append("\n<div class='col-lg-3 error'>\n"+error+"\n</div>");
+									});
+								}
+							});
+							event.preventDefault();
 						}
 					}
 				});
 			}
-			ev.preventDefault();
+			else{
+				event.preventDefault();
+				alert("Llene el formulario primero");
+			}
 		}
+		else
+			event.preventDefault();
 	});
 });
