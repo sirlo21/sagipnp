@@ -246,11 +246,9 @@ $(document).ready(function(){
 									url: $("#ficha-tecnica-form").attr("action"),
 									data: arr[i],
 									type: "POST",
-									done: function(){
-										if(arr.length-1 == i){
-											alert("Hola");
-											window.location = window.location.hostname;
-										}
+									complete: function(){
+										if(arr.length-1 == i)
+											window.location = "/";
 									}
 								});
 							}
