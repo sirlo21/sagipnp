@@ -247,10 +247,8 @@ $(document).ready(function(){
 									data: arr[i],
 									type: "POST",
 									done: function(){
-										if(arr.length-1 == i){
-											$("#ficha-tecnica-form").attr({action: "/"});
-											$("#ficha-tecnica-form").submit();
-										}
+										if(arr.length-1 == i)
+											location.href = "/";
 									}
 								});
 							}
