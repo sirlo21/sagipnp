@@ -247,7 +247,7 @@ $(document).ready(function(){
 									data: arr[i],
 									type: "POST",
 									complete: function(){
-										if(arr.length-1 == i)
+										if(arr.length == i)
 											window.location = "/";
 									}
 								});
