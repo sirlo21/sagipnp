@@ -1,0 +1,18 @@
+<table id="tm" class="table table-bordered">
+	<thead>
+		<tr>
+			{% for th in  ths %}
+				<th>{{ th }}</th>
+			{% endfor %}
+		</tr>
+	</thead>
+	<tbody>
+		{% for arr in tds %}
+			<tr>
+				{% for td in arr %}
+					{{ td|safe }}
+				{% endfor %}
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
