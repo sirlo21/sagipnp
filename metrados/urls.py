@@ -3,5 +3,6 @@ from metrados import views
 
 urlpatterns = patterns('',
 	url(r"^ficha-tecnica/(?P<id>\d+)/$",views.ficha_tecnica,name="ficha_tecnica"),
+	url(r"^reportes/$",views.reportes,name="reportes"),
 	url(r"^metrado/json/$",views.json,name="metrado_json"),
 )
