@@ -7,7 +7,8 @@ from levantamiento.functions import posiciones_de_ayuda
 from django.http import JsonResponse
 from ubigeo.models import Ubigeo
 from metrados.models import *
-from metrados.forms import FichaTecnicaForm
+from metrados.forms import FichaTecnicaForm,UbigeoForm
+from metrados.functions import get_json_metrado
 
 @login_required
 def ficha_tecnica(request,id):
@@ -38,25 +39,42 @@ def ficha_tecnica(request,id):
 		
 	return render(request,"metrados/ficha_tecnica.html",context)
 
+def reportes(request):
+	context = {"form": UbigeoForm(),}
+	if request.GET.get("ubigeo_0",False) > 0:
+		pass
+	else:
+		context["ths"] = [u"Tipo de instalacion",
+			u"Nombre de la instalacion",
+			u"Monto asignado general para reparaciones",
+			u"Monto proyectado de levantamientos de información",
+			u"Saldo Disponible",
+			u"se vizualiza en una Tabla y en un Grafico"
+		]
+		context["tds"] = []
+		monto_general_total = 0
+		for l in Levantamiento.objects.all().order_by("nombre_instalacion"):
+			monto_general_de_reparaciones = 0
+			context["tds"].append(td)
+
+	return render(request,"metrados/reportes.html",context)
+
 def json(request):
 	context = {}
 	if request.GET.get("metrado1_id",False):
 		metrado1_id = request.GET["metrado1_id"]
-		context["metrado2"] = []
-		for metrado2 in Metrado1.objects.get(id=metrado1_id).metrado_2.all():
-			context["metrado2"].append({"id": metrado2.id,"codigo": metrado2.codigo,"descripcion": metrado2.descripcion})
+		m1 = Metrado1.objects.get(id=metrado1_id)
+		print get_json_metrado(m1.metrado_2)
+		context["metrado2"] = get_json_metrado(m1.metrado_2)
 	elif request.GET.get("metrado2_id",False):
 		metrado2_id = request.GET["metrado2_id"]
-		context["metrado3"] = []
-		for metrado3 in Metrado2.objects.get(id=metrado2_id).metrado_3.all():
-			context["metrado3"].append({"id": metrado3.id,"codigo": metrado3.codigo,"descripcion": metrado3.descripcion})
+		m2 = Metrado2.objects.get(id=metrado2_id)
+		context["metrado3"] = get_json_metrado(m2.metrado_3)
 	elif request.GET.get("metrado3_id",False):
 		metrado3_id = request.GET["metrado3_id"]
-		context["metrado4"] = []
-		for metrado4 in Metrado3.objects.get(id=metrado3_id).metrado_4.all():
-			context["metrado4"].append({"id": metrado4.id,"codigo": metrado4.codigo,"descripcion": metrado4.descripcion})
-
-	if request.GET.get("metrados",False):
+		m3 = Metrado3.objects.get(id=metrado3_id)
+		context["metrado4"] = get_json_metrado(m3.metrado_4)
+	elif request.GET.get("metrados",False):
 		context["metrado2"] = []
 		for metrado2 in Metrado2.objects.all():
 			context["metrado2"].append({"id": metrado2.id,"codigo": metrado2.codigo,"descripcion": metrado2.descripcion})
@@ -66,8 +84,7 @@ def json(request):
 		context["metrado4"] = []
 		for metrado4 in Metrado4.objects.all():
 			context["metrado4"].append({"id": metrado4.id,"codigo": metrado4.codigo,"descripcion": metrado4.descripcion})
-
-	if request.GET.get("rollback",False):
+	elif request.GET.get("rollback",False):
 		rollback = request.GET["rollback"].upper()
 		metrado2 = Metrado2.objects.filter(descripcion=rollback)
 		metrado3 = Metrado3.objects.filter(descripcion=rollback)
