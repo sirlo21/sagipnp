@@ -91,9 +91,9 @@ def acciones_de_prevencion(request,id):
 				tch_save = True
 			else:
 				tch_save = False
-				context["techo_form"] = tch
+			context["techo_form"] = tch
 		else:
-			tch_save = True
+			tch_save = None
 
 		inst_sant = post.get("inst_sant",False)
 		if inst_sant:
@@ -107,9 +107,9 @@ def acciones_de_prevencion(request,id):
 				inst_save = True
 			else:
 				inst_save = False
-				context["inst_sant_form"] = inst
+			context["inst_sant_form"] = inst
 		else:
-			inst_save = True
+			inst_save = None
 	
 		inst_elect = post.get("inst_elect",False)
 		if inst_elect:
@@ -123,9 +123,9 @@ def acciones_de_prevencion(request,id):
 				inel_save = True
 			else:
 				inel_save = False
-				context["inst_elect_form"] = inel
+			context["inst_elect_form"] = inel
 		else:
-			inel_save = True
+			inel_save = None
 
 		muros_paredes = post.get("muros_paredes",False)
 		if muros_paredes:
@@ -139,9 +139,9 @@ def acciones_de_prevencion(request,id):
 				mp_save = True
 			else:
 				mp_save = False
-				context["muros_paredes_form"] = mp
+			context["muros_paredes_form"] = mp
 		else:
-			mp_save = True
+			mp_save = None
 
 		veredas_exteriores = post.get("veredas_exteriores",False)
 		if veredas_exteriores:
@@ -155,11 +155,11 @@ def acciones_de_prevencion(request,id):
 				ve_save = True
 			else:
 				ve_save = False
-				context["veredas_exteriores_form"] = ve
+			context["veredas_exteriores_form"] = ve
 		else:
-			ve_save = True
+			ve_save = None
 
-		if tch_save and inst_save and inel_save and mp_save and ve_save:
+		if (tch_save or tch_save is None) and (inst_save or inst_save is None) and (inel_save or inel_save is None) and (mp_save or mp_save is None) and (ve_save or ve_save is None):
 			return redirect(reverse("ficha_tecnica",kwargs={"id": id}))
 		context["form_id"] = id
 		return render(request,"levantamiento/acciones_de_prevencion.html",context)
