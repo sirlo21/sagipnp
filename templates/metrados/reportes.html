@@ -1,0 +1,25 @@
+{% extends "bases/base.html" %}
+
+{% block content %}
+	<form class="form-horizontal" role="form" action method="get">
+		<div class="row">
+			<div class="col-md-12">
+				{{ form.ubigeo }}
+
+				<label for="id_tipo_instalacion" class="control-label">Tipo de instalacion:</label>
+				{{ form.tipo_instalacion }}
+				</div>
+				{{ form.consulta }}
+			</div>
+			<input type="submit" class="btn btn-success" />
+		</div>
+	</form>
+	<div class="table-responsive">
+		{% include "metrados/table.html" %}
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	{{ form.media }}
+	<script src="{{ STATIC_URL }}js/metrados.js"></script>
+{% endblock %}
