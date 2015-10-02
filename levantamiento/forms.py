@@ -69,17 +69,3 @@ class ConsultasForm(forms.Form):
 		required=False,
 		widget=forms.Select(attrs={"class": "form-control"})
 	)
-	# class Media:
-		# js = ('js/ubigeo.js', 'js/select_ubigeo.js')
-
-	# def __init__(self, *args, **kwargs):
-	# 	super(BuildingSearchForm, self).__init__(*args, **kwargs)
-	# 	try:
-	# 		r = args[0].get("ubigeo__parent__parent")
-	# 		if r:
-	# 			self.fields["ubigeo__parent"].queryset = Ubigeo.objects.filter(parent=r)
-	# 			p = args[0].get("ubigeo__parent")
-	# 			if p:
-	# 				self.fields["ubigeo"].queryset = Ubigeo.objects.filter(parent=p)
-	# 	except Exception as e:
-	# 		print e
