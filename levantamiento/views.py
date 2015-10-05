@@ -26,45 +26,45 @@ def equipo_de_levantamiento(request):
 		if form.is_valid():
 			obj = form.save(commit=False)
 			obj.save()
-			techos = request.POST["techos"]
-			if techos == "on":
-				techo_form_ayuda = "techos"
-				context["techo_form_ayuda"] = techo_form_ayuda
-				context["techos_posicion_ayuda"] = posiciones_de_ayuda(techo_form_ayuda)
-				context["techos"] = techos
-			inst_sant = request.POST["inst_sant"]
-			if inst_sant == "on":
-				inst_sant_form_ayuda = "instalaciones_sanitarias"
-				context["inst_sant_form_ayuda"] = inst_sant_form_ayuda
-				context["inst_sant_posicion_ayuda"] = posiciones_de_ayuda(inst_sant_form_ayuda)
-				context["inst_sant"] = inst_sant
-			inst_elect = request.POST["inst_elect"]
-			if inst_elect == "on":
-				inst_elect_form_ayuda = "instalaciones_electricas"
-				context["inst_elect_form_ayuda"] = inst_elect_form_ayuda
-				context["inst_elect_posicion_ayuda"] = posiciones_de_ayuda(inst_elect_form_ayuda)
-				context["inst_elect"] = inst_elect
-			muros_paredes = request.POST["muros_paredes"]
-			if muros_paredes == "on":
-				muros_paredes_form_ayuda = "muros_y_paredes"
-				context["muros_paredes_form_ayuda"] = muros_paredes_form_ayuda
-				context["mp_posicion_ayuda"] = posiciones_de_ayuda(muros_paredes_form_ayuda)
-				context["muros_paredes"] = muros_paredes
-			veredas_exteriores = request.POST["veredas_exteriores"]
-			if veredas_exteriores == "on":
-				veredas_exteriores_form_ayuda = "veredas_exteriores"
-				context["veredas_exteriores_form_ayuda"] = veredas_exteriores_form_ayuda
-				context["ve_posicion_ayuda"] = posiciones_de_ayuda(veredas_exteriores_form_ayuda)
-				context["veredas_exteriores"] = veredas_exteriores
-			if techos == "on" or inst_sant == "on" or inst_elect == "on" or muros_paredes == "on" or veredas_exteriores == "on":
-				context["techo_form"] = TechoFormSet()
-				context["inst_sant_form"] = InstalacionSanitariaFormSet()
-				context["inst_elect_form"] = InstalacionElectricaFormSet()
-				context["muros_paredes_form"] = MurosParedesFormSet()
-				context["veredas_exteriores_form"] = VeredaExteriorFormSet()
-				context["form_id"] = obj.id
-				return render(request,"levantamiento/acciones_de_prevencion.html",context)
-			return redirect("/")
+			# techos = request.POST["techos"]
+			# if techos == "on":
+			# 	techo_form_ayuda = "techos"
+			# 	context["techo_form_ayuda"] = techo_form_ayuda
+			# 	context["techos_posicion_ayuda"] = posiciones_de_ayuda(techo_form_ayuda)
+			# 	context["techos"] = techos
+			# inst_sant = request.POST["inst_sant"]
+			# if inst_sant == "on":
+			# 	inst_sant_form_ayuda = "instalaciones_sanitarias"
+			# 	context["inst_sant_form_ayuda"] = inst_sant_form_ayuda
+			# 	context["inst_sant_posicion_ayuda"] = posiciones_de_ayuda(inst_sant_form_ayuda)
+			# 	context["inst_sant"] = inst_sant
+			# inst_elect = request.POST["inst_elect"]
+			# if inst_elect == "on":
+			# 	inst_elect_form_ayuda = "instalaciones_electricas"
+			# 	context["inst_elect_form_ayuda"] = inst_elect_form_ayuda
+			# 	context["inst_elect_posicion_ayuda"] = posiciones_de_ayuda(inst_elect_form_ayuda)
+			# 	context["inst_elect"] = inst_elect
+			# muros_paredes = request.POST["muros_paredes"]
+			# if muros_paredes == "on":
+			# 	muros_paredes_form_ayuda = "muros_y_paredes"
+			# 	context["muros_paredes_form_ayuda"] = muros_paredes_form_ayuda
+			# 	context["mp_posicion_ayuda"] = posiciones_de_ayuda(muros_paredes_form_ayuda)
+			# 	context["muros_paredes"] = muros_paredes
+			# veredas_exteriores = request.POST["veredas_exteriores"]
+			# if veredas_exteriores == "on":
+			# 	veredas_exteriores_form_ayuda = "veredas_exteriores"
+			# 	context["veredas_exteriores_form_ayuda"] = veredas_exteriores_form_ayuda
+			# 	context["ve_posicion_ayuda"] = posiciones_de_ayuda(veredas_exteriores_form_ayuda)
+			# 	context["veredas_exteriores"] = veredas_exteriores
+			# if techos == "on" or inst_sant == "on" or inst_elect == "on" or muros_paredes == "on" or veredas_exteriores == "on":
+			# 	context["techo_form"] = TechoFormSet()
+			# 	context["inst_sant_form"] = InstalacionSanitariaFormSet()
+			# 	context["inst_elect_form"] = InstalacionElectricaFormSet()
+			# 	context["muros_paredes_form"] = MurosParedesFormSet()
+			# 	context["veredas_exteriores_form"] = VeredaExteriorFormSet()
+			# 	context["form_id"] = obj.id
+			# 	return render(request,"levantamiento/acciones_de_prevencion.html",context)
+			return redirect(reverse("ficha_tecnica",kwargs={"id": obj.id}))
 		context["form"] = form
 	else:
 		context["form"] = LevantamientoForm(initial={"inicio": datetime.today(),"termino": datetime.today()})

@@ -6,6 +6,14 @@ from levantamiento.models import Levantamiento,Instalacion
 from ubigeo.fields import UbigeoField
 from ubigeo.models import Ubigeo
 
+CONSULTA_CHOICES = ((1,u"Consulta financiera de las reparaciones"),
+	(2,u"Consulta de Numero y relación de Instalaciones intervenidas"),
+	(3,u"Estado de las acciones de prevención")
+)
+TIPO_INSTALACION_CHOICES = []
+for instalacion in Instalacion.objects.all():
+	TIPO_INSTALACION_CHOICES.append((instalacion.id,instalacion.instalacion))
+
 class FichaTecnicaForm(forms.ModelForm):
 	class Meta:
 		model = FichaTecnica
@@ -27,13 +35,6 @@ class FichaTecnicaForm(forms.ModelForm):
 		}
 
 class UbigeoForm(forms.Form):
-	CONSULTA_CHOICES = ((1,u"Consulta financiera de las reparaciones"),
-		(2,u"Consulta de Numero y relación de Instalaciones intervenidas"),
-		(3,u"Estado de las acciones de prevención")
-	)
-	TIPO_INSTALACION_CHOICES = []
-	for instalacion in Instalacion.objects.all():
-		TIPO_INSTALACION_CHOICES.append((instalacion.id,instalacion.instalacion))
 	ubigeo = UbigeoField(
 		attrs_1={"class": "form-control", "style": "width: 30%; display: inline;"},
 		attrs_2={"class": "form-control", "style": "width: 35%; display: inline;"},
