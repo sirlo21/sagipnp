@@ -7,11 +7,9 @@
 		</tr>
 	</thead>
 	<tbody>
-		{% for arr in tds %}
+		{% for td in tds %}
 			<tr>
-				{% for td in arr %}
-					{{ td|safe }}
-				{% endfor %}
+				{{ td|safe }}
 			</tr>
 		{% endfor %}
 	</tbody>
