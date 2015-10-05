@@ -38,6 +38,8 @@ class FichaTecnica(models.Model):
 	metrado2 = models.ForeignKey(Metrado2,related_name='ficha_tecnica')
 	metrado3 = models.ForeignKey(Metrado3,related_name='ficha_tecnica',null=True,blank=True)
 	metrado4 = models.ForeignKey(Metrado4,related_name='ficha_tecnica',null=True,blank=True)
+	img = models.ImageField(upload_to="images/")
+	doc	= models.FileField(upload_to="docs/")
 	numero = models.IntegerField(default=0)
 	largo = models.FloatField(default=0)
 	ancho = models.FloatField(default=0)
