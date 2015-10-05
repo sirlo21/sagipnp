@@ -55,6 +55,8 @@ def reportes(request):
 		monto_general_total = 0
 		for l in Levantamiento.objects.all().order_by("nombre_instalacion"):
 			monto_general_de_reparaciones = 0
+			td = "<td>%s</td>" %l.tipo_instalacion.instalacion
+			td += "\n<td>%s</td>" %l.nombre_instalacion
 			context["tds"].append(td)
 
 	return render(request,"metrados/reportes.html",context)
