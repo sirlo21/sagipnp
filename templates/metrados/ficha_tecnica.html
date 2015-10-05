@@ -3,8 +3,8 @@
 {% block styles %}
 	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}fecha/css/bootstrap-datetimepicker.min.css" />
 	<style>
-		.delete-row {float: right;}
-		.bold {font-weight: bold;}
+		.delete-row{float: right;}
+		.bold{font-weight: bold;}
 		.help-block{color: #f00;}
 	</style>
 {% endblock %}
@@ -55,12 +55,37 @@
 					<div class="panel-body">
 						{% csrf_token %}
 						<div class="row">
-							<div class="col-md-12">
-								<label class="control-label" for="id_nombre">
-									<span class="pull-left">Nombre de la partida:</span>
+							<div class="col-md-5">
+								<div class="col-md-12">
+									<label class="control-label" for="id_nombre">
+										<span class="pull-left">Nombre de la partida:</span>
+										<div class="col-md-3 pull-right">
+											{% for posicion in posicion_ayuda %}
+												{% if posicion == 1 %}
+													<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+														<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+													</a>
+												{% endif %}
+											{% endfor %}
+										</div>
+									</label>
+								</div>
+								<div class="col-md-9">
+									<input id="id_nombre" list="id_name" class="form-control" />
+									<datalist id="id_name">
+										{% for metrado in metrados %}
+											<option value="{{ metrado.descripcion }}"></option>
+										{% endfor %}
+									</datalist>
+								</div>
+								<button type="button" class="btn btn-default" id="id_buscar">Buscar</button>
+							</div>
+							<div class="col-lg-3">
+								<label class="control-label" for="id_largo">
+									<span class="pull-left">Imagen:</span>
 									<div class="col-md-3 pull-right">
 										{% for posicion in posicion_ayuda %}
-											{% if posicion == 1 %}
+											{% if posicion == 2 %}
 												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
 													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
 												</a>
@@ -68,17 +93,22 @@
 										{% endfor %}
 									</div>
 								</label>
+								{{ form.img }}
 							</div>
 							<div class="col-lg-3">
-								<input id="id_nombre" list="id_name" class="form-control" />
-								<datalist id="id_name">
-									{% for metrado in metrados %}
-										<option value="{{ metrado.descripcion }}"></option>
-									{% endfor %}
-								</datalist>
-							</div>
-							<div class="col-lg-3">
-								<button type="button" class="btn btn-default" id="id_buscar">Buscar</button>
+								<label class="control-label" for="id_largo">
+									<span class="pull-left">Documento:</span>
+									<div class="col-md-3 pull-right">
+										{% for posicion in posicion_ayuda %}
+											{% if posicion == 3 %}
+												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+												</a>
+											{% endif %}
+										{% endfor %}
+									</div>
+								</label>
+								{{ form.doc }}
 							</div>
 						</div>
 						<br/>
