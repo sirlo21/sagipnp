@@ -11,34 +11,34 @@
 
 {% block content %}
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="col-md-12">
 			<div class="panel panel-default">
 				<div class="panel-heading"><strong>PLANILLA DE METRADO Y PRESUPUESTO</strong></div>
 				<div class="panel-body">
-					<div class="col-lg-6">
-						<div class="col-lg-9">
+					<div class="col-md-5">
+						<div class="col-md-9">
 							<span class="control-label bold">DEPARTAMENTO: </span>
 							<span>{{ departamento }}</span>
 						</div>
-						<div class="col-lg-9">
+						<div class="col-md-9">
 							<span class="control-label bold">PROVINCIA: </span>
 							<span>{{ provincia }}</span>
 						</div>
-						<div class="col-lg-9">
+						<div class="col-md-9">
 							<span class="control-label bold">DISTRITO: </span>
 							<span>{{ distrito }}</span>
 						</div>
 					</div>
-					<div class="col-lg-6">
-						<div class="col-lg-9">
+					<div class="col-md-6">
+						<div class="col-md-9">
 							<span class="control-label bold">UNIDAD: </span>
 							<span>{{ obj.unidad_ejecutora }}</span>
 						</div>
-						<div class="col-lg-9">
+						<div class="col-md-9">
 							<span class="control-label bold">FECHA: </span>
 							<span>{{ obj.created_at|date:"d/m/y" }}</span>
 						</div>
-						<div class="col-lg-9">
+						<div class="col-md-9">
 							<span class="control-label bold">HEHO POR: </span>
 							<span>{{ obj.nombre }}</span>
 						</div>
@@ -49,17 +49,17 @@
 	</div>
 	<form class="form-horizontal" role="form" method="post" enctype="multipart/form-data" action id="ficha-tecnica-form">
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading"><strong>FICHA TECNICA DE EVALUACION DE LA INFRAESTRUCTURA DE LOCALES POLICIALES PARA ENFRENTAR EL FENOMENO DEL "NIÑO 2015-2016"</strong></div>
 					<div class="panel-body">
 						{% csrf_token %}
 						<div class="row">
-							<div class="col-lg-5">
-								<div class="col-lg-12">
+							<div class="col-md-5">
+								<div class="col-md-12">
 									<label class="control-label" for="id_nombre">
 										<span class="pull-left">Nombre de la partida:</span>
-										<div class="col-lg-3 pull-right">
+										<div class="col-md-3 pull-right">
 											{% for posicion in posicion_ayuda %}
 												{% if posicion == 1 %}
 													<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
@@ -70,7 +70,7 @@
 										</div>
 									</label>
 								</div>
-								<div class="col-lg-9">
+								<div class="col-md-9">
 									<input id="id_nombre" list="id_name" class="form-control" />
 									<datalist id="id_name">
 										{% for metrado in metrados %}
@@ -80,10 +80,10 @@
 								</div>
 								<button type="button" class="btn btn-default" id="id_buscar">Buscar</button>
 							</div>
-							<div class="col-lg-3">
+							<div class="col-md-3">
 								<label class="control-label" for="id_largo">
 									<span class="pull-left">Imagen:</span>
-									<div class="col-lg-3 pull-right">
+									<div class="col-md-3 pull-right">
 										{% for posicion in posicion_ayuda %}
 											{% if posicion == 2 %}
 												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
@@ -95,13 +95,13 @@
 								</label>
 								{{ form.img }}
 								<div class="row">
-									<div class="col-lg-12 errors_img"></div>
+									<div class="col-md-12 errors_img"></div>
 								</div>
 							</div>
-							<div class="col-lg-3">
+							<div class="col-md-3">
 								<label class="control-label" for="id_largo">
 									<span class="pull-left">Documento:</span>
-									<div class="col-lg-3 pull-right">
+									<div class="col-md-3 pull-right">
 										{% for posicion in posicion_ayuda %}
 											{% if posicion == 3 %}
 												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
@@ -113,16 +113,16 @@
 								</label>
 								{{ form.doc }}
 								<div class="row">
-									<div class="col-lg-12 errors_doc"></div>
+									<div class="col-md-12 errors_doc"></div>
 								</div>
 							</div>
 						</div>
 						<br/>
 						<div class="row">
-							<div class="col-lg-12">
+							<div class="col-md-12">
 								<label class="control-label" for="id_metrado">
 									<span class="pull-left">Partida:</span>
-									<div class="col-lg-3 pull-right">
+									<div class="col-md-3 pull-right">
 										{% for posicion in posicion_ayuda %}
 											{% if posicion == 2 %}
 												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
@@ -133,35 +133,33 @@
 									</div>
 								</label>
 							</div>
-							<div class="col-lg-3">
+							<div class="col-md-3">
 								{{ form.metrado1 }}
+								<div class="errors_metrado1"></div>
 							</div>
-							<div class="col-lg-3">
+							<div class="col-md-3">
 								<select class="form-control" id="id_metrado2" name="metrado2">
 									<option></option>
 								</select>
+								<div class="errors_metrado2"></div>
 							</div>
-							<div class="col-lg-3">
+							<div class="col-md-3">
 								<select class="form-control" id="id_metrado3" name="metrado3">
 									<option></option>
 								</select>
 							</div>
-							<div class="col-lg-3">
+							<div class="col-md-3">
 								<select class="form-control" id="id_metrado4" name="metrado4">
 									<option></option>
 								</select>
 							</div>
-							<div class="row">
-								<div class="col-lg-6 errors_metrado1"></div>
-								<div class="col-lg-6 errors_metrado2"></div>
-							</div>
 						</div>
 						<br/>
 						<div class="row">
-							<div class="col-lg-3">
+							<div class="col-md-3">
 								<label class="control-label" for="id_numero">
 									<span class="pull-left">N:</span>
-									<div class="col-lg-3 pull-right">
+									<div class="col-md-3 pull-right">
 										{% for posicion in posicion_ayuda %}
 											{% if posicion == 3 %}
 												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
@@ -173,10 +171,10 @@
 								</label>
 								{{ form.numero }}
 							</div>
-							<div class="col-lg-3">
+							<div class="col-md-3">
 								<label class="control-label" for="id_largo">
 									<span class="pull-left">Largo:</span>
-									<div class="col-lg-3 pull-right">
+									<div class="col-md-3 pull-right">
 										{% for posicion in posicion_ayuda %}
 											{% if posicion == 4 %}
 												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
@@ -188,10 +186,10 @@
 								</label>
 								{{ form.largo }}
 							</div>
-							<div class="col-lg-3">
+							<div class="col-md-3">
 								<label class="control-label" for="id_ancho">
 									<span class="pull-left">Ancho:</span>
-									<div class="col-lg-3 pull-right">
+									<div class="col-md-3 pull-right">
 										{% for posicion in posicion_ayuda %}
 											{% if posicion == 5 %}
 												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
@@ -203,10 +201,10 @@
 								</label>
 								{{ form.ancho }}
 							</div>
-							<div class="col-lg-3">
+							<div class="col-md-3">
 								<label class="control-label" for="id_alto">
 									<span class="pull-left">Alto:</span>
-									<div class="col-lg-3 pull-right">
+									<div class="col-md-3 pull-right">
 										{% for posicion in posicion_ayuda %}
 											{% if posicion == 6 %}
 												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
@@ -221,10 +219,10 @@
 						</div>
 						<br/>
 						<div class="row">
-							<div class="col-lg-3">
+							<div class="col-md-3">
 								<label class="control-label" for="id_parcial">
 									<span class="pull-left">Parcial:</span>
-									<div class="col-lg-3 pull-right">
+									<div class="col-md-3 pull-right">
 										{% for posicion in posicion_ayuda %}
 											{% if posicion == 7 %}
 												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
@@ -236,10 +234,10 @@
 								</label>
 								{{ form.parcial }}
 							</div>
-							<div class="col-lg-3">
+							<div class="col-md-3">
 								<label class="control-label" for="id_unidad">
 									<span class="pull-left">Unidad:</span>
-									<div class="col-lg-3 pull-right">
+									<div class="col-md-3 pull-right">
 										{% for posicion in posicion_ayuda %}
 											{% if posicion == 8 %}
 												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
@@ -251,10 +249,10 @@
 								</label>
 								{{ form.unidad }}
 							</div>
-							<div class="col-lg-3">
+							<div class="col-md-3">
 								<label class="control-label" for="id_punitario">
 									<span class="pull-left">P. Unitario:</span>
-									<div class="col-lg-3 pull-right">
+									<div class="col-md-3 pull-right">
 										{% for posicion in posicion_ayuda %}
 											{% if posicion == 9 %}
 												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
@@ -266,7 +264,7 @@
 								</label>
 								{{ form.punitario }}
 							</div>
-							<div class="col-lg-3">
+							<div class="col-md-3">
 								<br/>
 								<button type="reset" id="add" class="btn btn-success">AGREGAR</button>
 							</div>
