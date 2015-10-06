@@ -150,6 +150,7 @@ $(document).ready(function(){
 	});
 	$("#add").click(function(event){
 		var tr_id = $("#tm > tbody > tr").last().attr("id");
+		$(".errors_metrado .error").remove();
 		if(tr_id in metrados){
 			$.ajax({
 				url: $("#ficha-tecnica-form").attr("action"),
@@ -157,7 +158,6 @@ $(document).ready(function(){
 				type: "POST",
 				success: function(data){
 					if(data["valid"]){
-						$(".errors_metrado .error").remove();
 						if($("#tm > tbody > tr").length > 0)
 							var new_tr_id = tr_id.replace(/\d+/g,parseInt(tr_id.match(/\d+/g))+1);
 						else
@@ -178,11 +178,9 @@ $(document).ready(function(){
 						$("#tm > tbody").append($(new_tr));
 					}
 					else{
-						$(".errors_metrado .error").remove();
-						console.log(data.errors);
 						$.each(data["errors"],function(key,value){
 							var error = "<p class='help-block'>"+value+"</p>";
-							$(".errors_"+key).append("\n<div class='col-lg-3 error'>\n"+error+"\n</div>");
+							$(".errors_"+key).append("\n<div class='col-lg-12 error'>\n"+error+"\n</div>");
 						});
 					}
 				}
@@ -222,6 +220,7 @@ $(document).ready(function(){
 		metrados[tr_id] = $("#ficha-tecnica-form").serialize();
 	});
 	$("#ficha-tecnica-form").submit(function(event){
+		$(".error").remove();
 		event.preventDefault();
 		if(confirm("¿Estas seguro de que quiere guardar?")){
 			var tr_id = $("#tm > tbody > tr").last().attr("id");
@@ -232,7 +231,6 @@ $(document).ready(function(){
 					type: "POST",
 					success: function(data){
 						if(data["valid"]){
-							$(".errors_metrado .error").remove();
 							var arr = [];
 							$.each(metrados,function(key,value){
 								if(value != undefined)
@@ -251,14 +249,9 @@ $(document).ready(function(){
 							}
 						}
 						else{
-							$(".errors_metrado .error").remove();
-							$.each(data,function(key,value){
-								if(typeof(value) == "object"){
-									$.each(value,function(key,value){
-										var error = "<p class='help-block'>"+value+"</p>";
-										$(".errors_metrado").append("\n<div class='col-lg-3 error'>\n"+error+"\n</div>");
-									});
-								}
+							$.each(data["errors"],function(key,value){
+								var error = "<p class='help-block'>"+value+"</p>";
+								$(".errors_"+key).append("\n<div class='col-lg-12 error'>\n"+error+"\n</div>");
 							});
 						}
 					}
