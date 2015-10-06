@@ -157,7 +157,7 @@ $(document).ready(function(){
 				type: "POST",
 				success: function(data){
 					if(data["valid"]){
-						$(".erros_metrado .error").remove();
+						$(".errors_metrado .error").remove();
 						if($("#tm > tbody > tr").length > 0)
 							var new_tr_id = tr_id.replace(/\d+/g,parseInt(tr_id.match(/\d+/g))+1);
 						else
@@ -178,14 +178,11 @@ $(document).ready(function(){
 						$("#tm > tbody").append($(new_tr));
 					}
 					else{
-						$(".erros_metrado .error").remove();
-						$.each(data,function(key,value){
-							if(typeof(value) == "object"){
-								$.each(value,function(key,value){
-									var error = "<p class='help-block'>"+value+"</p>";
-									$(".erros_metrado").append("\n<div class='col-lg-3 error'>\n"+error+"\n</div>");
-								});
-							}
+						$(".errors_metrado .error").remove();
+						console.log(data.errors);
+						$.each(data["errors"],function(key,value){
+							var error = "<p class='help-block'>"+value+"</p>";
+							$(".errors_"+key).append("\n<div class='col-lg-3 error'>\n"+error+"\n</div>");
 						});
 					}
 				}
@@ -235,7 +232,7 @@ $(document).ready(function(){
 					type: "POST",
 					success: function(data){
 						if(data["valid"]){
-							$(".erros_metrado .error").remove();
+							$(".errors_metrado .error").remove();
 							var arr = [];
 							$.each(metrados,function(key,value){
 								if(value != undefined)
@@ -254,12 +251,12 @@ $(document).ready(function(){
 							}
 						}
 						else{
-							$(".erros_metrado .error").remove();
+							$(".errors_metrado .error").remove();
 							$.each(data,function(key,value){
 								if(typeof(value) == "object"){
 									$.each(value,function(key,value){
 										var error = "<p class='help-block'>"+value+"</p>";
-										$(".erros_metrado").append("\n<div class='col-lg-3 error'>\n"+error+"\n</div>");
+										$(".errors_metrado").append("\n<div class='col-lg-3 error'>\n"+error+"\n</div>");
 									});
 								}
 							});
