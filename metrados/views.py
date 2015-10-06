@@ -21,12 +21,12 @@ def ficha_tecnica(request,id):
 		post = request.POST
 		form = FichaTecnicaForm(post)
 		if "valid" in post:
-			return JsonResponse({"valid": form.is_valid(),"erros": form.errors})
+			return JsonResponse({"valid": form.is_valid(),"errors": form.errors})
 		else:
 			if form.is_valid():
 				form.save()
-				return JsonResponse({"valid": True,"erros": form.errors})
-			return JsonResponse({"valid": False,"erros": form.errors})
+				return JsonResponse({"valid": True,"errors": form.errors})
+			return JsonResponse({"valid": False,"errors": form.errors})
 	else:
 		context["form"] = FichaTecnicaForm(initial={"form": id})
 		context["metrados"] = []
