@@ -84,6 +84,8 @@ class Migration(migrations.Migration):
                 ('centro_poblado', models.CharField(max_length=1000)),
                 ('nombre_instalacion', models.CharField(max_length=300)),
                 ('direccion_instalacion', models.CharField(max_length=500)),
+                ('ejecutando_mejoras_mantenimiento', models.NullBooleanField()),
+                ('monto', models.IntegerField(default=0, null=True, blank=True)),
                 ('nombre', models.CharField(max_length=100)),
                 ('apellido', models.CharField(max_length=100)),
                 ('dni', models.CharField(max_length=8)),
