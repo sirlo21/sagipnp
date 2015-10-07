@@ -63,6 +63,7 @@ class Instalacion(models.Model):
 		return self.instalacion
 
 class Levantamiento(models.Model):
+	""" Doctor Juan Chau """
 	unidad_ejecutora = models.ForeignKey(UnidadEjecutora,related_name='formularios')
 	inicio = models.DateField()
 	termino = models.DateField()
@@ -77,6 +78,8 @@ class Levantamiento(models.Model):
 	tipo_instalacion = models.ForeignKey(Instalacion,related_name='formulario')
 	nombre_instalacion = models.CharField(max_length=300)
 	direccion_instalacion = models.CharField(max_length=500)
+	ejecutando_mejoras_mantenimiento = models.NullBooleanField(null=True)
+	monto = models.IntegerField(default=0,blank=True,null=True)
 	tipo_comisaria = models.ForeignKey(TComisaria,related_name='formularios',blank=True,null=True)
 	clase_comisaria = models.ForeignKey(CComisaria,related_name='formularios',blank=True,null=True)
 	especialidad = models.ForeignKey(Especialidad,related_name='formularios',blank=True,null=True)
