@@ -1,5 +1,14 @@
 $(document).ready(function(){
-	$("#id_tipo_instalacion").change(function(ev){
+	for(var i in $("input[name=ejecutando_mejoras_mantenimiento]")){
+		var obj = $("input[name=ejecutando_mejoras_mantenimiento]")[i];
+		if(obj.value == 2 && obj.checked){
+			$(".monto").show();
+			break;
+		}
+		else
+			$(".monto").hide();
+	}
+	$("#id_tipo_instalacion").change(function(event){
 		var id = this.value;
 		var url = "/equipo-de-levantamiento/json/?tipo_instalacion="+id;
 		$.getJSON(url,function(data){
@@ -21,5 +30,11 @@ $(document).ready(function(){
 			success("especialidad");
 			success("categoria");
 		});
+	});
+	$("input[name=ejecutando_mejoras_mantenimiento]").change(function(event){
+		if($(this).val() == 2)
+			$(".monto").show();
+		else
+			$(".monto").hide();
 	});
 });
