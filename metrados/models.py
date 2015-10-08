@@ -32,14 +32,18 @@ class Metrado4(models.Model):
 	def __unicode__(self):
 		return self.descripcion
 
+class Image(models.Model):
+	image = models.ImageField(upload_to="images/")
+
+class Document(models.Model):
+	document	= models.FileField(upload_to="docs/")
+
 class FichaTecnica(models.Model):
 	form  = models.ForeignKey(Levantamiento,related_name='ficha_tecnica')
 	metrado1 = models.ForeignKey(Metrado1,related_name='ficha_tecnica')
 	metrado2 = models.ForeignKey(Metrado2,related_name='ficha_tecnica')
-	metrado3 = models.ForeignKey(Metrado3,related_name='ficha_tecnica',null=True,blank=True)
-	metrado4 = models.ForeignKey(Metrado4,related_name='ficha_tecnica',null=True,blank=True)
-	img = models.ImageField(upload_to="images/")
-	doc	= models.FileField(upload_to="docs/")
+	metrado3 = models.ForeignKey(Metrado3,related_name='ficha_tecnica')
+	metrado4 = models.ForeignKey(Metrado4,related_name='ficha_tecnica')
 	numero = models.IntegerField(default=0)
 	largo = models.FloatField(default=0)
 	ancho = models.FloatField(default=0)
@@ -50,3 +54,9 @@ class FichaTecnica(models.Model):
 
 	def __unicode__(self):
 		return self.form.nombre
+
+class Img(Image):
+	form = models.ForeignKey(FichaTecnica,related_name='images')
+
+class Doc(Document):
+	form = models.ForeignKey(FichaTecnica,related_name='documents',null=True,blank=True)
