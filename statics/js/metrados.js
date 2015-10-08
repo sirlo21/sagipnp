@@ -148,9 +148,9 @@ $(document).ready(function(){
 		metrados[tr_id] = $("#ficha-tecnica-form").serialize();
 		$("input").trigger("change");
 	});
-	$("#add").click(function(event){
+	$("#ficha-tecnica-form").on("reset",function(event){
 		var tr_id = $("#tm > tbody > tr").last().attr("id");
-		$(".errors_metrado .error").remove();
+		$(".error").remove();
 		if(tr_id in metrados){
 			$.ajax({
 				url: $("#ficha-tecnica-form").attr("action"),
@@ -169,15 +169,16 @@ $(document).ready(function(){
 						new_tr += '<td class="td-dimensiones-ancho"></td>\n';
 						new_tr += '<td class="td-dimensiones-altura"></td>\n';
 						new_tr += '<td class="td-parcial"></td>\n';
-						new_tr += '<td class="td-total"></td>\n';
+						new_tr += '<td class="td-total">S./ 0</td>\n';
 						new_tr += '<td class="td-unidad"></td>\n';
-						new_tr += '<td class="td-precio-unitario"></td>\n';
-						new_tr += '<td class="td-precio-total"></td>\n';
+						new_tr += '<td class="td-precio-unitario">S./ 0</td>\n';
+						new_tr += '<td class="td-precio-total">S./ 0</td>\n';
 						new_tr += '<td>\n<button type="button" onclick="removeTr(\''+new_tr_id+'\');" class="btn btn-danger">Borrar</button>\n</td>\n';
 						new_tr += '</tr>';
 						$("#tm > tbody").append($(new_tr));
 					}
 					else{
+						event.preventDefault();
 						$.each(data["errors"],function(key,value){
 							var error = "<p class='help-block'>"+value+"</p>";
 							$(".errors_"+key).append("\n<div class='col-lg-12 error'>\n"+error+"\n</div>");
@@ -186,8 +187,10 @@ $(document).ready(function(){
 				}
 			});
 		}
-		else
+		else{
+			event.preventDefault();
 			alert("Llene el formulario primero");
+		}
 	});
 	$("input").change(function(event){
 		var tr = $("#tm > tbody > tr").last();
@@ -212,11 +215,11 @@ $(document).ready(function(){
 		tr.children(".td-unidad").text($val_unidad);
 		var $punitario = $("#id_punitario");
 		var $val_punitario = $punitario.val();
-		tr.children(".td-precio-unitario").text($val_punitario);
+		tr.children(".td-precio-unitario").text("S./ "+$val_punitario);
 		var total = $val_numero*$val_parcial;
-		tr.children(".td-total").text(total);
+		tr.children(".td-total").text("S./ "+total);
 		var precio_total = $val_unidad*$val_punitario;
-		tr.children(".td-precio-total").text(precio_total);
+		tr.children(".td-precio-total").text("S./ "+precio_total);
 		metrados[tr_id] = $("#ficha-tecnica-form").serialize();
 	});
 	$("#ficha-tecnica-form").submit(function(event){
