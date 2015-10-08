@@ -149,6 +149,7 @@ $(document).ready(function(){
 		$("input").trigger("change");
 	});
 	$("#ficha-tecnica-form").on("reset",function(event){
+		event.preventDefault();
 		var tr_id = $("#tm > tbody > tr").last().attr("id");
 		$(".error").remove();
 		if(tr_id in metrados){
@@ -176,9 +177,9 @@ $(document).ready(function(){
 						new_tr += '<td>\n<button type="button" onclick="removeTr(\''+new_tr_id+'\');" class="btn btn-danger">Borrar</button>\n</td>\n';
 						new_tr += '</tr>';
 						$("#tm > tbody").append($(new_tr));
+						$(this).trigger("reset");
 					}
 					else{
-						event.preventDefault();
 						$.each(data["errors"],function(key,value){
 							var error = "<p class='help-block'>"+value+"</p>";
 							$(".errors_"+key).append("\n<div class='col-lg-12 error'>\n"+error+"\n</div>");
@@ -187,10 +188,8 @@ $(document).ready(function(){
 				}
 			});
 		}
-		else{
-			event.preventDefault();
+		else
 			alert("Llene el formulario primero");
-		}
 	});
 	$("input").change(function(event){
 		var tr = $("#tm > tbody > tr").last();
