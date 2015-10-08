@@ -181,6 +181,7 @@ $(document).ready(function(){
 					}
 					else{
 						$.each(data["errors"],function(key,value){
+							console.log(key+": "+value);
 							var error = "<p class='help-block'>"+value+"</p>";
 							$(".errors_"+key).append("\n<div class='col-lg-12 error'>\n"+error+"\n</div>");
 						});
