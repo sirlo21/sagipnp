@@ -19,6 +19,10 @@ def ficha_tecnica(request,id):
 	context = {"obj": levantamiento,"distrito": distrito,"provincia": provincia,"departamento": departamento}
 	if request.method == "POST":
 		post = request.POST
+		from django.core.files import File
+		print post["img"]
+		request.FILES.update(img=File(post["img"]),doc=File(post["doc"]))
+		print request.FILES
 		form = FichaTecnicaForm(post,request.FILES)
 		if "valid" in post:
 			return JsonResponse({"valid": form.is_valid(),"errors": form.errors})
