@@ -12,11 +12,11 @@ from metrados.functions import get_json_metrado
 
 @login_required
 def ficha_tecnica(request,id):
-	# levantamiento = Levantamiento.objects.get(id=id)
-	# distrito = levantamiento.ubigeo
-	# provincia = Ubigeo.objects.get(id=distrito.parent_id)
-	# departamento = Ubigeo.objects.get(id=provincia.parent_id)
-	context = {} # {"obj": levantamiento,"distrito": distrito,"provincia": provincia,"departamento": departamento}
+	levantamiento = Levantamiento.objects.get(id=id)
+	distrito = levantamiento.ubigeo
+	provincia = Ubigeo.objects.get(id=distrito.parent_id)
+	departamento = Ubigeo.objects.get(id=provincia.parent_id)
+	context = {"obj": levantamiento,"distrito": distrito,"provincia": provincia,"departamento": departamento}
 	if request.method == "POST":
 		post = request.POST
 		form = FichaTecnicaForm(post)
