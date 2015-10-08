@@ -180,6 +180,7 @@ $(document).ready(function(){
 						$(this).trigger("reset");
 					}
 					else{
+						console.log(metrados[tr_id]);
 						$.each(data["errors"],function(key,value){
 							console.log(key+": "+value);
 							var error = "<p class='help-block'>"+value+"</p>";
