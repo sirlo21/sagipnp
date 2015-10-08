@@ -19,7 +19,7 @@ def ficha_tecnica(request,id):
 	context = {"obj": levantamiento,"distrito": distrito,"provincia": provincia,"departamento": departamento}
 	if request.method == "POST":
 		post = request.POST
-		form = FichaTecnicaForm(post)
+		form = FichaTecnicaForm(post,request.Files)
 		if "valid" in post:
 			return JsonResponse({"valid": form.is_valid(),"errors": form.errors})
 		else:
