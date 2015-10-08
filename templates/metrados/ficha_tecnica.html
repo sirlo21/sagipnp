@@ -46,12 +46,64 @@
 		</div>
 	</div>
 	<form class="form-horizontal" role="form" method="post" enctype="multipart/form-data" action id="ficha-tecnica-form">
+		{% csrf_token %}
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading"><strong>IMAGENES</strong></div>
+					<div class="panel-body">
+						<div class="col-md-3">
+							<label class="control-label" for="id_largo">
+								<span class="pull-left">Imagen:</span>
+								<div class="col-md-3 pull-right">
+									{% for posicion in posicion_ayuda %}
+										{% if posicion == 2 %}
+											<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+												<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+											</a>
+										{% endif %}
+									{% endfor %}
+								</div>
+							</label>
+							{{ FormImg.img }}
+							<div class="row">
+								<div class="col-md-12 errors_img"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading"><strong>DOCUMENTOS</strong></div>
+					<div class="panel-body">
+						<div class="col-md-3">
+							<label class="control-label" for="id_largo">
+								<span class="pull-left">Documento:</span>
+								<div class="col-md-3 pull-right">
+									{% for posicion in posicion_ayuda %}
+										{% if posicion == 3 %}
+											<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+												<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+											</a>
+										{% endif %}
+									{% endfor %}
+								</div>
+							</label>
+							{{ FormDoc.doc }}
+							<div class="row">
+								<div class="col-md-12 errors_doc"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading"><strong>FICHA TECNICA DE EVALUACION DE LA INFRAESTRUCTURA DE LOCALES POLICIALES PARA ENFRENTAR EL FENOMENO DEL "NIÑO 2015-2016"</strong></div>
 					<div class="panel-body">
-						{% csrf_token %}
 						<div class="row">
 							<div class="col-md-5">
 								<div class="col-md-12">
@@ -77,42 +129,6 @@
 									</datalist>
 								</div>
 								<button type="button" class="btn btn-default" id="id_buscar">Buscar</button>
-							</div>
-							<div class="col-md-3">
-								<label class="control-label" for="id_largo">
-									<span class="pull-left">Imagen:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda %}
-											{% if posicion == 2 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
-									</div>
-								</label>
-								{{ form.img }}
-								<div class="row">
-									<div class="col-md-12 errors_img"></div>
-								</div>
-							</div>
-							<div class="col-md-3">
-								<label class="control-label" for="id_largo">
-									<span class="pull-left">Documento:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda %}
-											{% if posicion == 3 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
-									</div>
-								</label>
-								{{ form.doc }}
-								<div class="row">
-									<div class="col-md-12 errors_doc"></div>
-								</div>
 							</div>
 						</div>
 						<br/>
@@ -297,10 +313,10 @@
 											<td class="td-dimensiones-ancho"></td>
 											<td class="td-dimensiones-altura"></td>
 											<td class="td-parcial"></td>
-											<td class="td-total"></td>
+											<td class="td-total">S./ 0</td>
 											<td class="td-unidad"></td>
-											<td class="td-precio-unitario"></td>
-											<td class="td-precio-total"></td>
+											<td class="td-precio-unitario">S./ 0</td>
+											<td class="td-precio-total">S./ 0</td>
 											<td>
 												<button type="button" onclick="removeTr('id_ficha_tecnica-0-tr');" class="btn btn-danger">Borrar</button>
 											</td>
@@ -310,6 +326,7 @@
 							</div>
 						</div>
 						{{ form.form }}
+						<input type="hidden" id="valid" value="false" />
 						<input type="submit" id="submit" class="btn btn-success" value="Listo!"/>
 					</div>
 				</div>
