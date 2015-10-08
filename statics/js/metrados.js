@@ -145,7 +145,7 @@ $(document).ready(function(){
 					tr.text(codigo_metrado4[value_select]);
 			}
 		}
-		metrados[tr_id] = $("#ficha-tecnica-form").serialize();
+		metrados[tr_id] = $("#ficha-tecnica-form");
 		$("input").trigger("change");
 	});
 	$("#ficha-tecnica-form").on("reset",function(event){
@@ -153,9 +153,10 @@ $(document).ready(function(){
 		var tr_id = $("#tm > tbody > tr").last().attr("id");
 		$(".error").remove();
 		if(tr_id in metrados){
+			var form = new FormData(metrados[tr_id]);
 			$.ajax({
 				url: $("#ficha-tecnica-form").attr("action"),
-				data: metrados[tr_id]+"&valid=true",
+				data: form,
 				type: "POST",
 				success: function(data){
 					if(data["valid"]){
@@ -180,7 +181,6 @@ $(document).ready(function(){
 						$(this).trigger("reset");
 					}
 					else{
-						console.log(metrados[tr_id]);
 						$.each(data["errors"],function(key,value){
 							console.log(key+": "+value);
 							var error = "<p class='help-block'>"+value+"</p>";
@@ -221,7 +221,7 @@ $(document).ready(function(){
 		tr.children(".td-total").text("S./ "+total);
 		var precio_total = $val_unidad*$val_punitario;
 		tr.children(".td-precio-total").text("S./ "+precio_total);
-		metrados[tr_id] = $("#ficha-tecnica-form").serialize();
+		metrados[tr_id] = $("#ficha-tecnica-form");
 	});
 	$("#ficha-tecnica-form").submit(function(event){
 		$(".error").remove();
@@ -231,7 +231,7 @@ $(document).ready(function(){
 			if(tr_id in metrados){
 				$.ajax({
 					url: $(this).attr("action"),
-					data: metrados[tr_id]+"&valid=true",
+					data: metrados[tr_id],
 					type: "POST",
 					success: function(data){
 						if(data["valid"]){
