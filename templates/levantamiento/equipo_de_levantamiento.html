@@ -5,6 +5,8 @@
 {% block styles %}
 	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}fecha/css/bootstrap-datetimepicker.min.css" />
 	<style>
+		.upper-roman{list-style-type: upper-roman;}
+		.decimal{list-style-type: decimal;}
 		.form-control{width: 50%;}
 		@media screen and (max-width: 991px){
 			.form-control,.form_date,input[type="text"]{width: 70%;}
@@ -14,554 +16,560 @@
 
 {% block content %}
 	<form id="instalaciones_fisicas" class="form-horizontal" role="form" method="post" enctype="multipart/form-data" action>
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="panel panel-default">
-					<div class="panel-heading"><strong>INFORMACIÓN DE LAS INSTALACIONES FISICAS</strong></div>
-					<div class="panel-body">
-						<div class="col-lg-12">
-							{% csrf_token %}
-							<label class="col-md-12" style="text-decoration: underline;">Identificación del equipo de levatamiento:</label>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_unidad_ejecutora">
-									<span class="pull-left">Unidad ejecutora:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda %}
-											{% if posicion == 1 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+		<ul class="upper-roman">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading"><strong>INFORMACIÓN DE LAS INSTALACIONES FISICAS</strong></div>
+						<div class="panel-body">
+							<div class="col-lg-12">
+								{% csrf_token %}
+								<label class="col-md-12" style="text-decoration: underline;"><li>Identificación del equipo de levatamiento:</li></label>
+								<ul class="decimal">
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_unidad_ejecutora">
+											<span class="pull-left"><li>Unidad ejecutora:</li></span>
+											<div class="col-md-3 pull-right">
+												{% for posicion in posicion_ayuda %}
+													{% if posicion == 1 %}
+														<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+															<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+														</a>
+													{% endif %}
+												{% endfor %}
+											</div>
+										</label>
+										<div class="col-md-9">
+											{{ form.unidad_ejecutora }}
+											{% if form.unidad_ejecutora.errors %}<p class="help-block">{{ form.errors.unidad_ejecutora|striptags }}</p>{% endif %}
+										</div>
 									</div>
-								</label>
-								<div class="col-md-9">
-									{{ form.unidad_ejecutora }}
-									{% if form.unidad_ejecutora.errors %}<p class="help-block">{{ form.errors.unidad_ejecutora|striptags }}</p>{% endif %}
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_inicio">
-									<span class="pull-left">Fecha de inicio:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 2 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_inicio">
+											<span class="pull-left"><li>Fecha de inicio:</li></span>
+											<div class="col-md-3 pull-right">
+												{% for posicion in posicion_ayuda  %}
+													{% if posicion == 2 %}
+														<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+															<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+														</a>
+													{% endif %}
+												{% endfor %}
+											</div>
+										</label>
+										<div class="controls input-group date form_date col-md-3" data-date="" data-date-format="dd/mm/yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+												{{ form.inicio }}
+												<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+												<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+											{% if form.inicio.errors %}<p class="help-block">{{ form.inicio.errors|striptags }}</p>{% endif %}
+										</div>
 									</div>
-								</label>
-								<div class="controls input-group date form_date col-md-3" data-date="" data-date-format="dd/mm/yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-										{{ form.inicio }}
-										<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-										<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-									{% if form.inicio.errors %}<p class="help-block">{{ form.inicio.errors|striptags }}</p>{% endif %}
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_termino">
-									<span class="pull-left">Fecha de termino:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 3 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_termino">
+											<span class="pull-left"><li>Fecha de termino:</li></span>
+											<div class="col-md-3 pull-right">
+												{% for posicion in posicion_ayuda  %}
+													{% if posicion == 3 %}
+														<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+															<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+														</a>
+													{% endif %}
+												{% endfor %}
+											</div>
+										</label>
+										<div class="controls input-group date form_date col-md-3" data-date="" data-date-format="dd/mm/yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+											{{ form.termino }}
+											<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+											<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+										</div>
+										{% if form.termino.errors %}<p class="help-block">{{ form.termino.errors|striptags }}</p>{% endif %}
 									</div>
-								</label>
-								<div class="controls input-group date form_date col-md-3" data-date="" data-date-format="dd/mm/yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-									{{ form.termino }}
-									<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-									<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-								</div>
-								{% if form.termino.errors %}<p class="help-block">{{ form.termino.errors|striptags }}</p>{% endif %}
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_coordinador_equipo">
-									<span class="pull-left">Coordinador de equipo:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 3 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_coordinador_equipo">
+											<span class="pull-left"><li>Coordinador de equipo:</li></span>
+											<div class="col-md-3 pull-right">
+												{% for posicion in posicion_ayuda  %}
+													{% if posicion == 3 %}
+														<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+															<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+														</a>
+													{% endif %}
+												{% endfor %}
+											</div>
+										</label>
+										<div class="col-md-9">
+											{{ form.coordinador_equipo }}
+											{% if form.coordinador_equipo.errors %}<p class="help-block">{{ form.coordinador_equipo.errors|striptags }}</p>{% endif %}
+										</div>
 									</div>
-								</label>
-								<div class="col-md-9">
-									{{ form.coordinador_equipo }}
-									{% if form.coordinador_equipo.errors %}<p class="help-block">{{ form.coordinador_equipo.errors|striptags }}</p>{% endif %}
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_integrante_1">
-									<span class="pull-left">Integrante 01:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 4 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_integrante_1">
+											<span class="pull-left"><li>Integrante 01:</li></span>
+											<div class="col-md-3 pull-right">
+												{% for posicion in posicion_ayuda  %}
+													{% if posicion == 4 %}
+														<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+															<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+														</a>
+													{% endif %}
+												{% endfor %}
+											</div>
+										</label>
+										<div class="col-md-9">
+											{{ form.integrante_1 }}
+											{% if form.integrante_1.errors %}<p class="help-block">{{ form.errors.integrante_1|striptags }}</p>{% endif %}
+										</div>
 									</div>
-								</label>
-								<div class="col-md-9">
-									{{ form.integrante_1 }}
-									{% if form.integrante_1.errors %}<p class="help-block">{{ form.errors.integrante_1|striptags }}</p>{% endif %}
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_integrante_2">
-									<span class="pull-left">Integrante 02:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 5 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_integrante_2">
+											<span class="pull-left"><li>Integrante 02:</li></span>
+											<div class="col-md-3 pull-right">
+												{% for posicion in posicion_ayuda  %}
+													{% if posicion == 5 %}
+														<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+															<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+														</a>
+													{% endif %}
+												{% endfor %}
+											</div>
+										</label>
+										<div class="col-md-9">
+											{{ form.integrante_2 }}
+											{% if form.integrante_2.errors %}<p class="help-block">{{ form.errors.integrante_2|striptags }}</p>{% endif %}
+										</div>
 									</div>
-								</label>
-								<div class="col-md-9">
-									{{ form.integrante_2 }}
-									{% if form.integrante_2.errors %}<p class="help-block">{{ form.errors.integrante_2|striptags }}</p>{% endif %}
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_integrante_3">
-									<span class="pull-left">Integrante 03:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 6 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_integrante_3">
+											<span class="pull-left"><li>Integrante 03:</li></span>
+											<div class="col-md-3 pull-right">
+												{% for posicion in posicion_ayuda  %}
+													{% if posicion == 6 %}
+														<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+															<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+														</a>
+													{% endif %}
+												{% endfor %}
+											</div>
+										</label>
+										<div class="col-md-9">
+											{{ form.integrante_3 }}
+											{% if form.integrante_3.errors %}<p class="help-block">{{ form.errors.integrante_3|striptags }}</p>{% endif %}
+										</div>
 									</div>
-								</label>
-								<div class="col-md-9">
-									{{ form.integrante_3 }}
-									{% if form.integrante_3.errors %}<p class="help-block">{{ form.errors.integrante_3|striptags }}</p>{% endif %}
-								</div>
-							</div>
-							<label class="col-md-12" style="text-decoration: underline;">Identificación de la Instalación:</label>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_ubigeo_0">
-									<span class="pull-left">Ubicación:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 7 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+								</ul>
+								<label class="col-md-12" style="text-decoration: underline;"><li>Identificación de la Instalación:</li></label>
+								<ul class="decimal">
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_ubigeo_0">
+											<span class="pull-left"><li>Ubicación:</li></span>
+											<div class="col-md-3 pull-right">
+												{% for posicion in posicion_ayuda  %}
+													{% if posicion == 7 %}
+														<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+															<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+														</a>
+													{% endif %}
+												{% endfor %}
+											</div>
+										</label>
+										<div class="col-md-9">
+											{{ form.ubigeo }}
+											{% if form.ubigeo.errors %}<p class="help-block">{{ form.ubigeo.errors|striptags }}</p>{% endif %}
+										</div>
 									</div>
-								</label>
-								<div class="col-md-9">
-									{{ form.ubigeo }}
-									{% if form.ubigeo.errors %}<p class="help-block">{{ form.ubigeo.errors|striptags }}</p>{% endif %}
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_centro_poblado">
-									<span class="pull-left">Centro poblado:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 8 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_centro_poblado">
+											<span class="pull-left"><li>Centro poblado:</li></span>
+											<div class="col-md-3 pull-right">
+												{% for posicion in posicion_ayuda  %}
+													{% if posicion == 8 %}
+														<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+															<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+														</a>
+													{% endif %}
+												{% endfor %}
+											</div>
+										</label>
+										<div class="col-md-9">
+											{{ form.centro_poblado }}
+											{% if form.centro_poblado.errors %}<p class="help-block">{{ form.centro_poblado.errors|striptags }}</p>{% endif %}
+										</div>
 									</div>
-								</label>
-								<div class="col-md-9">
-									{{ form.centro_poblado }}
-									{% if form.centro_poblado.errors %}<p class="help-block">{{ form.centro_poblado.errors|striptags }}</p>{% endif %}
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_region_policial">
-									<span class="pull-left">Region policial - FTE. POL.s:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 9 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_region_policial">
+											<span class="pull-left"><li>Region policial - FTE. POL.s:</li></span>
+											<div class="col-md-3 pull-right">
+												{% for posicion in posicion_ayuda  %}
+													{% if posicion == 9 %}
+														<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+															<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+														</a>
+													{% endif %}
+												{% endfor %}
+											</div>
+										</label>
+										<div class="col-md-9">
+											{{ form.region_policial }}
+											{% if form.region_policial.errors %}<p class="help-block">{{ form.region_policial.errors|striptags }}</p>{% endif %}
+										</div>
 									</div>
-								</label>
-								<div class="col-md-9">
-									{{ form.region_policial }}
-									{% if form.region_policial.errors %}<p class="help-block">{{ form.region_policial.errors|striptags }}</p>{% endif %}
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_division">
-									<span class="pull-left">Division policial de orden publico y seguridad:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 10 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_division">
+											<span class="pull-left">Division policial de orden publico y seguridad:</span>
+											<div class="col-md-3 pull-right">
+												{% for posicion in posicion_ayuda  %}
+													{% if posicion == 10 %}
+														<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+															<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+														</a>
+													{% endif %}
+												{% endfor %}
+											</div>
+										</label>
+										<div class="col-md-9">
+											{{ form.division }}
+											{% if form.division.errors %}<p class="help-block">{{ form.division.errors|striptags }}</p>{% endif %}
+										</div>
 									</div>
-								</label>
-								<div class="col-md-9">
-									{{ form.division }}
-									{% if form.division.errors %}<p class="help-block">{{ form.division.errors|striptags }}</p>{% endif %}
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_tipo_instalacion">
-									<span class="pull-left">Tipo de instalacion:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 3 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_tipo_instalacion">
+											<span class="pull-left">Tipo de instalacion:</span>
+											<div class="col-md-3 pull-right">
+												{% for posicion in posicion_ayuda  %}
+													{% if posicion == 3 %}
+														<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+															<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+														</a>
+													{% endif %}
+												{% endfor %}
+											</div>
+										</label>
+										<div class="col-md-9">
+											{{ form.tipo_instalacion }}
+											{% if form.tipo_instalacion.errors %}<p class="help-block">{{ form.tipo_instalacion.errors|striptags }}</p>{% endif %}
+										</div>
 									</div>
-								</label>
-								<div class="col-md-9">
-									{{ form.tipo_instalacion }}
-									{% if form.tipo_instalacion.errors %}<p class="help-block">{{ form.tipo_instalacion.errors|striptags }}</p>{% endif %}
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_nombre_instalacion">
-									<span class="pull-left">Nombre de la instalacion:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 11 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_nombre_instalacion">
+											<span class="pull-left">Nombre de la instalacion:</span>
+											<div class="col-md-3 pull-right">
+												{% for posicion in posicion_ayuda  %}
+													{% if posicion == 11 %}
+														<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+															<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+														</a>
+													{% endif %}
+												{% endfor %}
+											</div>
+										</label>
+										<div class="col-md-9">
+											{{ form.nombre_instalacion }}
+											{% if form.nombre_instalacion.errors %}<p class="help-block">{{ form.nombre_instalacion.errors|striptags }}</p>{% endif %}
+										</div>
 									</div>
-								</label>
-								<div class="col-md-9">
-									{{ form.nombre_instalacion }}
-									{% if form.nombre_instalacion.errors %}<p class="help-block">{{ form.nombre_instalacion.errors|striptags }}</p>{% endif %}
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_direccion_instalacion">
-									<span class="pull-left">Direccion de la instalacion:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 12 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_direccion_instalacion">
+											<span class="pull-left">Direccion de la instalacion:</span>
+											<div class="col-md-3 pull-right">
+												{% for posicion in posicion_ayuda  %}
+													{% if posicion == 12 %}
+														<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+															<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+														</a>
+													{% endif %}
+												{% endfor %}
+											</div>
+										</label>
+										<div class="col-md-9">
+											{{ form.direccion_instalacion }}
+											{% if form.direccion_instalacion.errors %}<p class="help-block">{{ form.direccion_instalacion.errors|striptags }}</p>{% endif %}
+										</div>
 									</div>
-								</label>
-								<div class="col-md-9">
-									{{ form.direccion_instalacion }}
-									{% if form.direccion_instalacion.errors %}<p class="help-block">{{ form.direccion_instalacion.errors|striptags }}</p>{% endif %}
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label">
-									<span class="pull-left">Esta ejecutandio accciones de mejora y/o mantenimiento 2015:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 13 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+									<div class="form-group">
+										<label class="col-md-3 control-label">
+											<span class="pull-left">Esta ejecutandio accciones de mejora y/o mantenimiento 2015:</span>
+											<div class="col-md-3 pull-right">
+												{% for posicion in posicion_ayuda  %}
+													{% if posicion == 13 %}
+														<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+															<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+														</a>
+													{% endif %}
+												{% endfor %}
+											</div>
+										</label>
+										<div class="col-md-9">
+											<label class="unbold" for="id_si">Si</label>
+											<input id="id_si" type="radio" name="ejecutando_mejoras_mantenimiento" value="2" {% if form.ejecutando_mejoras_mantenimiento.value %}checked{% endif %} />&nbsp&nbsp
+											<label class="unbold" for="id_no_lo_se">No lo se</label>
+											<input id="id_no_lo_se" type="radio" name="ejecutando_mejoras_mantenimiento" value="1" {% if form.ejecutando_mejoras_mantenimiento.value == None %}checked{% endif %} />&nbsp&nbsp
+											<label class="unbold" for="id_no">No</label>
+											<input id="id_no" type="radio" name="ejecutando_mejoras_mantenimiento" value="3" {% if form.ejecutando_mejoras_mantenimiento.value == False %}checked{% endif %} />
+											{% if form.ejecutando_mejoras_mantenimiento.errors %}<p class="help-block">{{ form.ejecutando_mejoras_mantenimiento.errors|striptags }}</p>{% endif %}
+										</div>
 									</div>
-								</label>
-								<div class="col-md-9">
-									<label class="unbold" for="id_si">Si</label>
-									<input id="id_si" type="radio" name="ejecutando_mejoras_mantenimiento" value="2" {% if form.ejecutando_mejoras_mantenimiento.value %}checked{% endif %} />&nbsp&nbsp
-									<label class="unbold" for="id_no_lo_se">No lo se</label>
-									<input id="id_no_lo_se" type="radio" name="ejecutando_mejoras_mantenimiento" value="1" {% if form.ejecutando_mejoras_mantenimiento.value == None %}checked{% endif %} />&nbsp&nbsp
-									<label class="unbold" for="id_no">No</label>
-									<input id="id_no" type="radio" name="ejecutando_mejoras_mantenimiento" value="3" {% if form.ejecutando_mejoras_mantenimiento.value == False %}checked{% endif %} />
-									{% if form.ejecutando_mejoras_mantenimiento.errors %}<p class="help-block">{{ form.ejecutando_mejoras_mantenimiento.errors|striptags }}</p>{% endif %}
-								</div>
-							</div>
-							<div class="form-group monto" style="display: none;">
-								<label class="col-md-3 control-label">
-									<span class="pull-left">Monto:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 13 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+									<div class="form-group monto" style="display: none;">
+										<label class="col-md-3 control-label">
+											<span class="pull-left">Monto:</span>
+											<div class="col-md-3 pull-right">
+												{% for posicion in posicion_ayuda  %}
+													{% if posicion == 13 %}
+														<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+															<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+														</a>
+													{% endif %}
+												{% endfor %}
+											</div>
+										</label>
+										<div class="col-md-9">
+											&nbsp&nbsp<span>S/.</span>
+											<span style="display: inline-block">{{ form.monto }}</span>
+											{% if form.monto.errors %}<p class="help-block">{{ form.monto.errors|striptags }}</p>{% endif %}
+										</div>
 									</div>
-								</label>
-								<div class="col-md-9">
-									&nbsp&nbsp<span>S/.</span>
-									<span style="display: inline-block">{{ form.monto }}</span>
-									{% if form.monto.errors %}<p class="help-block">{{ form.monto.errors|striptags }}</p>{% endif %}
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_tipo_comisaria">
-									<span class="pull-left">Tipo de comisaria:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 13 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_tipo_comisaria">
+											<span class="pull-left">Tipo de comisaria:</span>
+											<div class="col-md-3 pull-right">
+												{% for posicion in posicion_ayuda  %}
+													{% if posicion == 13 %}
+														<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+															<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+														</a>
+													{% endif %}
+												{% endfor %}
+											</div>
+										</label>
+										<div class="col-md-9">
+											<select class="form-control" id="id_tipo_comisaria" name="tipo_comisaria" style="width: 40%;"></select>
+											{% if form.tipo_comisaria.errors %}<p class="help-block">{{ form.tipo_comisaria.errors|striptags }}</p>{% endif %}
+										</div>
 									</div>
-								</label>
-								<div class="col-md-9">
-									<select class="form-control" id="id_tipo_comisaria" name="tipo_comisaria" style="width: 40%;"></select>
-									{% if form.tipo_comisaria.errors %}<p class="help-block">{{ form.tipo_comisaria.errors|striptags }}</p>{% endif %}
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_clase_comisaria">
-									<span class="pull-left">Clase de comisaria:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 14 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_clase_comisaria">
+											<span class="pull-left">Clase de comisaria:</span>
+											<div class="col-md-3 pull-right">
+												{% for posicion in posicion_ayuda  %}
+													{% if posicion == 14 %}
+														<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+															<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+														</a>
+													{% endif %}
+												{% endfor %}
+											</div>
+										</label>
+										<div class="col-md-9">
+											<select class="form-control" id="id_clase_comisaria" name="clase_comisaria" style="width: 40%;"></select>
+											{% if form.clase_comisaria.errors %}<p class="help-block">{{ form.clase_comisaria.errors|striptags }}</p>{% endif %}
+										</div>
 									</div>
-								</label>
-								<div class="col-md-9">
-									<select class="form-control" id="id_clase_comisaria" name="clase_comisaria" style="width: 40%;"></select>
-									{% if form.clase_comisaria.errors %}<p class="help-block">{{ form.clase_comisaria.errors|striptags }}</p>{% endif %}
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_especialidad">
-									<span class="pull-left">Especialidad:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 15 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_especialidad">
+											<span class="pull-left">Especialidad:</span>
+											<div class="col-md-3 pull-right">
+												{% for posicion in posicion_ayuda  %}
+													{% if posicion == 15 %}
+														<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+															<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+														</a>
+													{% endif %}
+												{% endfor %}
+											</div>
+										</label>
+										<div class="col-md-9">
+											<select class="form-control" id="id_especialidad" name="especialidad" style="width: 40%;"></select>
+											{% if form.especialidad.errors %}<p class="help-block">{{ form.especialidad.errors|striptags }}</p>{% endif %}
+										</div>
 									</div>
-								</label>
-								<div class="col-md-9">
-									<select class="form-control" id="id_especialidad" name="especialidad" style="width: 40%;"></select>
-									{% if form.especialidad.errors %}<p class="help-block">{{ form.especialidad.errors|striptags }}</p>{% endif %}
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_categoria">
-									<span class="pull-left">Categoria:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 16 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_categoria">
+											<span class="pull-left">Categoria:</span>
+											<div class="col-md-3 pull-right">
+												{% for posicion in posicion_ayuda  %}
+													{% if posicion == 16 %}
+														<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+															<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+														</a>
+													{% endif %}
+												{% endfor %}
+											</div>
+										</label>
+										<div class="col-md-9">
+											<select class="form-control" id="id_categoria" name="categoria" style="width: 40%;"></select>
+											{% if form.categoria.errors %}<p class="help-block">{{ form.categoria.errors|striptags }}</p>{% endif %}
+										</div>
 									</div>
-								</label>
-								<div class="col-md-9">
-									<select class="form-control" id="id_categoria" name="categoria" style="width: 40%;"></select>
-									{% if form.categoria.errors %}<p class="help-block">{{ form.categoria.errors|striptags }}</p>{% endif %}
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_situacion_del_predio">
-									<span class="pull-left">Situacion legal del predio:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 17 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+									<div class="form-group">
+										<label class="col-md-3 control-label" for="id_situacion_del_predio">
+											<span class="pull-left">Situacion legal del predio:</span>
+											<div class="col-md-3 pull-right">
+												{% for posicion in posicion_ayuda  %}
+													{% if posicion == 17 %}
+														<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+															<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+														</a>
+													{% endif %}
+												{% endfor %}
+											</div>
+										</label>
+										<div class="col-md-9">
+											{{ form.situacion_del_predio }}
+											{% if form.situacion_del_predio.errors %}<p class="help-block">{{ form.situacion_del_predio.errors|striptags }}</p>{% endif %}
+										</div>
 									</div>
-								</label>
-								<div class="col-md-9">
-									{{ form.situacion_del_predio }}
-									{% if form.situacion_del_predio.errors %}<p class="help-block">{{ form.situacion_del_predio.errors|striptags }}</p>{% endif %}
-								</div>
-							</div>
-							<label class="col-md-12" style="text-decoration: underline;">Identifiación del Comisario u oficial responsable:</label>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_grado">
-									<span class="pull-left">Grado:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 18 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+								</ul>
+								<label class="col-md-12" style="text-decoration: underline;"><li>Identifiación del Comisario u oficial responsable:</li></label>
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="id_grado">
+										<span class="pull-left">Grado:</span>
+										<div class="col-md-3 pull-right">
+											{% for posicion in posicion_ayuda  %}
+												{% if posicion == 18 %}
+													<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+														<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+													</a>
+												{% endif %}
+											{% endfor %}
+										</div>
+									</label>
+									<div class="col-md-9">
+										{{ form.grado }}
+										{% if form.grado.errors %}<p class="help-block">{{ form.grado.errors|striptags }}</p>{% endif %}
 									</div>
-								</label>
-								<div class="col-md-9">
-									{{ form.grado }}
-									{% if form.grado.errors %}<p class="help-block">{{ form.grado.errors|striptags }}</p>{% endif %}
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_nombre">
-									<span class="pull-left">Nombre:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 19 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.Tipo de instalacion:png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="id_nombre">
+										<span class="pull-left">Nombre:</span>
+										<div class="col-md-3 pull-right">
+											{% for posicion in posicion_ayuda  %}
+												{% if posicion == 19 %}
+													<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+														<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.Tipo de instalacion:png" alt="icon_question.png">
+													</a>
+												{% endif %}
+											{% endfor %}
+										</div>
+									</label>
+									<div class="col-md-9">
+										{{ form.nombre }}
+										{% if form.nombre.errors %}<p class="help-block">{{ form.nombre.errors|striptags }}</p>{% endif %}
 									</div>
-								</label>
-								<div class="col-md-9">
-									{{ form.nombre }}
-									{% if form.nombre.errors %}<p class="help-block">{{ form.nombre.errors|striptags }}</p>{% endif %}
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_apellido">
-									<span class="pull-left">Apellido:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 20 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="id_apellido">
+										<span class="pull-left">Apellido:</span>
+										<div class="col-md-3 pull-right">
+											{% for posicion in posicion_ayuda  %}
+												{% if posicion == 20 %}
+													<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+														<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+													</a>
+												{% endif %}
+											{% endfor %}
+										</div>
+									</label>
+									<div class="col-md-9">
+										{{ form.apellido }}
+										{% if form.apellido.errors %}<p class="help-block">{{ form.apellido.errors|striptags }}</p>{% endif %}
 									</div>
-								</label>
-								<div class="col-md-9">
-									{{ form.apellido }}
-									{% if form.apellido.errors %}<p class="help-block">{{ form.apellido.errors|striptags }}</p>{% endif %}
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_dni">
-									<span class="pull-left">DNI:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 21 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="id_dni">
+										<span class="pull-left">DNI:</span>
+										<div class="col-md-3 pull-right">
+											{% for posicion in posicion_ayuda  %}
+												{% if posicion == 21 %}
+													<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+														<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+													</a>
+												{% endif %}
+											{% endfor %}
+										</div>
+									</label>
+									<div class="col-md-9">
+										{{ form.dni }}
+										{% if form.dni.errors %}<p class="help-block">{{ form.dni.errors|striptags }}</p>{% endif %}
 									</div>
-								</label>
-								<div class="col-md-9">
-									{{ form.dni }}
-									{% if form.dni.errors %}<p class="help-block">{{ form.dni.errors|striptags }}</p>{% endif %}
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_telefono_fijo_comisaria">
-									<span class="pull-left">Telefono fijo comisaria:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 22 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="id_telefono_fijo_comisaria">
+										<span class="pull-left">Telefono fijo comisaria:</span>
+										<div class="col-md-3 pull-right">
+											{% for posicion in posicion_ayuda  %}
+												{% if posicion == 22 %}
+													<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+														<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+													</a>
+												{% endif %}
+											{% endfor %}
+										</div>
+									</label>
+									<div class="col-md-9">
+										{{ form.telefono_fijo_comisaria }}
+										{% if form.telefono_fijo_comisaria.errors %}<p class="help-block">{{ form.telefono_fijo_comisaria.errors|striptags }}</p>{% endif %}
 									</div>
-								</label>
-								<div class="col-md-9">
-									{{ form.telefono_fijo_comisaria }}
-									{% if form.telefono_fijo_comisaria.errors %}<p class="help-block">{{ form.telefono_fijo_comisaria.errors|striptags }}</p>{% endif %}
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_celular_rpc_comisaria">
-									<span class="pull-left">Celular rpc comisaria:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 23 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="id_celular_rpc_comisaria">
+										<span class="pull-left">Celular rpc comisaria:</span>
+										<div class="col-md-3 pull-right">
+											{% for posicion in posicion_ayuda  %}
+												{% if posicion == 23 %}
+													<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+														<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+													</a>
+												{% endif %}
+											{% endfor %}
+										</div>
+									</label>
+									<div class="col-md-9">
+										{{ form.celular_rpc_comisaria }}
+										{% if form.celular_rpc_comisaria.errors %}<p class="help-block">{{ form.celular_rpc_comisaria.errors|striptags }}</p>{% endif %}
 									</div>
-								</label>
-								<div class="col-md-9">
-									{{ form.celular_rpc_comisaria }}
-									{% if form.celular_rpc_comisaria.errors %}<p class="help-block">{{ form.celular_rpc_comisaria.errors|striptags }}</p>{% endif %}
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_celular_rpm_comisaria">
-									<span class="pull-left">Celular rpm comisaria:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 24 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="id_celular_rpm_comisaria">
+										<span class="pull-left">Celular rpm comisaria:</span>
+										<div class="col-md-3 pull-right">
+											{% for posicion in posicion_ayuda  %}
+												{% if posicion == 24 %}
+													<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+														<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+													</a>
+												{% endif %}
+											{% endfor %}
+										</div>
+									</label>
+									<div class="col-md-9">
+										{{ form.celular_rpm_comisaria }}
+										{% if form.celular_rpm_comisaria.errors %}<p class="help-block">{{ form.celular_rpm_comisaria.errors|striptags }}</p>{% endif %}
 									</div>
-								</label>
-								<div class="col-md-9">
-									{{ form.celular_rpm_comisaria }}
-									{% if form.celular_rpm_comisaria.errors %}<p class="help-block">{{ form.celular_rpm_comisaria.errors|striptags }}</p>{% endif %}
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="id_email">
-									<span class="pull-left">Correo electronico:</span>
-									<div class="col-md-3 pull-right">
-										{% for posicion in posicion_ayuda  %}
-											{% if posicion == 25 %}
-												<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-													<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-												</a>
-											{% endif %}
-										{% endfor %}
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="id_email">
+										<span class="pull-left">Correo electronico:</span>
+										<div class="col-md-3 pull-right">
+											{% for posicion in posicion_ayuda  %}
+												{% if posicion == 25 %}
+													<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
+														<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
+													</a>
+												{% endif %}
+											{% endfor %}
+										</div>
+									</label>
+									<div class="col-md-9">
+										{{ form.email }}
+										{% if form.email.errors %}<p class="help-block">{{ form.email.errors|striptags }}</p>{% endif %}
 									</div>
-								</label>
-								<div class="col-md-9">
-									{{ form.email }}
-									{% if form.email.errors %}<p class="help-block">{{ form.email.errors|striptags }}</p>{% endif %}
 								</div>
+								<input class="btn btn-default" type="submit" value="Enviar">
 							</div>
-							<input class="btn btn-default" type="submit" value="Enviar">
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</ul>
 	</form>
 	{% for posicion in posicion_ayuda %}
 		<div class="modal fade" id="{{ posicion }}" tabindex="-1" role="dialog" aria-labelledby="{{ posicion }}" aria-hidden="true">
