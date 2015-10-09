@@ -12,25 +12,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Document',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('document', models.FileField(upload_to=b'docs/')),
-            ],
-            options={
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='Doc',
-            fields=[
-                ('document_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='metrados.Document')),
-            ],
-            options={
-            },
-            bases=('metrados.document',),
-        ),
-        migrations.CreateModel(
             name='FichaTecnica',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -46,26 +27,6 @@ class Migration(migrations.Migration):
             options={
             },
             bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='Image',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('image', models.ImageField(upload_to=b'images/')),
-            ],
-            options={
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='Img',
-            fields=[
-                ('image_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='metrados.Image')),
-                ('form', models.ForeignKey(related_name='images', to='metrados.FichaTecnica')),
-            ],
-            options={
-            },
-            bases=('metrados.image',),
         ),
         migrations.CreateModel(
             name='Metrado1',
@@ -136,12 +97,6 @@ class Migration(migrations.Migration):
             model_name='fichatecnica',
             name='metrado4',
             field=models.ForeignKey(related_name='ficha_tecnica', to='metrados.Metrado4'),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name='doc',
-            name='form',
-            field=models.ForeignKey(related_name='documents', blank=True, to='metrados.FichaTecnica', null=True),
             preserve_default=True,
         ),
     ]
