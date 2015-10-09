@@ -9,6 +9,7 @@ from ubigeo.models import Ubigeo
 from metrados.models import *
 from metrados.forms import FichaTecnicaForm,UbigeoForm
 from metrados.functions import get_json_metrado
+from media_objects.forms import ImageFormSet,DocumentFormSet
 
 @login_required
 def ficha_tecnica(request,id):
@@ -33,6 +34,8 @@ def ficha_tecnica(request,id):
 			return JsonResponse({"valid": False,"errors": form.errors})
 	else:
 		context["form"] = FichaTecnicaForm(initial={"form": id})
+		context["img_formset"] = ImageFormSet()
+		context["doc_formset"] = DocumentFormSet()
 		context["metrados"] = []
 		for metrado2 in Metrado2.objects.all():
 			context["metrados"].append({"id": metrado2.id,"codigo": metrado2.codigo,"descripcion": metrado2.descripcion})
@@ -70,7 +73,6 @@ def json(request):
 	if request.GET.get("metrado1_id",False):
 		metrado1_id = request.GET["metrado1_id"]
 		m1 = Metrado1.objects.get(id=metrado1_id)
-		print get_json_metrado(m1.metrado_2)
 		context["metrado2"] = get_json_metrado(m1.metrado_2)
 	elif request.GET.get("metrado2_id",False):
 		metrado2_id = request.GET["metrado2_id"]
@@ -96,11 +98,17 @@ def json(request):
 		metrado3 = Metrado3.objects.filter(descripcion=rollback)
 		metrado4 = Metrado4.objects.filter(descripcion=rollback)
 		context["rollback"] = {}
+		print "m2.1"
 		if metrado2:
 			for m2 in metrado2:
 				m1 = m2.metrado1
 				context["rollback"]["metrado1_id"] = m1.id
 				context["rollback"]["metrado2_id"] = m2.id
+				if len(m2.metrado_3.all()) == 1:
+					m3 = m2.metrado_3.all()[0]
+					m4 = m3.metrado_4.all()[0]
+					context["rollback"]["metrado3_id"] = m3.id
+					context["rollback"]["metrado4_id"] = m4.id
 		elif metrado3:
 			for m3 in metrado3:
 				m2 = m3.metrado2
@@ -108,11 +116,15 @@ def json(request):
 				context["rollback"]["metrado1_id"] = m1.id
 				context["rollback"]["metrado2_id"] = m2.id
 				context["rollback"]["metrado3_id"] = m3.id
+				if len(m3.metrado_4.all()) == 1:
+					m4 = m3.metrado_4.all()[0]
+					context["rollback"]["metrado4_id"] = m4.id
 		elif metrado4:
 			for m4 in metrado4:
 				m3 = m4.metrado3
 				m2 = m3.metrado2
 				m1 = m2.metrado1
+
 				context["rollback"]["metrado1_id"] = m1.id
 				context["rollback"]["metrado2_id"] = m2.id
 				context["rollback"]["metrado3_id"] = m3.id
