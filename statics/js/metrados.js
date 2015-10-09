@@ -1,28 +1,25 @@
 var metrados = {};
 function addOptions(id_metrado,args,rollback){
-	if(args.length > 0){
-		for(i in args){
-			var id = args[i]["id"];
-			var descripcion = args[i]["descripcion"];
-			if(rollback){
-				if(id == rollback)
-					var option = "<option value='"+id+"' selected>"+descripcion+"</option>";
-				else
-					var option = "<option value='"+id+"'>"+descripcion+"</option>";
-			}
+	$(id_metrado).append("<option></option>");
+	for(i in args){
+		var id = args[i]["id"];
+		var descripcion = args[i]["descripcion"];
+		if(rollback){
+			if(id == rollback)
+				var option = "<option value='"+id+"' selected>"+descripcion+"</option>";
 			else
 				var option = "<option value='"+id+"'>"+descripcion+"</option>";
-			$(id_metrado).append(option);
 		}
+		else
+			var option = "<option value='"+id+"'>"+descripcion+"</option>";
+		$(id_metrado).append(option);
 	}
 }
 function getCodigosMetrado(args){
 	var codigos = {};
-	if(args.length > 0){
-		for(i in args){
-			var id = args[i]["id"];
-			codigos[id] = args[i]["codigo"];
-		}
+	for(i in args){
+		var id = args[i]["id"];
+		codigos[id] = args[i]["codigo"];
 	}
 	return codigos;
 }
@@ -48,22 +45,22 @@ $(document).ready(function(){
 			$(id_metrado1).children("option[value="+rollback["metrado1_id"]+"]").attr({selected: ""});
 			var url = "/metrado/json/?metrado1_id="+$(id_metrado1).val();
 			$.getJSON(url,function(data){
-				$(id_metrado2).children("option[value]").remove();
-				$(id_metrado3).children("option[value]").remove();
-				$(id_metrado4).children("option[value]").remove();
+				$(id_metrado2).children("option").remove();
+				$(id_metrado3).children("option").remove();
+				$(id_metrado4).children("option").remove();
 				addOptions(id_metrado2,data["metrado2"],rollback["metrado2_id"]);
 				codigo_metrado2 = getCodigosMetrado(data["metrado2"]);
 				if("metrado3_id" in rollback){
 					var url = "/metrado/json/?metrado2_id="+$(id_metrado2).val();
 					$.getJSON(url,function(data){
-						$(id_metrado3).children("option[value]").remove();
-						$(id_metrado4).children("option[value]").remove();
+						$(id_metrado3).children("option").remove();
+						$(id_metrado4).children("option").remove();
 						addOptions(id_metrado3,data["metrado3"],rollback["metrado3_id"]);
 						codigo_metrado3 = getCodigosMetrado(data["metrado3"]);
 						if("metrado4_id" in rollback){
 							var url = "/metrado/json/?metrado3_id="+$(id_metrado3).val();
 							$.getJSON(url,function(data){
-								$(id_metrado4).children("option[value]").remove();
+								$(id_metrado4).children("option").remove();
 								addOptions(id_metrado4,data["metrado4"],rollback["metrado4_id"]);
 								codigo_metrado4 = getCodigosMetrado(data["metrado4"]);
 								$(id_metrado4).trigger("change");
@@ -89,9 +86,9 @@ $(document).ready(function(){
 		var tr = $("#tm > tbody tr").last().children(".td-partida");
 		var tr_id = $("#tm > tbody tr").last().attr("id");
 		if(id_select == id_metrado1){
-			$(id_metrado2).children("option[value]").remove();
-			$(id_metrado3).children("option[value]").remove();
-			$(id_metrado4).children("option[value]").remove();
+			$(id_metrado2).children("option").remove();
+			$(id_metrado3).children("option").remove();
+			$(id_metrado4).children("option").remove();
 			var url = "/metrado/json/?metrado1_id="+value_select;
 			$.getJSON(url,function(data){
 				addOptions(id_metrado2,data["metrado2"]);
@@ -99,8 +96,8 @@ $(document).ready(function(){
 			});
 		}
 		else if(id_select == id_metrado2){
-			$(id_metrado3).children("option[value]").remove();
-			$(id_metrado4).children("option[value]").remove();
+			$(id_metrado3).children("option").remove();
+			$(id_metrado4).children("option").remove();
 			var url = "/metrado/json/?metrado2_id="+value_select;
 			$.getJSON(url,function(data){
 				addOptions(id_metrado3,data["metrado3"]);
@@ -120,7 +117,7 @@ $(document).ready(function(){
 			});
 		}
 		else if(id_select == id_metrado3){
-			$(id_metrado4).children("option[value]").remove();
+			$(id_metrado4).children("option").remove();
 			var url = "/metrado/json/?metrado3_id="+value_select;
 			$.getJSON(url,function(data){
 				addOptions(id_metrado4,data["metrado4"]);
@@ -140,10 +137,8 @@ $(document).ready(function(){
 			});
 		}
 		else if(id_select == id_metrado4){
-			if($(this).children().length > 1){
-				if(value_select)
-					tr.text(codigo_metrado4[value_select]);
-			}
+			if(value_select)
+				tr.text(codigo_metrado4[value_select]);
 		}
 		metrados[tr_id] = $("#ficha-tecnica-form");
 		$("input").trigger("change");
