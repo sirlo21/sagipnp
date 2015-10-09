@@ -32,6 +32,7 @@ INSTALLED_APPS = (
     'levantamiento',
     'reparar',
     'metrados',
+    'media_objects',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -53,9 +54,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'pnpsagifen',
         'USER': 'postgres',
-        'PASSWORD': 'nvtnvtnvt',
-        'HOST': '',
-        'PORT': ''
+        'PASSWORD': '12345rtfgv',
+        'HOST': 'localhost',
+        'PORT': '5433'
     }
 }
 
