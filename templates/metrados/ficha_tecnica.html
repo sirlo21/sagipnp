@@ -65,10 +65,19 @@
 									{% endfor %}
 								</div>
 							</label>
-							{{ FormImg.img }}
 							<div class="row">
 								<div class="col-md-12 errors_img"></div>
 							</div>
+							<table id="fmr_img" class="table-responsive table">
+								<tbody>
+									{% for form in img_formset %}
+										<tr>
+											<td>{{ form.image }}</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+							{{ img_formset.management_form }}
 						</div>
 					</div>
 				</div>
@@ -90,10 +99,19 @@
 									{% endfor %}
 								</div>
 							</label>
-							{{ FormDoc.doc }}
 							<div class="row">
 								<div class="col-md-12 errors_doc"></div>
 							</div>
+							<table id="fmr_doc" class="table-responsive table">
+								<tbody>
+									{% for form in doc_formset %}
+										<tr>
+											<td>{{ form.document }}</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+							{{ doc_formset.management_form }}
 						</div>
 					</div>
 				</div>
