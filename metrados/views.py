@@ -20,13 +20,15 @@ def ficha_tecnica(request,id):
 	context = {"obj": levantamiento,"distrito": distrito,"provincia": provincia,"departamento": departamento}
 	if request.method == "POST":
 		post = request.POST
-		from django.core.files import File
-		print post["img"]
-		request.FILES.update(img=File(post["img"]),doc=File(post["doc"]))
-		print request.FILES
-		form = FichaTecnicaForm(post,request.FILES)
+		files = request.FILES
+		form = FichaTecnicaForm(post)
+		obj = form.save(commit=False)
+		img_formset = ImageFormSet(post,files,instance=obj,prefix="img_frm")
+		doc_formset = DocumentFormSet(post,files,instance=obj,prefix="doc_frm")
 		if "valid" in post:
-			return JsonResponse({"valid": form.is_valid(),"errors": form.errors})
+			valid = form.is_valid() and img_formset.is_valid() and doc_formset.is_valid()
+			print files
+			return JsonResponse({"valid": valid,"errors": form.errors})
 		else:
 			if form.is_valid():
 				form.save()
@@ -34,8 +36,8 @@ def ficha_tecnica(request,id):
 			return JsonResponse({"valid": False,"errors": form.errors})
 	else:
 		context["form"] = FichaTecnicaForm(initial={"form": id})
-		context["img_formset"] = ImageFormSet()
-		context["doc_formset"] = DocumentFormSet()
+		context["img_formset"] = ImageFormSet(prefix="img_frm")
+		context["doc_formset"] = DocumentFormSet(prefix="doc_frm")
 		context["metrados"] = []
 		for metrado2 in Metrado2.objects.all():
 			context["metrados"].append({"id": metrado2.id,"codigo": metrado2.codigo,"descripcion": metrado2.descripcion})
@@ -98,7 +100,6 @@ def json(request):
 		metrado3 = Metrado3.objects.filter(descripcion=rollback)
 		metrado4 = Metrado4.objects.filter(descripcion=rollback)
 		context["rollback"] = {}
-		print "m2.1"
 		if metrado2:
 			for m2 in metrado2:
 				m1 = m2.metrado1
