@@ -72,7 +72,7 @@
 								<tbody>
 									{% for form in img_formset %}
 										<tr>
-											<td>{{ form.image }}</td>
+											<td>{{ form.img }}</td>
 										</tr>
 									{% endfor %}
 								</tbody>
@@ -106,7 +106,7 @@
 								<tbody>
 									{% for form in doc_formset %}
 										<tr>
-											<td>{{ form.document }}</td>
+											<td>{{ form.doc }}</td>
 										</tr>
 									{% endfor %}
 								</tbody>
@@ -298,7 +298,7 @@
 							</div>
 							<div class="col-md-3">
 								<br/>
-								<button type="reset" id="add" class="btn btn-success">AGREGAR</button>
+								<button type="button" id="add" class="btn btn-success">AGREGAR</button>
 							</div>
 						</div>
 						<div class="panel-body">
@@ -344,7 +344,7 @@
 							</div>
 						</div>
 						{{ form.form }}
-						<input type="hidden" id="valid" value="false" />
+						<input type="hidden" id="id_valid" name="valid" value="false" />
 						<input type="submit" id="submit" class="btn btn-success" value="Listo!"/>
 					</div>
 				</div>
@@ -361,5 +361,22 @@
 {% endblock %}
 
 {% block scripts %}
+	<script src="{{ STATIC_URL }}js/jquery.formset.js"></script>
 	<script src="{{ STATIC_URL }}js/metrados.js"></script>
+	<script>
+		$(function() {
+			$('#fmr_img tbody tr').formset({
+				prefix: '{{ img_formset.prefix }}',
+				deleteText: "<i class='fa fa-trash-o'></i>",
+				addText: "<i class='fa fa-plus-square-o'></i>",
+				formCssClass: 'dynamic-formset1'
+			});
+			$('#fmr_doc tbody tr').formset({
+				prefix: '{{ doc_formset.prefix }}',
+				deleteText: "<i class='fa fa-trash-o'></i>",
+				addText: "<i class='fa fa-plus-square-o'></i>",
+				formCssClass: 'dynamic-formset3'
+			});
+		});
+	</script>
 {% endblock %}
