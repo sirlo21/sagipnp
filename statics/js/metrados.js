@@ -143,18 +143,23 @@ $(document).ready(function(){
 		metrados[tr_id] = $("#ficha-tecnica-form");
 		$("input").trigger("change");
 	});
-	$("#ficha-tecnica-form").on("reset",function(event){
-		event.preventDefault();
+	$("#add").click(function(event){
 		var tr_id = $("#tm > tbody > tr").last().attr("id");
 		$(".error").remove();
 		if(tr_id in metrados){
-			var form = new FormData(metrados[tr_id]);
+			metrados[tr_id].find("input[name=valid]").val(true);
+			console.log(metrados[tr_id]);
+			var form = new FormData(metrados[tr_id].get(0));
+			console.log(form);
 			$.ajax({
 				url: $("#ficha-tecnica-form").attr("action"),
 				data: form,
 				type: "POST",
 				success: function(data){
+					console.log(2);
 					if(data["valid"]){
+						console.log(3);
+						metrados[tr_id] = metrados[tr_id].find("input[name=valid]").val(false);
 						if($("#tm > tbody > tr").length > 0)
 							var new_tr_id = tr_id.replace(/\d+/g,parseInt(tr_id.match(/\d+/g))+1);
 						else
@@ -173,7 +178,7 @@ $(document).ready(function(){
 						new_tr += '<td>\n<button type="button" onclick="removeTr(\''+new_tr_id+'\');" class="btn btn-danger">Borrar</button>\n</td>\n';
 						new_tr += '</tr>';
 						$("#tm > tbody").append($(new_tr));
-						$(this).trigger("reset");
+						$("#ficha-tecnica-form").trigger("reset");
 					}
 					else{
 						$.each(data["errors"],function(key,value){
@@ -182,6 +187,11 @@ $(document).ready(function(){
 							$(".errors_"+key).append("\n<div class='col-lg-12 error'>\n"+error+"\n</div>");
 						});
 					}
+				},
+				processData: false,
+				contentType: false,
+				error: function(data){
+					alert("Llene el formulario primero");
 				}
 			});
 		}
