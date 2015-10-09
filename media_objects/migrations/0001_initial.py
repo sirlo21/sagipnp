@@ -7,14 +7,15 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('contenttypes', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Document',
+            name='Media',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('doc', models.FileField(upload_to=b'docs/')),
+                ('object_id', models.PositiveIntegerField()),
             ],
             options={
             },
@@ -23,11 +24,27 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Image',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('media_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='media_objects.Media')),
                 ('img', models.ImageField(upload_to=b'images/')),
             ],
             options={
             },
-            bases=(models.Model,),
+            bases=('media_objects.media',),
+        ),
+        migrations.CreateModel(
+            name='Document',
+            fields=[
+                ('media_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='media_objects.Media')),
+                ('doc', models.FileField(upload_to=b'docs/')),
+            ],
+            options={
+            },
+            bases=('media_objects.media',),
+        ),
+        migrations.AddField(
+            model_name='media',
+            name='content_type',
+            field=models.ForeignKey(to='contenttypes.ContentType'),
+            preserve_default=True,
         ),
     ]
