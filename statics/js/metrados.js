@@ -249,8 +249,8 @@ $(document).ready(function(){
 										data: formdata,
 										type: "POST",
 										complete: function(){
-											// if(arr.length == i)
-												// window.location = "/";
+											if(arr.length == i)
+												window.location = "/";
 										},
 										processData: false,
 										contentType: false,
