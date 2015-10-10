@@ -241,25 +241,28 @@ $(document).ready(function(){
 					success: function(data){
 						if(data["valid"]){
 							metrados[tr_id].find("input[name=valid]").remove();
+							var arr = [];
 							$.each(metrados,function(key,value){
-								if(value != undefined){
-									formdata = new FormData(value.get(0));
-									$.ajax({
-										url: $("#ficha-tecnica-form").attr("action"),
-										data: formdata,
-										type: "POST",
-										complete: function(){
-											if(arr.length == i)
-												window.location = "/";
-										},
-										processData: false,
-										contentType: false,
-										error: function(data){
-											console.log(data);
-										}
-									});
-								}
+								if(value != undefined)
+									arr.push(value);
 							});
+							for(i in arr){
+								var formdata = new FormData(arr[i].get(0));
+								$.ajax({
+									url: $("#ficha-tecnica-form").attr("action"),
+									data: formdata,
+									type: "POST",
+									complete: function(){
+										if(arr.length-1 == i)
+											window.location = "/";
+									},
+									processData: false,
+									contentType: false,
+									error: function(data){
+										console.log(data);
+									}
+								});
+							}
 						}
 						else{
 							$.each(data["errors"],function(key,value){
