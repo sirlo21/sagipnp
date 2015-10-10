@@ -147,19 +147,16 @@ $(document).ready(function(){
 		var tr_id = $("#tm > tbody > tr").last().attr("id");
 		$(".error").remove();
 		if(tr_id in metrados){
-			metrados[tr_id].find("input[name=valid]").val(true);
-			console.log(metrados[tr_id]);
+			var valid = $("<input type='hidden' name='valid' value='"+true+"'/>");
+			metrados[tr_id].append(valid);
 			var form = new FormData(metrados[tr_id].get(0));
-			console.log(form);
 			$.ajax({
 				url: $("#ficha-tecnica-form").attr("action"),
 				data: form,
 				type: "POST",
 				success: function(data){
-					console.log(2);
 					if(data["valid"]){
-						console.log(3);
-						metrados[tr_id] = metrados[tr_id].find("input[name=valid]").val(false);
+						metrados[tr_id].find("input[name=valid]").remove();
 						if($("#tm > tbody > tr").length > 0)
 							var new_tr_id = tr_id.replace(/\d+/g,parseInt(tr_id.match(/\d+/g))+1);
 						else
@@ -191,7 +188,7 @@ $(document).ready(function(){
 				processData: false,
 				contentType: false,
 				error: function(data){
-					alert("Llene el formulario primero");
+					console.log(data);
 				}
 			});
 		}
