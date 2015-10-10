@@ -175,7 +175,7 @@ $(document).ready(function(){
 						new_tr += '<td>\n<button type="button" onclick="removeTr(\''+new_tr_id+'\');" class="btn btn-danger">Borrar</button>\n</td>\n';
 						new_tr += '</tr>';
 						$("#tm > tbody").append($(new_tr));
-						$("#ficha-tecnica-form").trigger("reset");
+						$("#ficha-tecnica-form").get(0).reset();
 					}
 					else{
 						$.each(data["errors"],function(key,value){
@@ -230,29 +230,36 @@ $(document).ready(function(){
 		event.preventDefault();
 		if(confirm("¿Estas seguro de que quiere guardar?")){
 			var tr_id = $("#tm > tbody > tr").last().attr("id");
+			var valid = $("<input type='hidden' name='valid' value='"+true+"'/>");
+			metrados[tr_id].append(valid);
+			var form = new FormData(metrados[tr_id].get(0));
 			if(tr_id in metrados){
 				$.ajax({
 					url: $(this).attr("action"),
-					data: metrados[tr_id],
+					data: form,
 					type: "POST",
 					success: function(data){
 						if(data["valid"]){
-							var arr = [];
+							metrados[tr_id].find("input[name=valid]").remove();
 							$.each(metrados,function(key,value){
-								if(value != undefined)
-									arr.push(value);
+								if(value != undefined){
+									formdata = new FormData(value.get(0));
+									$.ajax({
+										url: $("#ficha-tecnica-form").attr("action"),
+										data: formdata,
+										type: "POST",
+										complete: function(){
+											// if(arr.length == i)
+												// window.location = "/";
+										},
+										processData: false,
+										contentType: false,
+										error: function(data){
+											console.log(data);
+										}
+									});
+								}
 							});
-							for(var i=0;i<arr.length;i++){
-								$.ajax({
-									url: $("#ficha-tecnica-form").attr("action"),
-									data: arr[i],
-									type: "POST",
-									complete: function(){
-										if(arr.length == i)
-											window.location = "/";
-									}
-								});
-							}
 						}
 						else{
 							$.each(data["errors"],function(key,value){
@@ -260,6 +267,12 @@ $(document).ready(function(){
 								$(".errors_"+key).append("\n<div class='col-lg-12 error'>\n"+error+"\n</div>");
 							});
 						}
+					},
+					processData: false,
+					contentType: false,
+					error: function(data){
+						console.log(1);
+						console.log(data);
 					}
 				});
 			}
