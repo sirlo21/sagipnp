@@ -42,10 +42,10 @@ def ficha_tecnica(request,id):
 				img_formset = ImageFormSet(post,files,instance=obj,prefix="img_frm")
 				doc_formset = DocumentFormSet(post,files,instance=obj,prefix="doc_frm")
 				if img_formset.is_valid():
+					obj.save()
 					img_formset.save()
-				if doc_formset.is_valid():
-					doc_formset.save()
-				obj.save()
+					if doc_formset.is_valid():
+						doc_formset.save()
 				return JsonResponse({"valid": True,"errors": form.errors})
 			return JsonResponse({"valid": False,"errors": form.errors})
 	else:
