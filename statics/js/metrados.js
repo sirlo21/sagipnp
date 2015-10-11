@@ -226,11 +226,13 @@ $(document).ready(function(){
 		metrados[tr_id] = $("#ficha-tecnica-form");
 	});
 	$("#ficha-tecnica-form").submit(function(event){
-		$(".error").remove();
 		event.preventDefault();
+		$(".estado").remove();
 		if(confirm("¿Estas seguro de que quiere guardar?")){
 			var tr_id = $("#tm > tbody > tr").last().attr("id");
-			var valid = $("<input type='hidden' name='valid' value='"+true+"'/>");
+			var valid = $("<input>").attr({type: "hidden",name: "valid"}).val(true);
+			var div = $("<div>").addClass("estado");
+			var span = $("<span>");
 			metrados[tr_id].append(valid);
 			var form = new FormData(metrados[tr_id].get(0));
 			if(tr_id in metrados){
@@ -239,6 +241,11 @@ $(document).ready(function(){
 					data: form,
 					type: "POST",
 					success: function(data){
+						var span_html = span;
+						var div_html = div;
+						span_html.addClass("success").text("Enviando...");
+						div_html.html(span_html);
+						$("#submit").after(div_html);
 						if(data["valid"]){
 							metrados[tr_id].find("input[name=valid]").remove();
 							var arr = [];
@@ -246,12 +253,20 @@ $(document).ready(function(){
 								if(value != undefined)
 									arr.push(value);
 							});
-							for(i in arr){
+							for(var i in arr){
+								$(".estado").remove();
 								var formdata = new FormData(arr[i].get(0));
 								$.ajax({
 									url: $("#ficha-tecnica-form").attr("action"),
 									data: formdata,
 									type: "POST",
+									success: function(data){
+										span_html = span;
+										div_html = div;
+										span_html.addClass("success").text("Enviando...");
+										div_html.html(span_html);
+										$("#submit").after(div_html);
+									},
 									complete: function(){
 										if(arr.length-1 == i)
 											window.location = "/";
@@ -259,13 +274,21 @@ $(document).ready(function(){
 									processData: false,
 									contentType: false,
 									error: function(data){
+										$(".estado").remove();
+										span_html = span;
+										div_html = div;
+										span_html.addClass("error").text("Error al enviar");
+										div_html.html(span_html);
+										$("#submit").after(div_html);
 										console.log(data);
 									}
 								});
 							}
 						}
 						else{
+							$(".estado").remove();
 							$.each(data["errors"],function(key,value){
+								console.log(key+": "+value);
 								var error = "<p class='help-block'>"+value+"</p>";
 								$(".errors_"+key).append("\n<div class='col-lg-12 error'>\n"+error+"\n</div>");
 							});
