@@ -505,7 +505,9 @@
 										</div>
 									</label>
 									<div class="col-md-9">
-										{{ form.telefono_fijo_comisaria }}
+										<input type="text" maxlength="3" name="telefono_fijo_comisaria_1" />
+										<span style="display: inline">-</span>
+										<input type="text" maxlength="7" name="telefono_fijo_comisaria_2" />
 										{% if form.telefono_fijo_comisaria.errors %}<p class="help-block">{{ form.telefono_fijo_comisaria.errors|striptags }}</p>{% endif %}
 									</div>
 								</div>
