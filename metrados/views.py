@@ -22,16 +22,30 @@ def ficha_tecnica(request,id):
 		post = request.POST
 		files = request.FILES
 		form = FichaTecnicaForm(post)
-		obj = form.save(commit=False)
-		img_formset = ImageFormSet(post,files,instance=obj,prefix="img_frm")
-		doc_formset = DocumentFormSet(post,files,instance=obj,prefix="doc_frm")
 		if "valid" in post:
-			valid = form.is_valid() and img_formset.is_valid() and doc_formset.is_valid()
-			print files
-			return JsonResponse({"valid": valid,"errors": form.errors})
+			errors = form.errors
+			valid = form.is_valid()
+			if form.is_valid():
+				errors = []
+				obj = form.save(commit=False)
+				img_formset = ImageFormSet(post,files,instance=obj,prefix="img_frm")
+				if not img_formset.is_valid():
+					errors += img_formset.errors
+				doc_formset = DocumentFormSet(post,files,instance=obj,prefix="doc_frm")
+				if not doc_formset.is_valid():
+					errors += doc_formset.errors
+				valid = form.is_valid() and img_formset.is_valid() and doc_formset.is_valid()
+			return JsonResponse({"valid": valid,"errors": errors})
 		else:
 			if form.is_valid():
-				form.save()
+				obj = form.save(commit=False)
+				img_formset = ImageFormSet(post,files,instance=obj,prefix="img_frm")
+				doc_formset = DocumentFormSet(post,files,instance=obj,prefix="doc_frm")
+				if img_formset.is_valid():
+					obj.save()
+					img_formset.save()
+					if doc_formset.is_valid():
+						doc_formset.save()
 				return JsonResponse({"valid": True,"errors": form.errors})
 			return JsonResponse({"valid": False,"errors": form.errors})
 	else:

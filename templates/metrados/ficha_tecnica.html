@@ -4,6 +4,9 @@
 	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}fecha/css/bootstrap-datetimepicker.min.css" />
 	<style>
 		.bold{font-weight: bold;}
+		.estado{display: inline-block;}
+		.error{color: #f00;font-size: 20px;}
+		.success{color: #00f;font-size: 20px;}
 	</style>
 {% endblock %}
 
@@ -179,11 +182,13 @@
 								<select class="form-control" id="id_metrado3" name="metrado3">
 									<option></option>
 								</select>
+								<div class="errors_metrado3"></div>
 							</div>
 							<div class="col-md-3">
 								<select class="form-control" id="id_metrado4" name="metrado4">
 									<option></option>
 								</select>
+								<div class="errors_metrado4"></div>
 							</div>
 						</div>
 						<br/>
@@ -344,7 +349,6 @@
 							</div>
 						</div>
 						{{ form.form }}
-						<input type="hidden" id="id_valid" name="valid" value="false" />
 						<input type="submit" id="submit" class="btn btn-success" value="Listo!"/>
 					</div>
 				</div>
