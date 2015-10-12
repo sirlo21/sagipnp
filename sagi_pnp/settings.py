@@ -55,8 +55,8 @@ DATABASES = {
         'NAME': 'pnpsagifen',
         'USER': 'postgres',
         'PASSWORD': 'nvtnvtnvt',
-        'HOST': 'localhost',
-        'PORT': '5432'
+        'HOST': '',
+        'PORT': ''
     }
 }
 
