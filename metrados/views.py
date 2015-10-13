@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render,redirect
-from levantamiento.models import Levantamiento,RegionPolicial,TComisaria,CComisaria,Especialidad,Category
+from levantamiento.models import Levantamiento,RegionPolicial,TComisaria,CComisaria,Especialidad,Category,Instalacion
 from ayudas.models import Ayuda
 from django.contrib.auth.decorators import login_required
 from levantamiento.functions import posiciones_de_ayuda
@@ -59,30 +59,31 @@ def ficha_tecnica(request,id):
 			context["metrados"].append({"id": metrado3.id,"codigo": metrado3.codigo,"descripcion": metrado3.descripcion})
 		for metrado4 in Metrado4.objects.all():
 			context["metrados"].append({"id": metrado4.id,"codigo": metrado4.codigo,"descripcion": metrado4.descripcion})
-		
+	context["next"] = request.path
 	return render(request,"metrados/ficha_tecnica.html",context)
 
 def reportes(request):
-	context = {"form": UbigeoForm(),}
+	context = {"next": request.path,"form": UbigeoForm(),}
 	if request.GET.get("ubigeo_0",False) > 0:
 		pass
 	else:
-		context["ths"] = [u"Tipo de instalacion",
-			u"Nombre de la instalacion",
-			u"Monto asignado general para reparaciones",
-			u"Monto proyectado de levantamientos de información",
-			u"Saldo Disponible",
-			u"se vizualiza en una Tabla y en un Grafico"
-		]
-		context["tds"] = []
-		monto_general_total = 0
-		for l in Levantamiento.objects.all().order_by("nombre_instalacion"):
-			monto_general_de_reparaciones = 0
-			td = "<td>%s</td>" %l.tipo_instalacion.instalacion
-			td += "\n<td>%s</td>" %l.nombre_instalacion
-			context["tds"].append(td)
+		context["instalaciones"] = []
+		for i in Instalacion.objects.all().order_by("instalacion"):
+			name = i.instalacion.replace(" ","-")
+			context["instalaciones"].append({"instalacion": i.instalacion,"name": name})
 
 	return render(request,"metrados/reportes.html",context)
+
+def reporte_instalacion(request,tipo_instalacion):
+	context = {"next": request.path}
+	ti = tipo_instalacion.replace("-"," ")
+	forms = []
+	for l in Levantamiento.objects.all():
+		instalacion = l.tipo_instalacion
+		if instalacion.instalacion == ti:
+			forms.append(l)
+	context["forms"] = forms
+	return render(request,"metrados/reporte_instalacion.html",context)
 
 def json(request):
 	context = {}
