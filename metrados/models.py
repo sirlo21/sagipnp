@@ -40,7 +40,7 @@ class FichaTecnica(models.Model):
 	metrado2 = models.ForeignKey(Metrado2,related_name='ficha_tecnica')
 	metrado3 = models.ForeignKey(Metrado3,related_name='ficha_tecnica')
 	metrado4 = models.ForeignKey(Metrado4,related_name='ficha_tecnica')
-	images = GenericRelation(Image)
+	images = GenericRelation(Image,null=False,blank=False)
 	docs = GenericRelation(Document,null=True,blank=True)
 	numero = models.IntegerField(default=0)
 	largo = models.FloatField(default=0)
