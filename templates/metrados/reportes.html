@@ -1,25 +1,17 @@
 {% extends "bases/base.html" %}
 
 {% block content %}
-	<form class="form-horizontal" role="form" action method="get">
+	<ul style="list-style-type: none;">
 		<div class="row">
-			<div class="col-md-12">
-				{{ form.ubigeo }}
-
-				<label for="id_tipo_instalacion" class="control-label">Tipo de instalacion:</label>
-				{{ form.tipo_instalacion }}
+			{% for ti in instalaciones %}
+				<div class="col-md-12">
+					<h2 style="font-size: 2em;">
+						<li>
+							- <a href="{% url 'reporte_instalacion' ti.name %}">{{ ti.instalacion }}</a>
+						</li>
+					</h2>
 				</div>
-				{{ form.consulta }}
-			</div>
-			<input type="submit" class="btn btn-success" />
+			{% endfor %}
 		</div>
-	</form>
-	<div class="table-responsive">
-		{% include "metrados/table.html" %}
-	</div>
-{% endblock %}
-
-{% block scripts %}
-	{{ form.media }}
-	<script src="{{ STATIC_URL }}js/metrados.js"></script>
+	</ul>
 {% endblock %}
