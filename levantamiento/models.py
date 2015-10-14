@@ -63,7 +63,6 @@ class Instalacion(models.Model):
 		return self.instalacion
 
 class Levantamiento(models.Model):
-	""" Doctor Juan Chau """
 	unidad_ejecutora = models.ForeignKey(UnidadEjecutora,related_name='formularios')
 	inicio = models.DateField()
 	termino = models.DateField()
