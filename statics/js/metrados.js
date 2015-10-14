@@ -103,9 +103,8 @@ $(document).ready(function(){
 				addOptions(id_metrado3,data["metrado3"]);
 				codigo_metrado3 = getCodigosMetrado(data["metrado3"]);
 				if($(id_metrado3).children().length > 1){
-					var text1 = $(id_metrado3).children("option").get(0).text
-					var text2 = $(id_metrado3).children("option").get(1).text
-					if($(id_metrado3).val() && text1 != "" && text2 != "N/A"){
+					var text = $(id_metrado3).children("option").get(1).text
+					if($(id_metrado3).val() && text != "N/A"){
 						$(id_metrado3).children().each(function(index){
 							if($(this).prop("selected"))
 								tr.text(codigo_metrado3[$(this).val()]);
@@ -129,16 +128,15 @@ $(document).ready(function(){
 				addOptions(id_metrado4,data["metrado4"]);
 				codigo_metrado4 = getCodigosMetrado(data["metrado4"]);
 				if($(id_metrado4).children().length > 1){
-					var text1 = $(id_metrado4).children("option").get(0).text
+					var text1 = $(id_metrado3).children("option").get(1).text
 					var text2 = $(id_metrado4).children("option").get(1).text
-					if($(id_metrado4).val() && text1 != "" && text2 != "N/A"){
-						console.log("Pony");
+					if($(id_metrado4).val() && text1 != "N/A"){
 						$(id_metrado4).children().each(function(index){
 							if($(this).prop("selected"))
 								tr.text(codigo_metrado4[$(this).val()]);
 						});
 					}
-					else{
+					else if(text1 != "N/A"){
 						if(value_select)
 							tr.text(codigo_metrado3[value_select]);
 					}
