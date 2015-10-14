@@ -77,12 +77,19 @@ def reportes(request):
 def reporte_instalacion(request,tipo_instalacion):
 	context = {"next": request.path}
 	ti = tipo_instalacion.replace("-"," ")
-	forms = []
+	fichas_tecnicas = []
 	for l in Levantamiento.objects.all():
 		instalacion = l.tipo_instalacion
+		ficha = {}
 		if instalacion.instalacion == ti:
-			forms.append(l)
-	context["forms"] = forms
+			total_total = 0
+			for ft in l.ficha_tecnica.all():
+				total = ft.numero * ft.parcial
+				precio_total = ft.unidad * ft.punitario
+				total_total += total
+				ficha.update(instalacion=l.nombre_instalacion,total=total,precio_total=precio_total)
+				fichas_tecnicas.append(ficha)
+	context["fichas_tecnicas"] = fichas_tecnicas
 	return render(request,"metrados/reporte_instalacion.html",context)
 
 def json(request):
