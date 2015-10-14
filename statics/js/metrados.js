@@ -36,9 +36,9 @@ $(document).ready(function(){
 		var input_nombre_id = "#id_nombre";
 		var url = "/metrado/json/?rollback="+$(input_nombre_id).val();
 		var id_tabla = input_nombre_id.replace("nombre","tabla");
-		var id_metrado2 = input_nombre_id.replace("nombre","metrado2");
-		var id_metrado3 = input_nombre_id.replace("nombre","metrado3");
-		var id_metrado4 = input_nombre_id.replace("nombre","metrado4");
+		var id_metrado2 = "#id_metrado2";
+		var id_metrado3 = "#id_metrado3";
+		var id_metrado4 = "#id_metrado4";
 		var tr = "#"+$("#tm > tbody tr").last().attr("id");
 		$.getJSON(url,function(data){
 			var rollback = data["rollback"]
@@ -103,11 +103,17 @@ $(document).ready(function(){
 				addOptions(id_metrado3,data["metrado3"]);
 				codigo_metrado3 = getCodigosMetrado(data["metrado3"]);
 				if($(id_metrado3).children().length > 1){
-					if($(id_metrado3).val()){
+					var text1 = $(id_metrado3).children("option").get(0).text
+					var text2 = $(id_metrado3).children("option").get(1).text
+					if($(id_metrado3).val() && text1 != "" && text2 != "N/A"){
 						$(id_metrado3).children().each(function(index){
 							if($(this).prop("selected"))
 								tr.text(codigo_metrado3[$(this).val()]);
 						});
+					}
+					else{
+						if(value_select)
+							tr.text(codigo_metrado2[value_select]);
 					}
 				}
 				else{
@@ -123,11 +129,18 @@ $(document).ready(function(){
 				addOptions(id_metrado4,data["metrado4"]);
 				codigo_metrado4 = getCodigosMetrado(data["metrado4"]);
 				if($(id_metrado4).children().length > 1){
-					if($(id_metrado4).val()){
+					var text1 = $(id_metrado4).children("option").get(0).text
+					var text2 = $(id_metrado4).children("option").get(1).text
+					if($(id_metrado4).val() && text1 != "" && text2 != "N/A"){
+						console.log("Pony");
 						$(id_metrado4).children().each(function(index){
 							if($(this).prop("selected"))
 								tr.text(codigo_metrado4[$(this).val()]);
 						});
+					}
+					else{
+						if(value_select)
+							tr.text(codigo_metrado3[value_select]);
 					}
 				}
 				else{
@@ -137,7 +150,8 @@ $(document).ready(function(){
 			});
 		}
 		else if(id_select == id_metrado4){
-			if(value_select)
+			var text = $(id_metrado4).children("option[value="+value_select+"]").text();
+			if(value_select && text != "N/A")
 				tr.text(codigo_metrado4[value_select]);
 		}
 		metrados[tr_id] = $("#ficha-tecnica-form");
