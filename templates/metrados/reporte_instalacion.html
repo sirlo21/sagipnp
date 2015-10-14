@@ -15,8 +15,8 @@
 						<table id="tm" class="table table-bordered">
 							<thead>
 								<tr>
-									<th scope="col">Veces</th>
-									<th scope="col">Largo</th>
+									<th scope="col">Nombre</th>
+									<th scope="col">Costo de las reparaciones</th>
 									<th scope="col">Ancho</th>
 									<th scope="col">Altura</th>
 								</tr>
@@ -24,10 +24,12 @@
 							<tbody>
 								{% for ft in fichas_tecnicas %}
 									<tr>
-										<td>{{ ft.total }}</td>
+										<td>{{ ft.instalacion }}</td>
+										<td>s/.{{ ft.total }}</td>
 									</tr>
 								{% endfor %}
 								<tr>
+									<td>Monto total</td>
 									<td>{{ ptotal }}</td>
 								</tr>
 							</tbody>
