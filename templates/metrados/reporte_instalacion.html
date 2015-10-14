@@ -9,7 +9,7 @@
 	<br/>
 	<div class="row">
 		<div class="col-md-12">
-			{% if forms|length > 0 %}
+			{% if fichas_tecnicas|length > 0 %}
 				<div class="panel-body">
 					<div class="table-responsive">
 						<table id="tm" class="table table-bordered">
@@ -27,12 +27,15 @@
 										<td>{{ ft.total }}</td>
 									</tr>
 								{% endfor %}
+								<tr>
+									<td>{{ ptotal }}</td>
+								</tr>
 							</tbody>
 						</table>
 					</div>
 				</div>
 			{% else %}
-				<h2>No se a encontrado ningun formulario</h2>
+				<h2>No se a encontrado ninguna Ficha Tecnica</h2>
 			{% endif %}
 		</div>
 	</div>
