@@ -1,18 +1,3 @@
-<nav class="wrap t3-topbar">
-	<div class="main-container">
-		<div class="row">
-			<div class="col-sm-8 hidden-xs"></div>
-			<div class="col-sm-4 col-xs-12">
-				<div class="navbar-header pull-right">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".t3-navbar-collapse">
-						<i class="fa fa-bars"></i>
-					</button>
-				</div>
-			</div>
-			<hr>
-		</div>
-	</div>
-</nav>
 <header id="t3-header" class="wrap t3-header clearfix" style="background-color: #fff;">
 	<div class="main-container">
 		<div class="row">
@@ -37,9 +22,22 @@
 				</div>
 				<h3 align="center">MÓDULO DE GESTIÓN DE EMERGENCIAS</h3>
 				<h4 align="center">Sistemas de Apoyo a la Gestión Institucional.</h4>
-				{% block nav %}
-					{% include "bases/nav.html" %}
-				{% endblock %}
+				<div class="main-container">
+					<div class="row">
+						<div class="col-sm-8 hidden-xs"></div>
+						<div class="col-sm-4 col-xs-12">
+							<div class="navbar-header pull-right">
+								<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".t3-navbar-collapse">
+									<i class="fa fa-bars"></i>
+								</button>
+							</div>
+						</div>
+						<hr>
+						{% block nav %}
+							{% include "bases/nav.html" %}
+						{% endblock %}
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
