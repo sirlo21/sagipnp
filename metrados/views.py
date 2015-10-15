@@ -85,8 +85,15 @@ def reporte_instalacion(request,tipo_instalacion):
 			for ft in l.ficha_tecnica.all():
 				total = ft.numero * ft.parcial
 				precio_total = ft.unidad * ft.punitario
+				if ft.metrado4.descripcion == "N/A":
+					if ft.metrado3.descripcion == "N/A":
+						reparacion = ft.metrado2.descripcion
+					else:
+						reparacion = ft.metrado3.descripcion
+				else:
+					reparacion = ft.metrado4.descripcion
 				ptotal += total
-				fichas_tecnicas.append({"instalacion": l.nombre_instalacion,"total": total,"precio_total": precio_total})
+				fichas_tecnicas.append({"instalacion": l.nombre_instalacion,"total": total,"precio_total": precio_total,"reparacion": reparacion})
 			print ptotal
 			context["ptotal"] = ptotal
 	context["fichas_tecnicas"] = fichas_tecnicas
