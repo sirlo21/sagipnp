@@ -17,8 +17,7 @@
 								<tr>
 									<th scope="col">Nombre</th>
 									<th scope="col">Costo de las reparaciones</th>
-									<th scope="col">Ancho</th>
-									<th scope="col">Altura</th>
+									<th scope="col">Tipo de reparacion</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -26,11 +25,12 @@
 									<tr>
 										<td>{{ ft.instalacion }}</td>
 										<td>s/.{{ ft.total }}</td>
+										<td>{{ ft.reparacion }}</td>
 									</tr>
 								{% endfor %}
 								<tr>
-									<td>Monto total</td>
-									<td>{{ ptotal }}</td>
+									<td></td>
+									<td>Monto total: {{ ptotal }}</td>
 								</tr>
 							</tbody>
 						</table>
