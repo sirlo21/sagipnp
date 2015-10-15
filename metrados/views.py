@@ -81,26 +81,27 @@ def reporte_instalacion(request,tipo_instalacion):
 	ptotal = 0
 	for l in Levantamiento.objects.all():
 		instalacion = l.tipo_instalacion
-		if instalacion.instalacion == ti:
+		total = 0
+		precio_total = 0
+		if instalacion.instalacion == ti and len(l.ficha_tecnica.all()) > 0:
 			for ft in l.ficha_tecnica.all():
-				total = ft.numero * ft.parcial
-				precio_total = ft.unidad * ft.punitario
-				d1 = ft.metrado1.descripcion
-				d2 = ft.metrado2.descripcion
-				d3 = ft.metrado3.descripcion
-				d4 = ft.metrado4.descripcion
-				reparacion = d1+" -> "+d2
-				if d4 == "N/A":
-					if d3 != "N/A":
-						reparacion += " -> "+d3
-				else:
-					reparacion += " -> "+d3+" -> "+d4
+				total += ft.numero * ft.parcial
+				precio_total += ft.unidad * ft.punitario
+				"""d1 = ft.metrado1.descripcion
+					d2 = ft.metrado2.descripcion
+					d3 = ft.metrado3.descripcion
+					d4 = ft.metrado4.descripcion
+					reparacion = d1+" -> "+d2
+					if d4 == "N/A":
+						if d3 != "N/A":
+							reparacion += " -> "+d3
+					else:
+						reparacion += " -> "+d3+" -> "+d4"""
 				ptotal += total
-				fichas_tecnicas.append({"instalacion": l.nombre_instalacion,"total": total,"precio_total": precio_total,"reparacion": reparacion})
-			print ptotal
+			fichas_tecnicas.append({"instalacion": l.nombre_instalacion,"total": total,"precio_total": precio_total})
 			context["ptotal"] = ptotal
 	context["fichas_tecnicas"] = fichas_tecnicas
-	return render(request,"metrados/reporte_instalacion.html",context)
+	return render(request,"metrados/reporte_tipo_instalacion.html",context)
 
 def json(request):
 	context = {}
