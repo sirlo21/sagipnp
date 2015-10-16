@@ -2,15 +2,13 @@
 
 {% block content %}
 	<ul style="list-style-type: none;">
-		<div class="row">
+		<div class="panel-body">
 			{% for ti in instalaciones %}
-				<div class="col-md-12">
-					<h2 style="font-size: 2em;">
-						<li>
-							- <a href="{% url 'reporte_instalacion' ti.name %}">{{ ti.instalacion }}</a>
-						</li>
-					</h2>
-				</div>
+				<h2 style="font-size: 2em;">
+					<li>
+						- <a href="{% url 'reporte_instalacion' ti.name %}">{{ ti.instalacion }}</a>
+					</li>
+				</h2>
 			{% endfor %}
 		</div>
 	</ul>
