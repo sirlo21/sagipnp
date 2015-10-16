@@ -2,15 +2,13 @@
 
 {% block content %}
 	<ol style="list-style: decimal;">
-		<div class="row">
+		<div class="panel-body">
 			{% for url,txt in ayudas %}
-				<div class="col-md-12">
-					<h2 style="font-size: 2em;">
-						<li>
-							<a href="{% url 'ayuda_edit' url %}">{{ txt|capfirst }}</a>
-						</li>
-					</h2>
-				</div>
+				<h2 style="font-size: 2em;">
+					<li>
+						<a href="{% url 'ayuda_edit' url %}">{{ txt|capfirst }}</a>
+					</li>
+				</h2>
 			{% endfor %}
 		</div>
 	</ol>
