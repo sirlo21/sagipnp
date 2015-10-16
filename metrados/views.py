@@ -101,7 +101,7 @@ def reporte_instalacion(request,tipo_instalacion):
 			fichas_tecnicas.append({"instalacion": l.nombre_instalacion,"total": total,"precio_total": precio_total})
 			context["ptotal"] = ptotal
 	context["fichas_tecnicas"] = fichas_tecnicas
-	return render(request,"metrados/reporte_tipo_instalacion.html",context)
+	return render(request,"metrados/reportes_tipo_instalacion.html",context)
 
 def json(request):
 	context = {}
