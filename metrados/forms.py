@@ -44,7 +44,7 @@ class SearchForm(forms.Form):
 		widget=forms.TextInput(attrs={"class": "form-control","placeholder": "Nombre de la instalacion"}),
 		required=False
 	)
-	monto = forms.IntegerField(widget=forms.NumberInput(attrs={"class": "form-control","min": 0,"value": 0}),required=False)
+	#monto = forms.IntegerField(widget=forms.NumberInput(attrs={"class": "form-control","min": 0}),required=False)
 
 	class Media:
 		js = ('js/ubigeo.js','js/select_ubigeo.js')
