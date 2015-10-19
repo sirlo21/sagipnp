@@ -34,14 +34,17 @@ class FichaTecnicaForm(forms.ModelForm):
 			"punitario": forms.NumberInput(attrs={"class": "form-control","min": 0,"value": 0})
 		}
 
-class UbigeoForm(forms.Form):
+class SearchForm(forms.Form):
 	ubigeo = UbigeoField(
-		attrs_1={"class": "form-control", "style": "width: 30%; display: inline;"},
-		attrs_2={"class": "form-control", "style": "width: 35%; display: inline;"},
-		attrs_3={"class": "form-control", "style": "width: 35%; display: inline;"}
+		attrs_1={"class": "form-control", "style": "width: 30%;display: inline;"},
+		attrs_2={"class": "form-control", "style": "width: 35%;display: inline;"},
+		attrs_3={"class": "form-control", "style": "width: 35%;display: inline;"},
 	)
-	tipo_instalacion = forms.ChoiceField(widget=forms.Select(attrs={"class": "form-control"}),choices=TIPO_INSTALACION_CHOICES)
-	consulta = forms.ChoiceField(widget=forms.Select(attrs={"class": "form-control"}),choices=CONSULTA_CHOICES)
+	nombre_instalacion = forms.CharField(
+		widget=forms.TextInput(attrs={"class": "form-control","placeholder": "Nombre de la instalacion"}),
+		required=False
+	)
+	monto = forms.IntegerField(widget=forms.NumberInput(attrs={"class": "form-control","min": 0,"value": 0}),required=False)
 
 	class Media:
 		js = ('js/ubigeo.js','js/select_ubigeo.js')
