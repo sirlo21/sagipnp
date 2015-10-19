@@ -10,6 +10,7 @@ from metrados.models import *
 from metrados.forms import FichaTecnicaForm,SearchForm
 from metrados.functions import get_json_metrado
 from media_objects.forms import ImageFormSet,DocumentFormSet
+from django.core.urlresolvers import reverse
 
 @login_required
 def ficha_tecnica(request,id):
@@ -64,55 +65,81 @@ def ficha_tecnica(request,id):
 
 def reportes(request):
 	context = {"next": request.path}
-	tipo_instalacion = request.GET.get("tipo_instalacion",False)
-	if tipo_instalacion:
-		ti = tipo_instalacion.replace("-"," ")
-		fichas_tecnicas = []
-		ptotal = 0
-		form = SearchForm(request.GET)
-		if form.is_valid():
-			ubigeo = form.cleaned_data["ubigeo"]
-			monto = form.cleaned_data["monto"]
-			nombre_instalacion = form.cleaned_data["nombre_instalacion"]
-			if ubigeo is not None:
-				if monto is not None:
-					if nombre_instalacion != "" and not nombre_instalacion.isspace():
-						levantamiento = Levantamiento.objects.filter(ubigeo=ubigeo,nombre_instalacion=nombre_instalacion)
-					else:
-						levantamiento = Levantamiento.objects.filter(ubigeo=ubigeo)
-				elif nombre_instalacion != "" and not nombre_instalacion.isspace():
-					pass
-				else:
-					levantamiento = Levantamiento.objects.filter(ubigeo=ubigeo)
-			elif monto is not None:
-				pass
-			elif nombre_instalacion != "" and not nombre_instalacion.isspace():
-				pass
-			else:
-				levantamiento = Levantamiento.objects.all()
-			for l in levantamiento:
-				instalacion = l.tipo_instalacion
-				total = 0
-				precio_total = 0
-				if instalacion.instalacion == ti and len(l.ficha_tecnica.all()) > 0:
-					for ft in l.ficha_tecnica.all():
-						total += ft.numero * ft.parcial
-						precio_total += ft.unidad * ft.punitario
-						ptotal += total
-					fichas_tecnicas.append({"instalacion": l.nombre_instalacion,"total": total,"precio_total": precio_total})
-					context["ptotal"] = ptotal
-		context["form"] = SearchForm()
-		context["fichas_tecnicas"] = fichas_tecnicas
-		context["tipo_instalacion"] = tipo_instalacion
-		return render(request,"metrados/reportes_tipo_instalacion.html",context)
-	else:
-		context["instalaciones"] = []
-		for i in Instalacion.objects.all().order_by("instalacion"):
-			name = i.instalacion.replace(" ","-")
-			context["instalaciones"].append({"instalacion": i.instalacion,"name": name})
+	context["instalaciones"] = []
+	for i in Instalacion.objects.all().order_by("instalacion"):
+		name = i.instalacion.replace(" ","_")
+		context["instalaciones"].append({"instalacion": i.instalacion,"name": name})
 
 	return render(request,"metrados/reportes.html",context)
 
+def reportes_tipo_instalacion(request,tipo_instalacion):
+	context = {"next": request.path}
+	ti = tipo_instalacion.replace("_"," ")
+	fichas_tecnicas = []
+	ptotal = 0
+	form = SearchForm(request.GET)
+	if form.is_valid():
+		ubigeo = form.cleaned_data["ubigeo"]
+		nombre_instalacion = form.cleaned_data["nombre_instalacion"]
+		levantamiento = []
+		if ubigeo is not None:
+			if nombre_instalacion != "" and not nombre_instalacion.isspace():
+				levantamiento = Levantamiento.objects.filter(ubigeo=ubigeo,nombre_instalacion=nombre_instalacion)
+			else:
+				levantamiento = Levantamiento.objects.filter(ubigeo=ubigeo)
+		elif nombre_instalacion != "" and not nombre_instalacion.isspace():
+			print form.cleaned_data
+			levantamiento = Levantamiento.objects.filter(nombre_instalacion=nombre_instalacion)
+		else:
+			levantamiento = Levantamiento.objects.all()
+		for l in levantamiento:
+			instalacion = l.tipo_instalacion
+			total = 0
+			if instalacion.instalacion == ti and len(l.ficha_tecnica.all()) > 0:
+				for ft in l.ficha_tecnica.all():
+					total += ft.unidad * ft.punitario
+					ptotal += total
+				ni = l.nombre_instalacion
+				url = request.path+ni.replace(" ","_")
+				fichas_tecnicas.append({"instalacion": "<a class='link' href='"+url+"'>"+ni+"</a>",
+					"total": total
+				})
+				context["ptotal"] = ptotal
+	context["form"] = SearchForm()
+	context["fichas_tecnicas"] = fichas_tecnicas
+	return render(request,"metrados/reportes_tipo_instalacion.html",context)
+
+def reportes_instalacion(request,tipo_instalacion,nombre_instalacion):
+	context = {"next": request.path}
+	ti = tipo_instalacion.replace("_"," ")
+	ni = nombre_instalacion.replace("_"," ")
+	fichas_tecnicas = []
+	ptotal = 0
+	for l in Levantamiento.objects.filter(nombre_instalacion=ni):
+		total = 0
+		if l.tipo_instalacion.instalacion == ti and len(l.ficha_tecnica.all()) > 0:
+			for ft in l.ficha_tecnica.all():
+				total = ft.numero * ft.parcial
+				pt = ft.unidad * ft.punitario
+				ptotal += pt
+				if ft.metrado4.descripcion == "N/A":
+					if ft.metrado3.descripcion == "N/A":
+						partida = ft.metrado2
+					else:
+						partida = ft.metrado3
+				else:
+					partida = ft.metrado4
+			ni = l.nombre_instalacion
+			dic = {"partida": partida,"nv": ft.numero,"dl": ft.largo,"da": ft.ancho,"dh": ft.alto,
+				"parcial": ft.parcial,"total": total,"unidad": ft.unidad,"pu": ft.punitario,"pt": pt
+			}
+			fichas_tecnicas.append(dic)
+			context["ptotal"] = ptotal
+			break
+	context["form"] = SearchForm()
+	context["fichas_tecnicas"] = fichas_tecnicas
+	context["tipo_instalacion"] = tipo_instalacion
+	return render(request,"metrados/reportes_instalacion.html",context)
 
 def json(request):
 	context = {}
