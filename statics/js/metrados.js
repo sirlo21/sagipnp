@@ -39,7 +39,7 @@ $(document).ready(function(){
 		var id_metrado2 = "#id_metrado2";
 		var id_metrado3 = "#id_metrado3";
 		var id_metrado4 = "#id_metrado4";
-		var tr = "#"+$("#tm > tbody tr").last().attr("id");
+		var tr = $("#tm > tbody tr").last().children(".td-partida");
 		$.getJSON(url,function(data){
 			var rollback = data["rollback"]
 			$(id_metrado1).children("option[value="+rollback["metrado1_id"]+"]").attr({selected: ""});
@@ -50,6 +50,7 @@ $(document).ready(function(){
 				$(id_metrado4).children("option").remove();
 				addOptions(id_metrado2,data["metrado2"],rollback["metrado2_id"]);
 				codigo_metrado2 = getCodigosMetrado(data["metrado2"]);
+				var m2 = $(id_metrado2).val();
 				if("metrado3_id" in rollback){
 					var url = "/metrado/json/?metrado2_id="+$(id_metrado2).val();
 					$.getJSON(url,function(data){
@@ -57,17 +58,47 @@ $(document).ready(function(){
 						$(id_metrado4).children("option").remove();
 						addOptions(id_metrado3,data["metrado3"],rollback["metrado3_id"]);
 						codigo_metrado3 = getCodigosMetrado(data["metrado3"]);
+						var m3_0 = data["metrado3"][0]["descripcion"];
+						var m3 = $(id_metrado3).val();
+						var m4_0;
+						if(m3_0 == "N/A"){
+							var text = $(id_metrado3).children("option").get(1).text
+							if($(id_metrado3).val() && text != "N/A"){
+								$(id_metrado3).children().each(function(index){
+									if($(this).prop("selected"))
+										tr.text(codigo_metrado3[m3]);
+								});
+							}
+							else{
+								tr.text(codigo_metrado2[m2]);
+							}
+						}
 						if("metrado4_id" in rollback){
 							var url = "/metrado/json/?metrado3_id="+$(id_metrado3).val();
 							$.getJSON(url,function(data){
-								$(id_metrado4).children("option").remove();
-								addOptions(id_metrado4,data["metrado4"],rollback["metrado4_id"]);
-								codigo_metrado4 = getCodigosMetrado(data["metrado4"]);
-								$(id_metrado4).trigger("change");
+									$(id_metrado4).children("option").remove();
+									addOptions(id_metrado4,data["metrado4"],rollback["metrado4_id"]);
+									codigo_metrado4 = getCodigosMetrado(data["metrado4"]);
+									m4_0 = data["metrado4"][0]["descripcion"];
+									if(m3_0 != "N/A" && m4_0 == "N/A"){
+										var text1 = $(id_metrado3).children("option").get(1).text
+										var text2 = $(id_metrado4).children("option").get(1).text
+										if($(id_metrado4).val() && text2 != "N/A"){
+											$(id_metrado4).children().each(function(index){
+												if($(this).prop("selected"))
+													tr.text(codigo_metrado4[$(id_metrado4).val()]);
+											});
+										}
+										else if(text2 == "N/A"){
+											tr.text(codigo_metrado3[m3]);
+										}
+									}
+									$(id_metrado4).trigger("change");
 							});
 						}
 						else
 							$(id_metrado3).trigger("change");
+
 					});
 				}
 				else
@@ -180,7 +211,7 @@ $(document).ready(function(){
 						new_tr += '<td class="td-dimensiones-ancho"></td>\n';
 						new_tr += '<td class="td-dimensiones-altura"></td>\n';
 						new_tr += '<td class="td-parcial"></td>\n';
-						new_tr += '<td class="td-total">S./ 0</td>\n';
+						new_tr += '<td class="td-total">0</td>\n';
 						new_tr += '<td class="td-unidad"></td>\n';
 						new_tr += '<td class="td-precio-unitario">S./ 0</td>\n';
 						new_tr += '<td class="td-precio-total">S./ 0</td>\n';
@@ -232,7 +263,7 @@ $(document).ready(function(){
 		var $val_punitario = $punitario.val();
 		tr.children(".td-precio-unitario").text("S./ "+$val_punitario);
 		var total = $val_numero*$val_parcial;
-		tr.children(".td-total").text("S./ "+total);
+		tr.children(".td-total").text(total);
 		var precio_total = $val_unidad*$val_punitario;
 		tr.children(".td-precio-total").text("S./ "+precio_total);
 		metrados[tr_id] = $("#ficha-tecnica-form");
