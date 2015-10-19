@@ -6,7 +6,7 @@
 			{% for ti in instalaciones %}
 				<h2 style="font-size: 2em;">
 					<li>
-						- <a href="{% url 'reporte_instalacion' ti.name %}">{{ ti.instalacion }}</a>
+						- <a href="{% url 'reportes' %}?tipo_instalacion={{ ti.name }}">{{ ti.instalacion }}</a>
 					</li>
 				</h2>
 			{% endfor %}
