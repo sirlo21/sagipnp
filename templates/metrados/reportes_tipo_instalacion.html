@@ -15,74 +15,11 @@
 			<a href="{% url 'reportes' %}">regresar</a>
 		</div>
 	</div>
+	{% include "metrados/search_form.html" %}
 	<br/>
 	<div class="row">
 		<div class="col-md-12">
 			{% if fichas_tecnicas|length > 0 %}
-				<form id="frm_search" class="form-horizontal" role="form" method="get" action>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="row">
-								<div class="col-md-12">
-									<label class="col-md-3 control-label" for="id_ubigeo_0">
-										<span class="pull-left">Ubicacion de la instalacion:</span>
-										<div class="col-md-3 pull-right">
-											{% for posicion in posicion_ayuda %}
-												{% if posicion == 1 %}
-													<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-														<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-													</a>
-												{% endif %}
-											{% endfor %}
-										</div>
-									</label>
-									<div class="col-md-12">
-										{{ form.ubigeo }}
-										{% if form.ubigeo.errors %}<p class="help-block">{{ form.ubigeo.errors|striptags }}</p>{% endif %}
-									</div>
-								</div>
-								<div class="col-md-3">
-									<label class="col-md-12 control-label" for="id_nombre_instalacion">
-										<span class="pull-left">Nombre de la instalacion:</span>
-										<div class="col-md-3 pull-right">
-											{% for posicion in posicion_ayuda %}
-												{% if posicion == 1 %}
-													<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-														<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-													</a>
-												{% endif %}
-											{% endfor %}
-										</div>
-									</label>
-									<div class="col-md-9">
-										{{ form.nombre_instalacion }}
-										{% if form.nombre_instalacion.errors %}<p class="help-block">{{ form.nombre_instalacion|striptags }}</p>{% endif %}
-									</div>
-								</div>
-								<div class="col-md-6">
-									<label class="col-md-12 control-label" for="id_monto">
-										<span class="pull-left">Monto:</span>
-										<div class="col-md-3 pull-right">
-											{% for posicion in posicion_ayuda %}
-												{% if posicion == 1 %}
-													<a href="{% url 'show_ayuda' form_ayuda posicion %}" data-toggle="modal" data-target="#{{ posicion }}">
-														<img height="20px" width="20px" src="{{ STATIC_URL }}img/icon_question.png" alt="icon_question.png">
-													</a>
-												{% endif %}
-											{% endfor %}
-										</div>
-									</label>
-									<div class="col-md-9">
-										{{ form.monto }}
-										{% if form.monto.errors %}<p class="help-block">{{ form.monto.errors }}</p>{% endif %}
-									</div>
-									<input type="hidden" name="tipo_instalacion" value="{{ tipo_instalacion }}" />
-									<input class="btn btn-default" type="submit" value="Buscar" />
-								</div>
-							</div>
-						</div>
-					</div>
-				</form>
 				<div class="panel-body">
 					<div class="table-responsive">
 						<table id="tm" class="table table-bordered">
@@ -96,7 +33,7 @@
 								{% for ft in fichas_tecnicas %}
 									<tr class="resalt">
 										<td>
-											<a class="link" href="#">{{ ft.instalacion }}</a>
+											{{ ft.instalacion|safe }}
 										</td>
 										<td>S/.{{ ft.total }}</td>
 									</tr>
@@ -114,7 +51,7 @@
 					</div>
 				</div>
 			{% else %}
-				<h2>No se a encontrado ninguna Ficha Tecnica</h2>
+				<h2>No se a encontrado ninguna reporte</h2>
 			{% endif %}
 		</div>
 	</div>
