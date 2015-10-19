@@ -68,9 +68,15 @@ def equipo_de_levantamiento(request):
 		context["form"] = form
 	else:
 		context["form"] = LevantamientoForm(initial={"inicio": datetime.today(),"termino": datetime.today()})
-	form_ayuda = "levantamiento_de_informacion"
-	context["form_ayuda"] = form_ayuda
-	context["posicion_ayuda"] = posiciones_de_ayuda(form_ayuda)
+	form_ayuda_el = "equipo_de_levantamiento"
+	form_ayuda_i = "instalacion"
+	form_ayuda_or = "oficial_responsable"
+	context["form_ayuda_el"] = form_ayuda_el
+	context["posicion_ayuda_el"] = posiciones_de_ayuda(form_ayuda_el)
+	context["form_ayuda_i"] = form_ayuda_i
+	context["posicion_ayuda_i"] = posiciones_de_ayuda(form_ayuda_i)
+	context["form_ayuda_or"] = form_ayuda_or
+	context["posicion_ayuda_or"] = posiciones_de_ayuda(form_ayuda_or)
 	return render(request,"levantamiento/equipo_de_levantamiento.html",context)
 
 @login_required
