@@ -4,22 +4,21 @@
 			<li>
 				<a href="{% url 'index' %}">Inicio</a>
 			</li>
-			<!--{# if user.is_superuser %}
+			{% if user.is_authenticated %}
 				<li>
-					<a href="">Procesar Encuestas</a>
+					<a href="{% url 'reportes' %}">Reportes</a>
 				</li>
-			{% endif #}-->
-			<li>
-				<a href="{% url 'reportes' %}">Reportes</a>
-			</li>
+			{% endif %}
 			{% if user.is_superuser %}
 				<li>
 					<a href="{% url 'ayuda_index' %}">Ayudas</a>
 				</li>
 			{% endif %}
-			<li>
-				<a href="{# url 'contacto' #}">Contacto</a>
-			</li>
+			{% if user.is_authenticated %}
+				<li>
+					<a href="{# url 'contacto' #}">Contacto</a>
+				</li>
+			{% endif %}
 			{% if user.is_superuser %}
 				<li>
 					<a href="{# url 'users:index' #}">Usuarios</a>
@@ -42,11 +41,6 @@
 				<li>
 					<a href="{% url 'index' %}">Inicio</a>
 				</li>
-				<!--{# if user.is_superuser %}
-					<li>
-						<a href="">Procesar Encuestas</a>
-					</li>
-				{% endif #}-->
 				<li>
 					<a href="{% url 'reportes' %}">Reportes</a>
 				</li>
