@@ -12,39 +12,31 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Media',
+            name='Document',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('date_registration', models.DateTimeField(auto_now_add=True)),
                 ('object_id', models.PositiveIntegerField()),
+                ('doc', models.FileField(upload_to=b'docs/')),
+                ('content_type', models.ForeignKey(to='contenttypes.ContentType')),
             ],
             options={
+                'abstract': False,
             },
             bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Image',
             fields=[
-                ('media_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='media_objects.Media')),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('date_registration', models.DateTimeField(auto_now_add=True)),
+                ('object_id', models.PositiveIntegerField()),
                 ('img', models.ImageField(upload_to=b'images/')),
+                ('content_type', models.ForeignKey(to='contenttypes.ContentType')),
             ],
             options={
+                'abstract': False,
             },
-            bases=('media_objects.media',),
-        ),
-        migrations.CreateModel(
-            name='Document',
-            fields=[
-                ('media_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='media_objects.Media')),
-                ('doc', models.FileField(upload_to=b'docs/')),
-            ],
-            options={
-            },
-            bases=('media_objects.media',),
-        ),
-        migrations.AddField(
-            model_name='media',
-            name='content_type',
-            field=models.ForeignKey(to='contenttypes.ContentType'),
-            preserve_default=True,
+            bases=(models.Model,),
         ),
     ]
