@@ -89,7 +89,7 @@ class Migration(migrations.Migration):
                 ('nombre', models.CharField(max_length=100)),
                 ('apellido', models.CharField(max_length=100)),
                 ('dni', models.CharField(max_length=8)),
-                ('telefono_fijo_comisaria', models.CharField(max_length=7)),
+                ('telefono_fijo_comisaria', models.CharField(max_length=10)),
                 ('celular_rpc_comisaria', models.CharField(max_length=9)),
                 ('celular_rpm_comisaria', models.CharField(max_length=9)),
                 ('email', models.EmailField(max_length=75)),
