@@ -57,14 +57,9 @@
 								{% endfor %}
 								<tr>
 									<td>TOTAL</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
+									{% for i in fichas_tecnicas.0|length %}
+										<td></td>
+									{% endfor %}
 									<td id="ptotal">{{ ptotal }}</td>
 								</tr>
 							</tbody>
@@ -84,26 +79,43 @@
 			return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		}
 		$(document).ready(function(){
-			var numero = $(".td-numero-veces").text();
-			var largo = $(".td-dimensiones-largo").text();
-			var ancho = $(".td-dimensiones-ancho").text();
-			var altura = $(".td-dimensiones-altura").text();
-			var parcial = $(".td-parcial").text();
-			var total = $(".td-total").text();
-			var unidad = $(".td-unidad").text();
-			var precio_unitario = "S./ "+numberWithCommas($(".td-precio-unitario").text());
-			var precio_total = "S./ "+numberWithCommas($(".td-precio-total").text());
+			$.each($(".td-numero-veces"),function(key,value){
+				var numero = numberWithCommas($(this).text());
+				$(this).text(numero);
+			});
+			$.each($(".td-dimensiones-largo"),function(key,value){
+				var largo = numberWithCommas($(this).text());
+				$(this).text(largo);
+			});
+			$.each($(".td-dimensiones-ancho"),function(key,value){
+				var ancho = numberWithCommas($(this).text());
+				$(this).text(ancho);
+			});
+			$.each($(".td-dimensiones-altura"),function(key,value){
+				var altura = numberWithCommas($(this).text());
+				$(this).text(altura);
+			});
+			$.each($(".td-parcial"),function(key,value){
+				var parcial = numberWithCommas($(this).text());
+				$(this).text(parcial);
+			});
+			$.each($(".td-total"),function(key,value){
+				var total = numberWithCommas($(this).text());
+				$(this).text(total);
+			});
+			$.each($(".td-unidad"),function(key,value){
+				var unidad = numberWithCommas($(this).text());
+				$(this).text(unidad);
+			});
+			$.each($(".td-precio-unitario"),function(key,value){
+				var precio_unitario = "S./ "+numberWithCommas($(this).text());
+				$(this).text(precio_unitario);
+			});
+			$.each($(".td-precio-total"),function(key,value){
+				var precio_total = "S./ "+numberWithCommas($(this).text());
+				$(this).text(precio_total);
+			});
 			var ptotal = "S./ "+numberWithCommas($("#ptotal").text());
-
-			$(".td-numero-veces").text(numero);
-			$(".td-dimensiones-largo").text(largo);
-			$(".td-dimensiones-ancho").text(ancho);
-			$(".td-dimensiones-altura").text(altura);
-			$(".td-parcial").text(parcial);
-			$(".td-total").text(total);
-			$(".td-unidad").text(unidad);
-			$(".td-precio-unitario").text(precio_unitario);
-			$(".td-precio-total").text(precio_total);
 			$("#ptotal").text(ptotal);
 		});
 	</script>
