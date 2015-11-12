@@ -1,4 +1,7 @@
 var metrados = {};
+function numberWithCommas(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 function addOptions(id_metrado,args,rollback){
 	$(id_metrado).append("<option></option>");
 	for(i in args){
@@ -243,29 +246,29 @@ $(document).ready(function(){
 		var tr_id = tr.attr("id");
 		var $numero = $("#id_numero");
 		var $val_numero = $numero.val();
-		tr.children(".td-numero-veces").text($val_numero);
+		tr.children(".td-numero-veces").text(numberWithCommas($val_numero));
 		var $largo = $("#id_largo");
 		var $val_largo = $largo.val();
-		tr.children(".td-dimensiones-largo").text($val_largo);
+		tr.children(".td-dimensiones-largo").text(numberWithCommas($val_largo));
 		var $ancho = $("#id_ancho");
 		var $val_ancho = $ancho.val();
-		tr.children(".td-dimensiones-ancho").text($val_ancho);
+		tr.children(".td-dimensiones-ancho").text(numberWithCommas($val_ancho));
 		var $alto = $("#id_alto");
 		var $val_alto = $alto.val();
-		tr.children(".td-dimensiones-altura").text($val_alto);
+		tr.children(".td-dimensiones-altura").text(numberWithCommas($val_alto));
 		var $parcial = $("#id_parcial");
 		var $val_parcial = $parcial.val();
-		tr.children(".td-parcial").text($val_parcial);
+		tr.children(".td-parcial").text(numberWithCommas($val_parcial));
 		var $unidad = $("#id_unidad");
 		var $val_unidad = $unidad.val();
-		tr.children(".td-unidad").text($val_unidad);
+		tr.children(".td-unidad").text(numberWithCommas($val_unidad));
 		var $punitario = $("#id_punitario");
 		var $val_punitario = $punitario.val();
-		tr.children(".td-precio-unitario").text("S./ "+$val_punitario);
+		tr.children(".td-precio-unitario").text("S./ "+numberWithCommas($val_punitario));
 		var total = $val_numero*$val_parcial;
 		tr.children(".td-total").text(total);
 		var precio_total = $val_unidad*$val_punitario;
-		tr.children(".td-precio-total").text("S./ "+precio_total);
+		tr.children(".td-precio-total").text("S./ "+numberWithCommas(precio_total));
 		metrados[tr_id] = $("#ficha-tecnica-form");
 	});
 	$("#ficha-tecnica-form").submit(function(event){
