@@ -139,7 +139,7 @@ def reportes_instalacion(request,tipo_instalacion,nombre_instalacion):
 	context["form"] = SearchForm()
 	context["fichas_tecnicas"] = fichas_tecnicas
 	context["tipo_instalacion"] = tipo_instalacion
-	context["range"] = range(0,10)
+	context["range"] = range(0,len(fichas_tecnicas[0]))
 	return render(request,"metrados/reportes_instalacion.html",context)
 
 def json(request):
