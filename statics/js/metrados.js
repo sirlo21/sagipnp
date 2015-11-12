@@ -1,6 +1,6 @@
 var metrados = {};
 function numberWithCommas(number) {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 function addOptions(id_metrado,args,rollback){
 	$(id_metrado).append("<option></option>");
