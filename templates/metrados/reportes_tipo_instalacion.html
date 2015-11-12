@@ -35,7 +35,7 @@
 										<td>
 											{{ ft.instalacion|safe }}
 										</td>
-										<td>S/.{{ ft.total }}</td>
+										<td class="total">{{ ft.total }}</td>
 									</tr>
 								{% endfor %}
 								<tr class="resalt">
@@ -43,7 +43,7 @@
 										<span class="bold">Monto total:</span>
 									</td>
 									<td>
-										<span class="bold">S/.{{ ptotal }}</span>
+										<span id="monto-total" class="bold">{{ ptotal }}</span>
 									</td>
 								</tr>
 							</tbody>
@@ -58,5 +58,18 @@
 {% endblock %}
 
 {% block scripts %}
+	<script type="text/javascript">
+		function numberWithCommas(number){
+			return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+		$(document).ready(function(){
+			$.each($(".total"),function(key,value){
+				var total = "S/. "+numberWithCommas($(this).text());
+				$(this).text(total);
+			});
+			var monto_total = "S/. "+numberWithCommas($("#monto-total").text());
+			$("#monto-total").text(monto_total);
+		});
+	</script>
 	{{ form.media }}
 {% endblock %}
