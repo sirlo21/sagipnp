@@ -21,7 +21,7 @@
 					<div class="leading leading-0">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-							<h4 class="modal-title">{{ ayuda.title|safe }}</h4>
+							<h4 class="modal-title">{{ ayuda.title|escape }}</h4>
 						</div>
 						<div class="modal-body">
 							{{ ayuda.text|safe}}

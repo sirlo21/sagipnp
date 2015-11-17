@@ -10,34 +10,59 @@
 				<div class="col-md-2">
 					<a href="{% url 'ayuda_index' %}" id="back" style="backgorund-color: red;">Regresar</a>
 				</div>
-				<div class="col-md-3">
-					<a href="{% url 'ayuda_create' form %}" id="create">Agregar Ayuda</a>
-				</div>
 			</div>
 		</div>
 	</header>
-	<form action="{% url 'ayuda_update' form %}" enctype="multipart/form-data" method="post" id="form_ayuda">{% csrf_token %}
+	<form action enctype="multipart/form-data" method="post" id="form_ayuda">{% csrf_token %}
 		<ol style="list-style: decimal;">
 			<div class="row">
-				<div class="col-md-12">
-					{% if ayudas|length > 0 %}
-						<input class="btn btn-success submit" id='submit1' type="submit" value="Guardar" /><br/>
-						{% for ayuda in ayudas %}
+				<div class="col-md-12" id="ayudas_form">
+					<input class="btn btn-success" type="submit" value="Guardar" />
+					<br/><br/>
+					{% for ayuda in ayudas_formset %}
+						<div class="ayuda">
 							<div class="form-group">
 								<li style="font-weight: bold;">
-									<label class="control-label" for="title[{{ ayuda.id }}]">Titulo: </label>
+									<label class="control-label" for="{{ ayuda.title.id_for_label }}">Titulo: </label>
 								</li>
-								<input class="form-control" id="title[{{ ayuda.id }}]" maxlength="40" name="title[{{ ayuda.id }}]" type="text" value="{{ ayuda.title|escape }}"/><br/>
-								<label class="control-label" for="posicion[{{ ayuda.id }}]">Posicion: </label>
-								<input class="form-control" id="posicion[{{ ayuda.id }}]" name="posicion[{{ ayuda.id }}]" type="number" value="{{ ayuda.posicion|escape }}"/><br/>
-								<label class="control-label" for="text[{{ ayuda.id }}]">Texto:</label><br/>
-								<textarea id="text[{{ ayuda.id }}]" type="text" class="summernote" name="text[{{ ayuda.id }}]" placeholder="Texto de ayuda">{{ ayuda.text|escape }}</textarea>
+								<br/>
+								{{ ayuda.title }}
+								{% if ayuda.title.errors %}
+									{% for error in ayuda.title.errors %}
+										<p class="errors">{{ error }}</p>
+									{% endfor %}
+								{% endif %}
 							</div>
-						{% endfor %}
-						<input class="btn btn-success submit" id='submit2' type="submit" value="Guardar" /><br/>
-					{% else %}
+							<div class="form-group">
+								<label class="control-label" for="{{ ayuda.posicion.id_for_label }}">Posicion: </label>
+								<br/>
+								{{ ayuda.posicion }}
+								{% if ayuda.posicion.errors %}
+									{% for error in ayuda.posicion.errors %}
+										<p class="errors">{{ error }}</p>
+									{% endfor %}
+								{% endif %}
+							</div>
+							<div class="form-group">
+								<label class="control-label" for="{{ ayuda.text.id_for_label }}">Texto:</label>
+								<br/>
+								{{ ayuda.text }}
+								{% if ayuda.text.errors %}
+									{% for error in ayuda.text.errors %}
+										<p class="errors">{{ error }}</p>
+									{% endfor %}
+								{% endif %}
+							</div>
+							{% for hidden in ayuda.hidden_fields %}
+								{{ hidden }}
+							{% endfor %}
+						</div>
+					{% empty %}
 						<h2 id="vacio">No hay ninguna ayuda</h2>
-					{% endif %}
+					{% endfor %}
+					{{ ayudas_formset.management_form }}
+					<br/><br/>
+					<input class="btn btn-success" type="submit" value="Guardar" />
 				</div>
 			</div>
 		</ol>
@@ -45,10 +70,24 @@
 {% endblock %}
 
 {% block scripts %}
+	<script src="{{ STATIC_URL }}js/jquery.formset.js"></script>
 	<script src="{{ STATIC_URL }}js/ayudas.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function(){
+		var summernote = function(){
+			$('.summernote').summernote({
+				height: 200,
+				tabsize: 2,
+				codemirror: {theme: 'monokai'}
+			});
+		}
+		$(function () {
 			summernote();
+			$('#ayudas_form .ayuda').formset({
+				prefix: '{{ ayudas_formset.prefix }}',
+				deleteText: "<i class='fa fa-trash-o'></i>",
+				addText: "<i class='fa fa-plus-square-o'></i>",
+				formCssClass: 'dynamic-formset1'
+			});
 		});
 	</script>
 {% endblock %}
