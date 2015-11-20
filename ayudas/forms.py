@@ -11,4 +11,4 @@ class AyudaForm(forms.ModelForm):
 			"text": forms.Textarea(attrs={"class": "form-control","placeholder":"Texto de ayuda"})
 		}
 
-AyudaFormSet = modelformset_factory(Ayuda,form=AyudaForm,extra=1,can_delete=True)
+AyudaFormSet = modelformset_factory(Ayuda,form=AyudaForm,extra=0,can_delete=True)
