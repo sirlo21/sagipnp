@@ -22,17 +22,17 @@ def index(request):
 @login_required
 def edit(request,form):
 	if request.user.is_superuser:
+		objects = Ayuda.objects.filter(form=form)
 		if request.method == "POST":
-			ayudas_formset = AyudaFormSet(request.POST,queryset=Ayuda.objects.filter(form=form),prefix="form_ayuda")
+			ayudas_formset = AyudaFormSet(request.POST,queryset=objects,prefix="form_ayuda")
 			if ayudas_formset.is_valid():
-				print ayudas_formset
 				ayudas = ayudas_formset.save(commit=False)
 				print ayudas
 				for ayuda in ayudas:
 					ayuda.form = form
 					ayuda.save()
 		else:
-			ayudas_formset = AyudaFormSet(queryset=Ayuda.objects.filter(form=form),prefix="form_ayuda")
+			ayudas_formset = AyudaFormSet(queryset=objects,prefix="form_ayuda")
 		context = {"next": request.path,"ayudas_formset": ayudas_formset,"form": form}
 		return render(request,"ayudas/edit.html",context)
 	return redirect("/")
