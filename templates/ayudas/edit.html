@@ -1,7 +1,5 @@
 {% extends "bases/base.html" %}
 
-{% load bootstrap3 %}
-
 {% block content %}
 	<header class="article-header">
 		<h1 class="article-title">Editar y Crear Ayuda</h1>
@@ -70,24 +68,5 @@
 {% endblock %}
 
 {% block scripts %}
-	<script src="{{ STATIC_URL }}js/jquery.formset.js"></script>
 	<script src="{{ STATIC_URL }}js/ayudas.js"></script>
-	<script type="text/javascript">
-		var summernote = function(){
-			$('.summernote').summernote({
-				height: 200,
-				tabsize: 2,
-				codemirror: {theme: 'monokai'}
-			});
-		}
-		$(function () {
-			summernote();
-			$('#ayudas_form .ayuda').formset({
-				prefix: '{{ ayudas_formset.prefix }}',
-				deleteText: "<i class='fa fa-trash-o'></i>",
-				addText: "<i class='fa fa-plus-square-o'></i>",
-				formCssClass: 'dynamic-formset1'
-			});
-		});
-	</script>
 {% endblock %}
